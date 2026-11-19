@@ -1,0 +1,41 @@
+\begin{tikzpicture}[scale=2.0,
+    declare function={
+      ca=cos(35); sa=sin(35); ce=cos(25); se=sin(25);
+      R=1.25; c=-tan(25)/2;
+      % screen coordinates of a point (x',y',z) in the rotated frame
+      SY(\yp,\z)=\z*ce+\yp*se;
+    }]
+  \tikzset{surf/.style={figFaint!50!black, line width=0.8pt},
+           level/.style={figFaint, line width=0.5pt}}
+  \pgfmathsetmacro{\sm}{sqrt(R*R-c*c)}
+  \pgfmathsetmacro{\phz}{asin(c/R)}
+  % ---- Y_2: the paraboloid z = x^2 + y^2 (transparent) ----
+  \fill[figFaint, opacity=0.2]
+    plot[domain=-\sm:\sm, samples=60, smooth, variable=\s] ({\s},{SY(c,\s*\s+c*c)})
+    -- plot[domain=\phz:180-\phz, samples=80, smooth, variable=\p] ({R*cos(\p)},{SY(R*sin(\p),R*R)}) -- cycle;
+  % level circles z = r^2 (faint)
+  \foreach \r in {0.45,0.85}
+    \draw[level] plot[domain=0:360, samples=80, smooth, variable=\p] ({\r*cos(\p)},{SY(\r*sin(\p),\r*\r)}) -- cycle;
+  % rim and outline
+  \draw[surf] plot[domain=0:360, samples=120, smooth, variable=\p] ({R*cos(\p)},{SY(R*sin(\p),R*R)}) -- cycle;
+  \draw[surf] plot[domain=-\sm:\sm, samples=60, smooth, variable=\s] ({\s},{SY(c,\s*\s+c*c)});
+  % ---- Y_1: the parabola y = 0, z = x^2 ----
+  \draw[curve, line width=1.4pt] plot[domain=-R:R, samples=60, smooth, variable=\t]
+      ({\t*ca},{\t*\t*ce+\t*sa*se});
+  % ---- Y_0: the origin ----
+  \node[pt, minimum size=5pt] (O) at (0,0) {};
+  % labels
+  \node[lbl, anchor=north] at (0,-0.12) {$Y_0$};
+  \node[lbl, anchor=west] at ({R*ca+0.05},{R*R*ce+R*sa*se+0.02}) {$Y_1$};
+  \node[lbl, anchor=east] at ({-R-0.05},{SY(0,R*R)}) {$Y_2$};
+  % ---- the chain of primes, in the margin ----
+  \node[lbl, anchor=west, align=left] at (1.75,0.75) {%
+    $\begin{array}{r@{\;}l@{\qquad}l}
+      Y_2 &= \text{paraboloid} & P_2=(0)\\[3pt]
+      \rotatebox[origin=c]{90}{$\subsetneq$} & & \rotatebox[origin=c]{-90}{$\subsetneq$}\\[3pt]
+      Y_1 &= \text{parabola } \{y=0,\ z=x^2\} & P_1=(y)\\[3pt]
+      \rotatebox[origin=c]{90}{$\subsetneq$} & & \rotatebox[origin=c]{-90}{$\subsetneq$}\\[3pt]
+      Y_0 &= \text{the point } 0 & P_0=(x,y)
+    \end{array}$\\[10pt]
+    in $k[x,y,z]/(z-x^2-y^2)$};
+\end{tikzpicture}

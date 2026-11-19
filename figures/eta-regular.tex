@@ -1,0 +1,40 @@
+\begin{tikzpicture}[scale=1.35]
+  \tikzset{bandA/.style={draw=figOpenA, line width=7pt, draw opacity=0.5, line cap=butt},
+           nbhdB/.style={fill=figOpenB, fill opacity=0.45, draw=figOpenB!70!black, line width=0.5pt}}
+  \draw[axis] (-1.7,0) -- (2.4,0) node[below left=-1pt, lbl] {$x$};
+  \draw[axis] (0,-2.8) -- (0,2.9) node[below left=-1pt, lbl] {$y$};
+  % green: the open y != 0 (curve minus the three points with y = 0)
+  \draw[bandA] plot[domain=0.07:1.03, samples=60, smooth, variable=\s]
+      ({1+\s*\s},{\s*sqrt((1+\s*\s)*(2+\s*\s))});
+  \draw[bandA] plot[domain=-1.03:-0.07, samples=60, smooth, variable=\s]
+      ({1+\s*\s},{\s*sqrt((1+\s*\s)*(2+\s*\s))});
+  \draw[bandA] plot[domain=12:168, samples=60, smooth, variable=\t]
+      ({-(1+cos(\t))/2},{sin(\t)/2*sqrt(1+cos(\t/2)^2)});
+  \draw[bandA] plot[domain=192:348, samples=60, smooth, variable=\t]
+      ({-(1+cos(\t))/2},{sin(\t)/2*sqrt(1+cos(\t/2)^2)});
+  % orange: small neighbourhoods of the three points with y = 0
+  \foreach \r in {-1,0,1} { \fill[nbhdB] (\r,0) circle (0.22); }
+  % the curve y^2 = x^3 - x
+  \draw[curve] plot[domain=-1.03:1.03, samples=81, smooth, variable=\s]
+      ({1+\s*\s},{\s*sqrt((1+\s*\s)*(2+\s*\s))});
+  \draw[curve] plot[domain=0:360, samples=121, smooth, variable=\t]
+      ({-(1+cos(\t))/2},{sin(\t)/2*sqrt(1+cos(\t/2)^2)}) -- cycle;
+  \foreach \r in {-1,0,1} { \node[pt] at (\r,0) {}; }
+  \node[lbl, anchor=east] at (-1.27,0.12) {$-1$};
+  \node[lbl, anchor=north west] at (0.08,-0.22) {$0$};
+  \node[lbl, anchor=north west] at (1.12,-0.18) {$1$};
+  % both ends of the unbounded branch go to O
+  \draw[maparrow] ({1+1.03*1.03},{1.03*sqrt((1+1.03*1.03)*(2+1.03*1.03))}) -- ++(0.22,0.45)
+     node[lbl, anchor=south] {to $O$};
+  \draw[maparrow] ({1+1.03*1.03},{-1.03*sqrt((1+1.03*1.03)*(2+1.03*1.03))}) -- ++(0.22,-0.45)
+     node[lbl, anchor=north] {to $O$};
+  % legend
+  \begin{scope}[shift={(3.2,1.6)}]
+    \draw[bandA] (0,0) -- (0.5,0);
+    \node[lbl, anchor=west, align=left] at (0.65,0) {$y\neq0$: use $\eta=dx/2y$};
+    \fill[nbhdB] (0.25,-0.75) circle (0.18);
+    \node[lbl, anchor=west, align=left] at (0.65,-0.75) {near $y=0$: use $\eta=dy/f'(x)$};
+    \node[lbl, anchor=west, align=left] at (0.65,-1.6) {$O=[0{:}1{:}0]$, chart $V'$:\\ use $\eta=-du/(1-2auv-3bv^2)$};
+    \draw[maparrow] (0.05,-1.85) -- (0.45,-1.35);
+  \end{scope}
+\end{tikzpicture}

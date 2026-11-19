@@ -1,0 +1,27 @@
+\begin{tikzpicture}
+  % ---- left panel: V(P) = Spec k[x,y]/(y), the reduced x-axis
+  \begin{scope}
+    \draw[axis] (-2.6,0) -- (2.7,0) node[right,lbl] {$x$};
+    \draw[axis] (0,-1.4) -- (0,1.5) node[above,lbl] {$y$};
+    \draw[curve] (-2.4,0) -- (2.4,0);
+    \node[lbl,anchor=south west] at (0.6,0.15) {$V(P)$};
+    \node[lbl] at (0,-1.85) {$V(P)=\Spec k[x,y]/(y)$};
+    \node at (0,-2.45) {\figpanel{(a) the line $y=0$}};
+  \end{scope}
+  % ---- map
+  \draw[maparrow, {Hooks[right]}-{Stealth[length=2.2mm]}] (3.3,0.85) -- node[above,lbl]{closed immersion} (5.2,0.85);
+  % ---- right panel: V(f) = Spec k[x,y]/(y^2), the doubled x-axis
+  \begin{scope}[xshift=8.2cm]
+    \draw[axis] (-2.6,0) -- (2.7,0) node[right,lbl] {$x$};
+    \draw[axis] (0,-1.4) -- (0,1.5) node[above,lbl] {$y$};
+    \fill[figFaint, opacity=0.45] (-2.4,-0.22) rectangle (2.4,0.22);
+    \draw[figFaint!70!black, line width=0.4pt, densely dotted] (-2.4,0.22) -- (2.4,0.22) (-2.4,-0.22) -- (2.4,-0.22);
+    \draw[curve] (-2.4,0) -- (2.4,0);
+    \foreach \t in {-1.8,-0.9,0.9,1.8}
+      \draw[figVec, line width=0.8pt, -{Stealth[length=1.6mm]}] (\t,0) -- (\t,0.42);
+    \node[lbl, figVec, anchor=west] at (1.85,0.62) {$y$};
+    \node[lbl,anchor=north west] at (0.35,-0.3) {$V(f)$};
+    \node[lbl] at (0,-1.85) {$V(f)=\Spec k[x,y]/(y^2)$};
+    \node at (0,-2.45) {\figpanel{(b) the doubled line $y^2=0$}};
+  \end{scope}
+\end{tikzpicture}

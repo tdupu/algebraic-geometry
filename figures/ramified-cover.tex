@@ -1,0 +1,41 @@
+\begin{tikzpicture}[
+  declare function={sa(\x)=4.0+0.055*(\x-4)^2; sb(\x)=4.0-0.055*(\x-4)^2; sc(\x)=2.1+0.12*sin(50*\x);}]
+  % three sheets of X
+  \draw[curve] plot[domain=0:8,samples=60,smooth] ({\x},{sa(\x)});
+  \draw[curve] plot[domain=0:8,samples=60,smooth] ({\x},{sb(\x)});
+  \draw[curve] plot[domain=0:8,samples=60,smooth] ({\x},{sc(\x)});
+  \node[lbl,left] at (0,3.2) {$X$};
+  % Y
+  \draw[curve] (0,0) -- (8,0);
+  \node[lbl,left] at (0,0) {$Y$};
+  \draw[maparrow] (-0.5,1.8) -- node[left,lbl] {$f$} (-0.5,0.4);
+  % generic fibre
+  \draw[faintcurve,dashed] (1.4,5.2) -- (1.4,0);
+  \foreach \s in {sa,sb,sc} \node[pt] at (1.4,{\s(1.4)}) {};
+  \node[pt] at (1.4,0) {};
+  \node[lbl,below=2pt] at (1.4,0) {$y$};
+  \node[lbl,above=0pt] at (1.4,5.2) {$f^{*}y$: $3$ points};
+  % special fibre
+  \draw[faintcurve,dashed] (4,5.7) -- (4,0);
+  \node[pt] (P1) at (4,4.0) {};
+  \node[pt] (P2) at (4,{sc(4)}) {};
+  \node[pt] (Q) at (4,0) {};
+  \node[lbl,below=2pt] at (Q) {$Q$, branch point};
+  \node[lbl,above=0pt] at (4,5.7) {$f^{*}Q=2P_1+P_2$};
+  \draw[faintcurve] (P1) -- (5.0,5.3);
+  \node[lbl,right=0pt] at (5.0,5.35) {$P_1$: ramification, $e=2$};
+  \draw[faintcurve] (P2) -- (5.6,2.9);
+  \node[lbl,right=0pt] at (5.6,2.95) {$P_2$: $e=1$};
+  % inset: local model z -> z^e, e=2
+  \begin{scope}[xshift=10.0cm,yshift=1.6cm]
+    \draw[faintcurve] (-1.15,-0.9) rectangle (4.35,1.95);
+    \node[lbl] at (1.6,1.75) {local model, $e=2$};
+    \draw[curve,line width=0.7pt] (0,0.3) circle (0.85);
+    \draw[curve,line width=0.7pt] (3.2,0.3) circle (0.85);
+    \node[pt] at (0,0.3) {}; \node[pt] at (3.2,0.3) {};
+    \node[pt] at (0.25,0.6) {}; \node[lbl,right=0pt] at (0.25,0.6) {$z$};
+    \node[pt] at (-0.25,0.0) {}; \node[lbl,below=0pt] at (-0.25,0.0) {$-z$};
+    \node[pt] at (3.45,0.75) {}; \node[lbl,left=0pt] at (3.45,0.75) {$z^2$};
+    \draw[maparrow] (1.0,0.3) -- node[below,lbl] {$z\mapsto z^{e}$} (2.2,0.3);
+  \end{scope}
+\end{tikzpicture}

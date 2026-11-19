@@ -1,0 +1,41 @@
+\begin{tikzpicture}
+  % (a) unit sphere f = x^2+y^2+z^2-1, orthographic view from elevation 20 deg
+  % screen = (X, Y*sin20 + Z*cos20)
+  \begin{scope}[x={(1.6cm,0cm)}, y={(0cm,0.547cm)}, z={(0cm,1.504cm)}]
+    \draw[curve] (0,0,0) circle[radius=1.6cm];
+    % equator: back half dashed
+    \draw[faintcurve, dashed, samples=60, domain=0:180, variable=\a] plot ({cos(\a)},{sin(\a)},0);
+    \draw[faintcurve, samples=60, domain=180:360, variable=\a] plot ({cos(\a)},{sin(\a)},0);
+    % point p = (1/2,-1/2,1/sqrt2); tangent basis u=(1,1,0)/sqrt2, w = p x u = (-1/2,1/2,1/sqrt2)
+    \coordinate (p) at (0.5,-0.5,0.7071);
+    \filldraw[hyp, fill=figH, fill opacity=0.12]
+      (0.372,-1.248,0.269) -- (1.248,-0.372,0.269) -- (0.628,0.248,1.146) -- (-0.248,-0.628,1.146) -- cycle;
+    \draw[vec] (p) -- ++(0.375,-0.375,0.530) node[above right=-2pt,lbl]{$\nabla f(p)$};
+    \draw[vec] (p) -- ++(0.46,0.46,0) node[right,lbl]{$v$};
+    \node[pt, label={[lbl]below=1pt:$p$}] at (p) {};
+    \node[lbl, figH, anchor=west] at (1.27,-0.372,0.269) {$T_pX$};
+    \node[lbl] at (0.82,0,-0.82) {$X$};
+  \end{scope}
+  \node at (0,-3.6) {\figpanel{(a) $X=V(x^2+y^2+z^2-1)\subset\AA^3$}};
+  % (b) nodal cubic, drawn exactly as in Figure B1
+  \begin{scope}[xshift=6.9cm, yshift=0.35cm, x=1.4cm, y=1.4cm]
+    \fill[figVec!12] (-0.32,-0.32) rectangle (0.32,0.32);
+    \draw[axis] (-1.45,0) -- (1.95,0) node[right,lbl]{$x$};
+    \draw[axis] (0,-2.35) -- (0,2.45) node[above,lbl]{$y$};
+    \draw[curve, samples=241, domain=-1.55:1.55, smooth, variable=\t]
+      plot ({\t*\t-1},{\t*(\t*\t-1)});
+    \draw[vec] (0,0) -- (0.32,0);
+    \draw[vec] (0,0) -- (0,0.32);
+    \node[pt] at (0,0) {};
+    \node[lbl, anchor=east] (na) at (-0.35,1.0) {$T_{(0,0)}C=k^2$};
+    \draw[figFaint!70!black, line width=0.4pt] (na.south east) -- (-0.2,0.28);
+    % smooth point p = image of t=-1.3, tangent line and vector
+    \coordinate (p) at (0.69,-0.897);
+    \draw[figVec, line width=0.6pt, dash pattern=on 2pt off 1.5pt] ($(p)+(0.45,-0.703)$) -- ($(p)+(-0.45,0.703)$);
+    \draw[vec] (p) -- ++(-0.30,0.469);
+    \node[pt] at (p) {};
+    \node[lbl, anchor=west] at (0.95,-0.95) {$T_pC$};
+    \node[lbl, anchor=west] at (1.3,1.6) {$C$};
+  \end{scope}
+  \node at (6.9cm,-3.6) {\figpanel{(b) $C=V(y^2-x^2(x+1))\subset\AA^2$}};
+\end{tikzpicture}

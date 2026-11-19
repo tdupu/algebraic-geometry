@@ -1,0 +1,24 @@
+\begin{tikzpicture}[scale=1.8]
+  % conic C: x^2+y^2=1; pencil of lines x=a (lines through [0:1:0])
+  \foreach \a in {-0.6,-0.2,0.25,0.65} {
+    \draw[hyp] (\a,-1.45) -- (\a,1.45);
+    \node[hpt] at (\a,{sqrt(1-\a*\a)}) {};
+    \node[hpt] at (\a,{-sqrt(1-\a*\a)}) {};
+  }
+  \draw[hyp] (1.45,-1.45) -- (1.45,1.45);
+  \draw[hyp, line width=1.6pt] (-1,-1.45) -- (-1,1.45);
+  \draw[hyp, line width=1.6pt] (1,-1.45) -- (1,1.45);
+  \draw[curve] (0,0) circle (1);
+  \node[lbl, anchor=south] at (0.02,1.0) {$C$};
+  \node[pt] at (-1,0) {};
+  \node[pt] at (1,0) {};
+  \draw[figFaint!60!black, line width=0.4pt] (-1,0) -- (-1.55,0.35) node[lbl, black, anchor=east, align=right] {tangent:\\ mult $2$};
+  \draw[figFaint!60!black, line width=0.4pt] (1,0) -- (1.85,0.35) node[lbl, black, anchor=west, align=left] {tangent:\\ mult $2$};
+  \node[lbl, figH, anchor=south] at (1.45,1.45) {$x=a$};
+  % parameter line of the pencil
+  \draw[line width=0.7pt] (-1.75,-2.0) -- (1.75,-2.0) node[lbl, anchor=west] {$a$};
+  \foreach \a in {-0.6,-0.2,0.25,0.65,1.45} { \draw (\a,-2.06) -- (\a,-1.94); }
+  \node[hollowpt, label={[lbl]below:$-1$}] at (-1,-2.0) {};
+  \node[hollowpt, label={[lbl]below:$1$}] at (1,-2.0) {};
+  \node[lbl, anchor=north] at (0,-2.25) {pencil of lines $x=a$ in $(\PP^2)^*$; hollow: singular sections};
+\end{tikzpicture}

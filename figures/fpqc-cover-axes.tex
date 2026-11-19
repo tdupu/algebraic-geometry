@@ -1,0 +1,40 @@
+\begin{tikzpicture}
+  \def\L{1.3}
+  % ---- the three pieces
+  % D(x): punctured x-axis (upper left)
+  \begin{scope}[xshift=-4.6cm, yshift=2.6cm]
+    \draw[openA, line width=6pt, draw opacity=0.4] (-\L,0) -- (\L,0);
+    \draw[curve] (-\L,0) -- (\L,0);
+    \node[hollowpt] at (0,0) {};
+    \node[lbl] at (0,-0.6) {$D(x)$};
+    \node[lbl] at (0,0.5) {$x$-axis, $x\neq0$};
+  \end{scope}
+  % D(y): punctured y-axis (upper right)
+  \begin{scope}[xshift=4.4cm, yshift=2.6cm]
+    \draw[openB, line width=6pt, draw opacity=0.4] (0,-\L) -- (0,\L);
+    \draw[curve] (0,-\L) -- (0,\L);
+    \node[hollowpt] at (0,0) {};
+    \node[lbl, anchor=west] at (0.3,-0.6) {$D(y)$};
+    \node[lbl, anchor=west] at (0.3,0.5) {$y$-axis, $y\neq0$};
+  \end{scope}
+  % formal neighbourhood (lower right)
+  \begin{scope}[xshift=4.4cm, yshift=-1.7cm]
+    \draw[figFaint!70!black, densely dotted, line width=0.8pt] (0,0) circle (0.75);
+    \draw[curve] (-0.55,0) -- (0.55,0) (0,-0.55) -- (0,0.55);
+    \node[pt] at (0,0) {};
+    \node[lbl, anchor=west] at (0.9,0) {$\Spec\CC[[x,y]]/(xy)$};
+  \end{scope}
+  % ---- the scheme X
+  \draw[openA, line width=6pt, draw opacity=0.4] (-1.9,0) -- (-0.2,0) (0.2,0) -- (1.9,0);
+  \draw[openB, line width=6pt, draw opacity=0.4] (0,-1.5) -- (0,-0.2) (0,0.2) -- (0,1.5);
+  \draw[figFaint!70!black, densely dotted, line width=0.8pt] (0,0) circle (0.55);
+  \draw[curve] (-1.9,0) -- (1.9,0) (0,-1.5) -- (0,1.5);
+  \node[pt] at (0,0) {};
+  \node[lbl, anchor=west] at (2.0,0) {$x$};
+  \node[lbl, anchor=east] at (-0.15,1.4) {$y$};
+  \node[lbl, anchor=north east] at (-0.3,-0.9) {$X=\Spec\CC[x,y]/(xy)$};
+  % ---- maps
+  \draw[maparrow] (-3.9,1.75) -- (-1.15,0.3);
+  \draw[maparrow] (3.75,1.9) -- (0.3,1.05);
+  \draw[maparrow] (3.5,-1.45) -- (0.5,-0.4);
+\end{tikzpicture}

@@ -1,0 +1,26 @@
+\begin{tikzpicture}[scale=1.55]
+  % (a): C: x^2+(y-1)^2=1, D: y=-x^2, tangent at the origin
+  \begin{scope}
+    \draw[curve] (0,1) circle (1);
+    \draw[thirdobj, line width=1.3pt, domain=-1.2:1.2, samples=60] plot ({\x},{-\x*\x});
+    \node[pt, label={[lbl, align=center]above:{mult $2$}}] at (0,0) {};
+    \node[lbl, anchor=south west] at (0.72,1.72) {$C$};
+    \node[lbl, figC!70!black, anchor=west] at (1.2,-1.35) {$D$};
+    \node at (0,-1.85) {\figpanel{(a) $C$ and $D$ tangent}};
+  \end{scope}
+  \draw[dashedmap] (1.8,0.6) -- node[lbl, above] {move $D$} node[lbl, below] {$D\sim D'$} (3.0,0.6);
+  % (b): D': y = 1/2 - x^2, meets C transversally at (+-0.568, 0.177)
+  \begin{scope}[xshift=5.3cm]
+    \draw[faintcurve, dashed, domain=-1.2:1.2, samples=60] plot ({\x},{-\x*\x});
+    \draw[curve] (0,1) circle (1);
+    \draw[thirdobj, line width=1.3pt, domain=-1.33:1.33, samples=60] plot ({\x},{0.5-\x*\x});
+    \draw[figFaint!60!black, line width=0.4pt] (-0.568,0.177) -- (-1.15,0.38) node[lbl, black, anchor=east] {mult $1$};
+    \draw[figFaint!60!black, line width=0.4pt] (0.568,0.177) -- (1.15,0.38) node[lbl, black, anchor=west] {mult $1$};
+    \node[pt] at (-0.568,0.177) {};
+    \node[pt] at (0.568,0.177) {};
+    \node[lbl, anchor=south west] at (0.72,1.72) {$C$};
+    \node[lbl, figC!70!black, anchor=west] at (1.33,-1.27) {$D'$};
+    \node[lbl, figFaint!70!black, anchor=east] at (-1.2,-1.44) {$D$};
+    \node at (0,-1.85) {\figpanel{(b) $C$ and $D'$ transverse}};
+  \end{scope}
+\end{tikzpicture}

@@ -1,0 +1,38 @@
+\begin{tikzpicture}[scale=0.82]
+  % ---------- (a1) y^2 = x^3 - x : two real components ----------
+  \begin{scope}
+    \draw[axis] (-1.6,0) -- (2.3,0) node[below left=-1pt, lbl] {$x$};
+    \draw[axis] (0,-2.75) -- (0,2.85) node[below left=-1pt, lbl] {$y$};
+    % unbounded branch: x = 1+s^2, y = s sqrt((1+s^2)(2+s^2))
+    \draw[curve] plot[domain=-1.03:1.03, samples=81, smooth, variable=\s]
+      ({1+\s*\s},{\s*sqrt((1+\s*\s)*(2+\s*\s))});
+    % oval: x = -(1+cos t)/2, y = (sin t/2) sqrt(1+cos^2(t/2))
+    \draw[curve] plot[domain=0:360, samples=121, smooth, variable=\t]
+      ({-(1+cos(\t))/2},{sin(\t)/2*sqrt(1+cos(\t/2)^2)}) -- cycle;
+    \node[lbl, align=center] at (0.35,-3.45) {$(a,b)=(-1,0)$\\ $y^2=x^3-x$};
+  \end{scope}
+  % ---------- (a2) y^2 = x^3 + 1 : one real component ----------
+  \begin{scope}[xshift=5.0cm]
+    \draw[axis] (-1.6,0) -- (2.3,0) node[below left=-1pt, lbl] {$x$};
+    \draw[axis] (0,-2.75) -- (0,2.85) node[below left=-1pt, lbl] {$y$};
+    % x = -1+s^2, y = s sqrt(x^2-x+1)
+    \draw[curve] plot[domain=-1.68:1.68, samples=101, smooth, variable=\s]
+      ({-1+\s*\s},{\s*sqrt((-1+\s*\s)^2-(-1+\s*\s)+1)});
+    \node[lbl, align=center] at (0.35,-3.45) {$(a,b)=(0,1)$\\ $y^2=x^3+1$};
+  \end{scope}
+  \node[panellabel] at (3.1,3.35) {(a) chart $U'$, coordinates $(x,y)$};
+  % ---------- (b) chart V' near O, (a,b)=(-1,0) ----------
+  \begin{scope}[xshift=11.6cm, scale=1.55]
+    \draw[axis] (-1.55,0) -- (1.6,0) node[below left=-1pt, lbl] {$u$};
+    \draw[axis] (0,-1.45) -- (0,1.55) node[below left=-1pt, lbl] {$v$};
+    \draw[hyp] (-1.55,0) -- (1.45,0);
+    \node[lbl, text=figH, anchor=south west] at (-1.5,0.04) {$Z=0$};
+    % branch through the origin: u v^2 + v - u^3 = 0, v = 2u^3/(1+sqrt(1+4u^4))
+    \draw[curve] plot[domain=-1.5:1.5, samples=101, smooth, variable=\u]
+      ({\u},{2*\u*\u*\u/(1+sqrt(1+4*\u*\u*\u*\u))});
+    \node[pt, label={[lbl, label distance=1pt]below right:{$O$}}] at (0,0) {};
+    \node[lbl, align=left, anchor=north west] at (0.2,-0.42) {$Z=0$ meets $E$\\ only at $O$,\\ mult $3$};
+    \node[lbl, align=center] at (0,-2.23) {$(a,b)=(-1,0)$\\ $v=u^3-uv^2$};
+  \end{scope}
+  \node[panellabel] at (11.6,3.35) {(b) chart $V'$, coordinates $(u,v)$};
+\end{tikzpicture}

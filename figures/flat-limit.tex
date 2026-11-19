@@ -1,0 +1,47 @@
+\begin{tikzpicture}[scale=1.08]
+  % ---------- (a) flat: xy = t over the t-line ----------
+  \begin{scope}
+    \foreach \t in {0.12,0.45,1.0} {
+      \draw[curve, line width=0.7pt, domain={\t/1.7}:1.7, samples=60] plot ({\x},{\t/\x});
+      \draw[curve, line width=0.7pt, domain={\t/1.7}:1.7, samples=60] plot ({-\x},{-\t/\x});
+    }
+    \draw[hyp, line width=1.4pt] (-1.75,0) -- (1.75,0);
+    \draw[hyp, line width=1.4pt] (0,-1.75) -- (0,1.75);
+    \node[lbl, anchor=west] at (1.0,1.25) {$X_t$};
+    \node[lbl, figH, anchor=north east] at (1.75,-0.02) {$X_0$};
+    \draw[maparrow] (0,-2.0) -- node[lbl, right] {$\pi=t$} (0,-2.7);
+    \draw[line width=0.7pt] (-1.6,-3.0) -- (1.6,-3.0) node[lbl, right] {$S$};
+    \node[hpt, label={[lbl]below:$0$}] at (0,-3.0) {};
+    \node[pt, label={[lbl]below:$t$}] at (0.9,-3.0) {};
+    \node at (0,-3.85) {\figpanel{(a) $xy=t$: flat}};
+  \end{scope}
+  % ---------- (b) not flat: xy = 0 over the x-line ----------
+  \begin{scope}[xshift=4.7cm]
+    \draw[curve] (-1.7,0) -- (1.7,0);
+    \draw[exc] (0,-1.7) -- (0,1.7);
+    \node[lbl, anchor=south] at (-1.15,0.02) {$Y=V(y)$};
+    \node[lbl, figE, anchor=west, align=left] at (0.08,1.25) {$Z=V(x)$\\$=X_0$};
+    \node[pt] at (1.0,0) {};
+    \draw[figFaint, dash pattern=on 1.5pt off 1.5pt] (1.0,0) -- (1.0,-3.0);
+    \node[lbl, anchor=north west] at (1.0,-0.05) {$X_a$};
+    \draw[maparrow] (-0.55,-2.0) -- node[lbl, left] {$\pi=x$} (-0.55,-2.7);
+    \draw[line width=0.7pt] (-1.6,-3.0) -- (1.6,-3.0) node[lbl, right] {$S$};
+    \node[hpt, label={[lbl]below:$0$}] at (0,-3.0) {};
+    \node[pt, label={[lbl]below:$a$}] at (1.0,-3.0) {};
+    \node at (0,-3.85) {\figpanel{(b) $xy=0$: not flat}};
+  \end{scope}
+  % ---------- (c) not flat: y^2 = xy = 0 over the x-line ----------
+  \begin{scope}[xshift=9.4cm]
+    \draw[curve] (-1.7,0) -- (1.7,0);
+    \fill[figE, opacity=0.25] (0,0) circle (0.32);
+    \draw[figE, line width=0.8pt] (0,0) circle (0.32);
+    \node[excpt] at (0,0) {};
+    \draw[vec] (0,0) -- (0,0.62);
+    \draw[figFaint!60!black, line width=0.4pt] (0.24,0.24) -- (0.75,0.95) node[lbl, figE, anchor=south, align=center] {embedded\\ point};
+    \node[lbl, anchor=south] at (-1.2,0.02) {$V(y)$};
+    \draw[maparrow] (-0.55,-2.0) -- node[lbl, left] {$\pi=x$} (-0.55,-2.7);
+    \draw[line width=0.7pt] (-1.6,-3.0) -- (1.6,-3.0) node[lbl, right] {$S$};
+    \node[hpt, label={[lbl]below:$0$}] at (0,-3.0) {};
+    \node at (0,-3.85) {\figpanel{(c) $y^2=xy=0$: not flat}};
+  \end{scope}
+\end{tikzpicture}

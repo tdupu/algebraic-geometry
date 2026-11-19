@@ -1,0 +1,24 @@
+\begin{tikzpicture}[scale=1.15]
+  % the plane H (drawn in perspective)
+  \filldraw[fill=figH, fill opacity=0.10, draw=figH, line width=0.6pt]
+    (0,0) -- (7.7,0) -- (9.2,2.2) -- (1.5,2.2) -- cycle;
+  \node[lbl, text=figH, anchor=north east] at (9.0,2.15) {$H$};
+  % the triangle L, L', L'' = H cap S
+  \coordinate (A) at (1.6,0.45);
+  \coordinate (B) at (5.4,0.55);
+  \coordinate (C) at (3.9,1.95);
+  \draw[curve] ($(A)!-0.12!(B)$) -- ($(A)!1.27!(B)$);
+  \draw[curve] ($(B)!-0.06!(C)$) -- ($(B)!1.12!(C)$);
+  \draw[curve] ($(C)!-0.12!(A)$) -- ($(C)!1.15!(A)$);
+  \node[lbl, anchor=north] at ($(A)!0.5!(B)+(0,-0.03)$) {$L$};
+  \node[lbl, anchor=south west] at ($(B)!0.45!(C)+(0.05,0)$) {$L'$};
+  \node[lbl, anchor=south east] at ($(C)!0.55!(A)+(-0.05,0)$) {$L''$};
+  % the line M, meeting H at the point P on L
+  \coordinate (P) at ($(A)!1.13!(B)$);
+  \draw[curve, dashed, line width=0.9pt] ($(P)+0.56*(-0.12,-1)$) -- (P);
+  \draw[curve] ($(P)+1.35*(-0.12,-1)$) -- ($(P)+0.56*(-0.12,-1)$);
+  \draw[curve] (P) -- ($(P)+2.25*(0.12,1)$);
+  \node[lbl, anchor=west] at ($(P)+2.1*(0.12,1)$) {$M$};
+  \node[pt] at (P) {};
+  \node[lbl, anchor=south west, inner sep=1pt] at ($(P)+(0.14,0.06)$) {$M\cap H\in L$};
+\end{tikzpicture}

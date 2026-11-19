@@ -1,0 +1,64 @@
+\begin{tikzpicture}
+  % common shapes
+  \def\Xcurve{plot[smooth, tension=0.8] coordinates {(-2.2,-0.4) (-1.2,0.3) (0,0) (1.1,-0.35) (2.2,0.25)}}
+  \def\Ycurve{plot[smooth, tension=0.8] coordinates {(-1.9,0.45) (-0.9,-0.25) (0,0) (1.0,0.35) (1.9,-0.2)}}
+  % ================= (a) the statement
+  \begin{scope}[yshift=0cm]
+    \draw[curve] \Xcurve;
+    \node[hollowpt, label={[lbl]below:$x$}] at (0,0) {};
+    \node[lbl] at (-2.45,-0.65) {$X$};
+    \begin{scope}[xshift=9.4cm]
+      \draw[figFaint!70!black, rounded corners=4pt] (-2.4,-1.0) rectangle (2.4,1.1);
+      \node[lbl, anchor=north east] at (2.35,1.05) {$\PP^n_k$};
+      \draw[curve] \Ycurve;
+      \node[pt, label={[lbl]below:$y$}] at (0,0) {};
+      \node[lbl] at (-2.05,0.75) {$Y$};
+    \end{scope}
+    \draw[maparrow] (2.7,0.45) -- node[above,lbl]{$\varphi$ on $X\setminus\{x\}$} (6.6,0.45);
+    \draw[dashedmap] (2.7,-0.35) -- node[below,lbl]{$\widetilde\varphi$ on $X$, $\widetilde\varphi(x)=y$} (6.6,-0.35);
+    \node at (4.65,-1.6) {\figpanel{(a) the statement: the hole at $x$ is filled by $y$}};
+  \end{scope}
+  % ================= (b) picture one: local neighbourhood of x maps to y
+  \begin{scope}[yshift=-4.2cm]
+    \shade[inner color=figFaint!80, outer color=white] (0,0) circle (0.8);
+    \draw[faintcurve] \Xcurve;
+    \node[pt, label={[lbl]below:$x$}] at (0,0) {};
+    \node[lbl] at (0,1.05) {$\Spec\Ocal_{X,x}$};
+    \node[lbl] at (-2.45,-0.65) {$X$};
+    \begin{scope}[xshift=9.4cm]
+      \draw[figFaint!70!black, rounded corners=4pt] (-2.4,-1.0) rectangle (2.4,1.1);
+      \draw[curve] \Ycurve;
+      \node[pt, label={[lbl]below:$y$}] at (0,0) {};
+      \node[lbl] at (-2.05,0.75) {$Y$};
+    \end{scope}
+    \draw[maparrow] (2.7,0) -- node[above,lbl]{$g$} node[below,lbl]{$g(x)=y$} (6.6,0);
+    \node at (4.65,-1.6) {\figpanel{(b) picture one: data at $x$}};
+  \end{scope}
+  % ================= (c) picture two: affine opens Spec A and Spec B
+  \begin{scope}[yshift=-8.6cm]
+    \begin{scope}
+      \clip (-1.6,-1.2) rectangle (1.6,1.2);
+      \draw[openA, line width=8pt, draw opacity=0.4, fill=none] \Xcurve;
+    \end{scope}
+    \draw[curve] \Xcurve;
+    \node[hollowpt] at (0,0) {};
+    \node[lbl, anchor=south west] at (0.1,0.12) {$x=V(t)$};
+    \node[lbl, figOpenA!60!black] at (-0.9,0.75) {$\Spec A$};
+    \node[lbl] at (-2.45,-0.65) {$X$};
+    \begin{scope}[xshift=9.4cm]
+      \draw[figFaint!70!black, rounded corners=4pt] (-2.4,-1.0) rectangle (2.4,1.1);
+      \begin{scope}
+        \clip (-1.3,-1.0) rectangle (1.3,1.1);
+        \draw[openB, line width=8pt, draw opacity=0.4, fill=none] \Ycurve;
+      \end{scope}
+      \draw[curve] \Ycurve;
+      \node[pt, label={[lbl]below:$y$}] at (0,0) {};
+      \node[lbl, figOpenB!60!black] at (0.7,0.8) {$\Spec B$};
+      \node[lbl] at (-2.05,0.75) {$Y$};
+    \end{scope}
+    \draw[maparrow] (2.7,0.45) -- node[above,lbl]{$\Spec A_t\to\Spec B$} (6.6,0.45);
+    \node[lbl] at (4.65,0.0) {$f$: $B\to A_t$, \ $g$: $B\to A_{(t)}$};
+    \node[lbl] at (4.65,-0.55) {$A_t\cap A_{(t)}=A$ in $\kappa(X)$};
+    \node at (4.65,-1.6) {\figpanel{(c) picture two: affine opens around $x$ and $y$}};
+  \end{scope}
+\end{tikzpicture}

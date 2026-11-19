@@ -1,0 +1,45 @@
+\begin{tikzpicture}[
+  fan/.style={black, line width=0.5pt},
+  shade/.style={fill=figOpenA, fill opacity=0.45}]
+  % ---------- X: over an unbranched vertex: two disjoint stars
+  \foreach \cx in {0,3.3}{
+    \begin{scope}[xshift=\cx cm,yshift=4.2cm]
+      \fill[shade] (0,0) -- (0:1.2) -- (60:1.2) -- cycle;
+      \draw[fan] (0:1.2) \foreach \k in {1,...,6} { -- (\k*60:1.2)};
+      \foreach \k in {0,...,5} \draw[fan] (0,0) -- (\k*60:1.2);
+      \node[pt] at (0,0) {};
+    \end{scope}}
+  \node[lbl] at (1.65,5.85) {over $y$: two stars};
+  % ---------- X: over the branch vertex: one star of 12 triangles
+  \begin{scope}[xshift=9.0cm,yshift=4.2cm]
+    \fill[shade] (0,0) -- (0:1.5) -- (30:1.5) -- cycle;
+    \fill[shade] (0,0) -- (180:1.5) -- (210:1.5) -- cycle;
+    \draw[fan] (0:1.5) \foreach \k in {1,...,12} { -- (\k*30:1.5)};
+    \foreach \k in {0,...,11} \draw[fan] (0,0) -- (\k*30:1.5);
+    \node[pt] (P) at (0,0) {};
+    \draw[faintcurve] (0,0) -- (1.95,-0.95); \node[lbl,right=0pt] at (1.95,-0.95) {$P$};
+    \node[lbl] at (0,1.85) {over $Q$: one star, $e=2$};
+  \end{scope}
+  % ---------- Y
+  \begin{scope}[xshift=1.65cm]
+    \fill[shade] (0,0) -- (0:1.2) -- (60:1.2) -- cycle;
+    \draw[fan] (0:1.2) \foreach \k in {1,...,6} { -- (\k*60:1.2)};
+    \foreach \k in {0,...,5} \draw[fan] (0,0) -- (\k*60:1.2);
+    \node[pt] at (0,0) {};
+    \draw[faintcurve] (0,0) -- (-1.45,-0.75); \node[lbl,left=0pt] at (-1.45,-0.75) {$y$};
+  \end{scope}
+  \begin{scope}[xshift=9.0cm]
+    \fill[shade] (0,0) -- (0:1.2) -- (60:1.2) -- cycle;
+    \draw[fan] (0:1.2) \foreach \k in {1,...,6} { -- (\k*60:1.2)};
+    \foreach \k in {0,...,5} \draw[fan] (0,0) -- (\k*60:1.2);
+    \node[pt] at (0,0) {};
+    \draw[faintcurve] (0,0) -- (-1.45,-0.75); \node[lbl,left=0pt] at (-1.45,-0.75) {$Q$};
+  \end{scope}
+  \node[lbl,left] at (-1.3,4.2) {$X$};
+  \node[lbl,left] at (-1.3,0) {$Y$};
+  \draw[maparrow] (1.65,2.75) -- node[right,lbl] {$f$} (1.65,1.45);
+  \draw[maparrow] (9.0,2.45) -- node[right,lbl] {$f$} (9.0,1.45);
+  % counts
+  \node[lbl,align=left,anchor=north] at (1.65,-1.45) {triangles: $12=2\cdot 6$\\ edges at the centre: $12=2\cdot 6$\\ centre vertices: $2=2\cdot 1$};
+  \node[lbl,align=left,anchor=north] at (9.0,-1.45) {triangles: $12=2\cdot 6$\\ edges at the centre: $12=2\cdot 6$\\ centre vertices: $1=2\cdot 1-(e-1)$};
+\end{tikzpicture}

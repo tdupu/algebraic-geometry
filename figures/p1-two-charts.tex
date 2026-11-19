@@ -1,0 +1,18 @@
+\begin{tikzpicture}[scale=1.3]
+  \def\R{1.5}
+  % U = P^1 minus infinity (green, outer band), V = P^1 minus 0 (orange, inner band)
+  \draw[draw=figOpenA, line width=5pt, draw opacity=0.45] (90+12:\R+0.18) arc[start angle=90+12, end angle=360+90-12, radius=\R+0.18];
+  \draw[draw=figOpenB, line width=5pt, draw opacity=0.45] (-90+12:\R-0.18) arc[start angle=-90+12, end angle=270-12, radius=\R-0.18];
+  \draw[curve] (0,0) circle (\R);
+  \node[pt,label={[label distance=3pt]below:{$0$}}] at (0,-\R) {};
+  \node[pt,label={[label distance=3pt]above:{$\infty$}}] at (0,\R) {};
+  \node[pt,label={[label distance=6pt]right:{$1$}}] at (\R,0) {};
+  \node[pt,label={[label distance=6pt]left:{$-1$}}] at (-\R,0) {};
+  % chart labels, outside the circle, with leader lines to their bands
+  \node[lbl, text=figOpenB!55!black, anchor=west] (Vl) at (\R+0.7,1.15) {$V=\{X_0\neq0\}=\Spec\QQ[y]$};
+  \draw[figOpenB!70!black, line width=0.4pt] (Vl.west) -- (40:\R-0.18);
+  \node[lbl, text=figOpenA!45!black, anchor=west] (Ul) at (\R+0.7,-1.15) {$U=\{X_1\neq0\}=\Spec\QQ[x]$};
+  \draw[figOpenA!60!black, line width=0.4pt] (Ul.west) -- (-35:\R+0.18);
+  % overlap label, outside, right of the circle between the two chart labels
+  \node[lbl, anchor=west, align=left] at (\R+0.7,0) {$U\cap V=\Spec\QQ[x,x^{-1}]$\\[1pt] (all but $0$ and $\infty$),\\[1pt] glued by $y=1/x$};
+\end{tikzpicture}

@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+  % (left) Spec k(x)[t]/(t^2): a point with a decapitated arrow stub (no head)
+  \node[pt] (o) at (0,0) {};
+  \draw[figVec, line width=1pt] (o.center) -- (0.75,0);
+  \node[lbl] at (0.35,-0.5) {$\Spec \kappa(x)[t]/(t^2)$};
+  \node[pt] (o2) at (0,-2.2) {};
+  \node[lbl] at (0.1,-2.6) {$\Spec \kappa(x)$};
+  \draw[maparrow, shorten >=3pt, shorten <=3pt] (o2) -- (0,-0.85);
+  % (right) a scheme X, drawn as a curve, with the point x and the image tangent vector
+  \draw[curve] (7.6,-2.9) .. controls (6.8,-2.4) and (6.6,-1.7) .. (6.6,-1.1)
+               .. controls (6.6,-0.5) and (6.9,0.1) .. (7.7,0.5);
+  \coordinate (x) at (6.6,-1.1);
+  \draw[vec] (x) -- ++(0,0.95);
+  \node[pt] at (x) {};
+  \node[lbl, anchor=west] at (6.7,-1.2) {$x$};
+  \node[lbl, figVec, anchor=south east] at (6.5,-0.1) {$v\in T_xX$};
+  \node[lbl, anchor=west] at (7.75,0.5) {$X$};
+  % maps
+  \draw[maparrow] (1.2,0) -- node[above,lbl]{$v$} (6.35,-0.75);
+  \draw[maparrow] (0.25,-2.2) -- node[below,lbl]{$i_x$} (6.45,-1.2);
+\end{tikzpicture}

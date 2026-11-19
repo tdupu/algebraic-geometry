@@ -1,0 +1,20 @@
+\begin{tikzpicture}[
+    blob/.style={fill=figFaint!18, draw=figFaint!80!black, line width=0.6pt}]
+  \def\blobpath{plot[smooth cycle, tension=0.75] coordinates {(-2.3,-1.2) (0,-1.55) (2.3,-1.25) (2.55,0.2) (2.2,1.45) (0,1.6) (-2.3,1.35) (-2.55,0)}}
+  % S with the (-1)-curve E
+  \begin{scope}
+    \draw[blob] \blobpath;
+    \draw[exc] (0.35,-1.05) .. controls (-0.15,-0.4) and (0.35,0.35) .. (-0.05,1.0);
+    \node[lbl, figE, anchor=east, align=right] at (-0.15,-0.35) {$E\cong\PP^1$\\ $E^2=-1$};
+    \node[lbl, anchor=north west] at (-2.2,1.3) {$S$};
+  \end{scope}
+  % S_0 with the regular point p
+  \begin{scope}[shift={(8.6,0)}]
+    \draw[blob] \blobpath;
+    \node[pt] at (-0.7,-0.1) {};
+    \node[lbl, anchor=west, align=left] at (-0.55,-0.15) {$p=\varphi_{\Lcal}(E)$,\\ a regular point};
+    \node[lbl, anchor=north west] at (-2.2,1.3) {$S_0=\varphi_{\Lcal}(S)\subset\PP^N$};
+  \end{scope}
+  \draw[maparrow] (2.85,0) -- node[above,lbl]{$\varphi_{\Lcal}$} (5.75,0);
+  \node[lbl] at (4.3,-1.95) {$\Lcal=\Ocal_S(H+mE)$, \quad $m=H\cdot E$, \quad $\Lcal\cdot E=0$};
+\end{tikzpicture}

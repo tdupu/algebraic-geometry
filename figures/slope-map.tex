@@ -1,0 +1,40 @@
+\begin{tikzpicture}
+  % ---- left: A^2(R), lines through 0 coloured by slope ----
+  \def\R{2.3}
+  \foreach \k in {0,...,11}{
+    \pgfmathsetmacro{\th}{15*\k}
+    \pgfmathsetmacro{\hu}{\k/12}
+    \definecolor{slopecol}{hsb}{\hu,0.85,0.8}
+    \draw[slopecol, line width=1.1pt] ({-\R*cos(\th)},{-\R*sin(\th)}) -- ({\R*cos(\th)},{\R*sin(\th)});
+  }
+  % slope labels on a few lines
+  \node[lbl, anchor=west] at ({\R+0.05},0) {$m=0$};
+  \node[lbl, anchor=south west] at ({\R*cos(45)-0.05},{\R*sin(45)}) {$m=1$};
+  \node[lbl, anchor=south east] at ({\R*cos(135)+0.05},{\R*sin(135)}) {$m=-1$};
+  \node[lbl, anchor=south] at (0,{\R+0.02}) {$m=\infty$};
+  \node[hollowpt, minimum size=6pt, line width=0.9pt] (O) at (0,0) {};
+  \node[lbl, fill=white, inner sep=1.5pt, anchor=west] (U) at (1.25,-2.45) {$(0,0)$: undefined};
+  \draw[black, line width=0.5pt] (U.west) -- (O);
+  \node[lbl] at (-1.2,{-\R-0.4}) {$\AA^2(\RR)$};
+
+  % ---- map ----
+  \draw[dashedmap] (\R+1.4,0.25) -- node[above,lbl]{$f$} (\R+3.7,0.25);
+  \node[lbl] at (\R+2.55,-0.2) {$(x,y)\mapsto[x:y]$};
+
+  % ---- right: P^1(R) as a circle, same colours ----
+  \begin{scope}[xshift=9.3cm]
+    \def\r{1.5}
+    \foreach \k in {0,...,47}{
+      \pgfmathsetmacro{\a}{-90+7.5*\k}
+      \pgfmathsetmacro{\hu}{\k/48}
+      \definecolor{slopecol}{hsb}{\hu,0.85,0.8}
+      \draw[slopecol, line width=3pt] (\a:\r) arc[start angle=\a, end angle=\a+7.6, radius=\r];
+    }
+    % point [1:m] sits at angle -90 + 2*atan(m)
+    \node[pt, label={below:{\small$[1:0]$}}] at (-90:\r) {};
+    \node[pt, label={right:{\small$[1:1]$}}] at (0:\r) {};
+    \node[pt, label={above:{\small$[0:1]$}}] at (90:\r) {};
+    \node[pt, label={left:{\small$[1:-1]$}}] at (180:\r) {};
+    \node[lbl] at (0,{-\r-0.95}) {$\PP^1(\RR)$};
+  \end{scope}
+\end{tikzpicture}

@@ -1,0 +1,33 @@
+\begin{tikzpicture}[scale=2.1]
+  % affine chart X_0 != 0 with x = X_1/X_0, y = X_2/X_0; P_0 = (0,0); L = {y = 1}
+  \tikzset{wl/.style={lbl, fill=white, inner sep=1.5pt}}
+  \begin{scope}
+    \clip (-2.4,-1.0) rectangle (2.4,1.45);
+    \foreach \a in {20,40,...,160}{
+      \draw[faintcurve] ({-3*cos(\a)},{-3*sin(\a)}) -- ({3*cos(\a)},{3*sin(\a)});
+    }
+    \draw[faintcurve, densely dotted] (-3,0) -- (3,0);
+    \draw[hyp] ({-3*cos(143.13)},{-3*sin(143.13)}) -- ({3*cos(143.13)},{3*sin(143.13)});
+    \draw[hyp] ({-3*cos(48.01)},{-3*sin(48.01)}) -- ({3*cos(48.01)},{3*sin(48.01)});
+  \end{scope}
+  % target line L
+  \draw[curve] (-2.4,1) -- (2.4,1);
+  \node[wl, anchor=west] at (2.42,1) {$L=\{X_2=X_0\}\cong\PP^1$};
+  % P_0
+  \node[hollowpt, minimum size=6pt, line width=0.9pt] (P0) at (0,0) {};
+  \node[wl, anchor=north, align=center] at (0,-0.1) {$P_0=[1{:}0{:}0]$\\ undefined: base locus};
+  % Q, Q_2 and their common image
+  \node[pt] (Q) at (-0.6,0.45) {};
+  \node[wl, anchor=north east] at (-0.62,0.42) {$Q$};
+  \node[pt] (Q2) at (1.0,-0.75) {};
+  \node[wl, anchor=west] at (1.06,-0.75) {$Q_2$};
+  \node[hpt] (Qp) at (-1.3333,1) {};
+  \node[wl, text=figH, anchor=south] at (-1.3333,1.04) {$\pi(Q)=\pi(Q_2)$};
+  \draw[maparrow, bend right=40, shorten >=3pt, shorten <=3pt] (Q) to node[wl, below left=-1pt] {$\pi$} (Qp);
+  % R and its image
+  \node[pt] (R) at (0.36,0.4) {};
+  \node[wl, anchor=north west] at (0.39,0.37) {$T$};
+  \node[hpt] (Rp) at (0.9,1) {};
+  \node[wl, text=figH, anchor=south] at (0.9,1.04) {$\pi(T)$};
+  \draw[maparrow, bend right=40, shorten >=3pt, shorten <=3pt] (R) to node[wl, right=1pt] {$\pi$} (Rp);
+\end{tikzpicture}

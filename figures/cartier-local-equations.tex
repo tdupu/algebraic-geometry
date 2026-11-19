@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+  \def\Xc{plot[smooth, tension=0.75] coordinates {(-5.0,-0.3) (-3.4,0.45) (-1.6,-0.15) (0,0.2) (1.7,-0.25) (3.4,0.4) (5.0,-0.1)}}
+  \begin{scope}
+    \clip (-5.2,-2) rectangle (1.3,2);
+    \draw[openA, line width=10pt, draw opacity=0.4, fill=none] \Xc;
+  \end{scope}
+  \begin{scope}
+    \clip (-1.3,-2) rectangle (5.2,2);
+    \draw[openB, line width=10pt, draw opacity=0.4, fill=none, transform canvas={yshift=-3pt}] \Xc;
+  \end{scope}
+  \draw[curve] \Xc;
+  \node[lbl] at (5.25,0.2) {$X$};
+  % braces for the opens
+  \draw[decorate, decoration={brace, amplitude=5pt}, figOpenA!60!black, line width=0.7pt] (-5.0,0.95) -- node[above=5pt, lbl]{$U_i$, local equation $f_i$} (1.3,0.95);
+  \draw[decorate, decoration={brace, amplitude=5pt, mirror}, figOpenB!60!black, line width=0.7pt] (-1.3,-0.95) -- node[below=5pt, lbl]{$U_j$, local equation $f_j$} (5.0,-0.95);
+  % points of the divisor
+  \node[pt, label={[lbl]above:$Q$}] at (-3.4,0.45) {};
+  \node[pt, label={[lbl]above:$P$}] at (0,0.2) {};
+  \node[pt, label={[lbl]below:$R$}] at (3.4,0.4) {};
+  % overlap annotation
+  \node[lbl, align=center] at (0,-2.4) {on $U_i\cap U_j$: \ $f_i/f_j\in\Ocal(U_i\cap U_j)^{\times}$, \ so $\ord_P(f_i)=\ord_P(f_j)$};
+  \draw[figFaint!70!black, line width=0.4pt] (-0.7,-2.1) -- (-0.7,-0.05);
+\end{tikzpicture}

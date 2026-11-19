@@ -1,0 +1,47 @@
+\begin{tikzpicture}
+  % Six points in general position (affine chart T_0 != 0 of P^2, coordinates (x,y)).
+  \def\PA{(1,1)}\def\PB{(-4,1)}\def\PC{(-2,4)}\def\PD{(3,3)}\def\PE{(5,-1)}\def\PF{(0,-3)}
+  % ---------- (a) the three types ----------
+  \begin{scope}[scale=0.56]
+    \clip (-6.2,-4.2) rectangle (6.4,5.0);
+    % Q_1 : 502x^2+303xy+746y^2-663x-876y-9342=0, exact parametrization by its principal axes
+    \draw[thirdobj, line width=1.4pt, domain=0:360, samples=200, smooth, variable=\t]
+      plot ({0.51471277+1.48810086*cos(\t)-4.29194615*sin(\t)},
+            {0.4826019 +3.10895629*cos(\t)+2.05433855*sin(\t)});
+    % L_23 : the line through p_2=(-4,1) and p_3=(-2,4)
+    \draw[hyp, line width=1.2pt] ($(-4,1)+-1.0*(2,3)$) -- ($(-4,1)+1.4*(2,3)$);
+    \node[excpt] at \PA {};
+    \foreach \x/\y in {-4/1,-2/4,3/3,5/-1,0/-3} \node[pt] at (\x,\y) {};
+    \node[lbl, text=figE, anchor=west] at (1.2,1.2) {$p_1$};
+    \node[lbl, anchor=east] at (-4.25,0.6) {$p_2$};
+    \node[lbl, anchor=south east] at (-2.15,4.1) {$p_3$};
+    \node[lbl, anchor=south west] at (3.1,3.1) {$p_4$};
+    \node[lbl, anchor=west] at (5.2,-1) {$p_5$};
+    \node[lbl, anchor=north] at (0,-3.2) {$p_6$};
+    \node[lbl, text=figH, anchor=west] at (-5.0,-1.5) {$L_{23}$};
+    \node[lbl, text=figC!80!black] at (4.9,2.3) {$Q_1$};
+  \end{scope}
+  \node[anchor=north] at (0.1,-2.35) {\figpanel{(a) one line of each type}};
+  % legend
+  \begin{scope}[shift={(-3.2,-3.15)}]
+    \node[excpt] at (0,0) {};
+    \node[lbl, anchor=west] at (0.25,0) {type A: the point $p_1$ becomes $E_1$ \quad (6 lines)};
+    \draw[hyp, line width=1.2pt] (-0.3,-0.55) -- (0.3,-0.55);
+    \node[lbl, anchor=west] at (0.45,-0.55) {type B: $L_{23}$ becomes $\widetilde L_{23}$ \quad ($\binom62=15$ lines)};
+    \draw[thirdobj, line width=1.4pt] (-0.3,-1.1) -- (0.3,-1.1);
+    \node[lbl, anchor=west] at (0.45,-1.1) {type C: $Q_1\not\ni p_1$ becomes $\widetilde Q_1$ \quad (6 lines)};
+    \node[anchor=west] at (-0.3,-1.75) {$6+15+6=27$};
+  \end{scope}
+  % ---------- (b) all fifteen lines L_ij ----------
+  \begin{scope}[shift={(7.3,0.2)}, scale=0.3]
+    \begin{scope}
+      \clip (-6.2,-4.6) rectangle (6.6,5.6);
+      \foreach \i/\x/\y in {1/1/1,2/-4/1,3/-2/4,4/3/3,5/5/-1,6/0/-3} \coordinate (q\i) at (\x,\y);
+      \foreach \a/\b in {1/2,1/3,1/4,1/5,1/6,2/3,2/4,2/5,2/6,3/4,3/5,3/6,4/5,4/6,5/6}
+        \draw[figH!45, line width=0.5pt] ($(q\a)!-6!(q\b)$) -- ($(q\a)!7!(q\b)$);
+      \foreach \i in {1,...,6} \node[pt, minimum size=3.4pt] at (q\i) {};
+    \end{scope}
+    \draw[figFaint] (-6.2,-4.6) rectangle (6.6,5.6);
+  \end{scope}
+  \node[anchor=north] at (7.4,-1.35) {\figpanel{(b) all 15 lines $L_{ij}$}};
+\end{tikzpicture}

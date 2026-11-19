@@ -1,0 +1,53 @@
+\begin{tikzpicture}
+  % ================= (a) a curve X -> P^1 =================
+  \begin{scope}
+    % X: closed curve x=3cos s, y=2.2+0.8 sin s+0.15 sin 3s (each vertical line meets it twice)
+    \draw[curve] plot[domain=0:360, samples=121, smooth, variable=\s]
+      ({3*cos(\s)}, {2.2+0.8*sin(\s)+0.15*sin(3*\s)}) -- cycle;
+    \node[lbl] at (-3.05,2.95) {$X$};
+    \draw[curve] (-2.9,0) -- (2.9,0);
+    \node[lbl, anchor=west] at (2.95,0) {$\PP^1$};
+    % fibres over 0 and infinity (faint guides), over t (blue)
+    \draw[faintcurve, densely dotted] (-2.2,0) -- (-2.2,3.3);
+    \draw[faintcurve, densely dotted] (2.2,0) -- (2.2,3.3);
+    \draw[hyp, line width=0.6pt] (0,0) -- (0,3.3);
+    % fibre over 0 (filled): 3cos s=-2.2 -> s=137.17, 222.83
+    \foreach \s in {137.17,222.83}{ \node[pt] at (-2.2,{2.2+0.8*sin(\s)+0.15*sin(3*\s)}) {}; }
+    % fibre over infinity (hollow): s=42.83, 317.17
+    \foreach \s in {42.83,317.17}{ \node[hollowpt] at (2.2,{2.2+0.8*sin(\s)+0.15*sin(3*\s)}) {}; }
+    % fibre over t: s=90, 270
+    \foreach \s in {90,270}{ \node[hpt] at (0,{2.2+0.8*sin(\s)+0.15*sin(3*\s)}) {}; }
+    % base points
+    \node[pt, label={[lbl]below:$0$}] at (-2.2,0) {};
+    \node[hpt, label={[lbl, figH]below:$t$}] at (0,0) {};
+    \node[hollowpt, label={[lbl]below:$\infty$}] at (2.2,0) {};
+    \node[lbl] at (-2.2,3.65) {$D_1=f^{-1}(0)$};
+    \node[lbl, figH] at (0,3.65) {$f^{-1}(t)$};
+    \node[lbl] at (2.2,3.65) {$D_2=f^{-1}(\infty)$};
+    \draw[maparrow] (-3.35,1.75) -- node[lbl, left] {$f$} (-3.35,0.35);
+    \node at (0,-1.0) {\figpanel{(a) a curve $X$}};
+  \end{scope}
+  % ================= (b) a surface S -> P^1 =================
+  \begin{scope}[xshift=7.9cm]
+    \fill[figFaint!18, draw=figFaint!80!black, line width=0.6pt, rounded corners=12pt]
+      (-2.8,0.9) rectangle (2.8,3.4);
+    \node[lbl] at (-3.05,3.25) {$S$};
+    % fibres: x = c + 0.22 sin(170 (y-0.9)), disjoint translates
+    \foreach \c in {-1.1,0,1.1}{
+      \draw[hyp, line width=0.6pt] plot[domain=1.0:3.3, samples=40, smooth, variable=\y] ({\c+0.22*sin(170*(\y-0.9))},{\y});
+    }
+    \draw[curve] plot[domain=1.0:3.3, samples=40, smooth, variable=\y] ({-2.2+0.22*sin(170*(\y-0.9))},{\y});
+    \draw[curve, dash pattern=on 6pt off 1.5pt] plot[domain=1.0:3.3, samples=40, smooth, variable=\y] ({2.2+0.22*sin(170*(\y-0.9))},{\y});
+    \draw[curve] (-2.9,0) -- (2.9,0);
+    \node[lbl, anchor=west] at (2.95,0) {$\PP^1$};
+    \node[pt, label={[lbl]below:$0$}] at (-2.2,0) {};
+    \foreach \c in {-1.1,0,1.1}{ \node[hpt] at (\c,0) {}; }
+    \node[lbl, figH] at (0,-0.35) {$t$};
+    \node[hollowpt, label={[lbl]below:$\infty$}] at (2.2,0) {};
+    \node[lbl] at (-2.2,3.75) {$D_1=f^{-1}(0)$};
+    \node[lbl, figH] at (0,3.75) {$f^{-1}(t)$};
+    \node[lbl] at (2.2,3.75) {$D_2=f^{-1}(\infty)$};
+    \draw[maparrow] (-3.35,1.75) -- node[lbl, left] {$f$} (-3.35,0.35);
+    \node at (0,-1.0) {\figpanel{(b) a surface $S$}};
+  \end{scope}
+\end{tikzpicture}

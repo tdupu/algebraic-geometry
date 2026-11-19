@@ -1,0 +1,33 @@
+\begin{tikzpicture}[x=1.4cm,y=1.4cm,
+    tneg/.style={figOpenB!85!black, line width=1.3pt},
+    tpos/.style={figC, line width=1.3pt, dash pattern=on 4pt off 1.5pt}]
+  % (left) the t-line A^1 = Spec k[t]
+  \begin{scope}[yshift=0cm]
+    \draw[tneg] (-1.7,0) -- (0,0);
+    \draw[tpos] (0,0) -- (1.7,0);
+    \draw[axis] (1.7,0) -- (1.9,0) node[right,lbl,black]{$t$};
+    \foreach \s/\lab in {-1/{$t=-1$},1/{$t=1$}} \node[pt, label={[lbl]below:\lab}] at (\s,0) {};
+    \node[hollowpt, label={[lbl]below:$t=0$}] at (0,0) {};
+    \node[lbl, figOpenB!70!black] at (-0.85,0.32) {$t<0$};
+    \node[lbl, figC] at (0.85,0.32) {$t>0$};
+    \node at (0,-1.3) {\figpanel{$\AA^1=\Spec k[t]$}};
+  \end{scope}
+  % map
+  \draw[maparrow] (2.25,0) -- node[above,lbl]{$\nu$} node[below,lbl,align=center]{$x=t^2-1$\\ $y=t(t^2-1)$} (3.6,0);
+  % (right) the nodal cubic, coloured by the sign of t
+  \begin{scope}[xshift=7.7cm]
+    \draw[axis] (-1.35,0) -- (1.85,0) node[right,lbl]{$x$};
+    \draw[axis] (0,-2.35) -- (0,2.45) node[above,lbl]{$y$};
+    \draw[tneg, samples=121, domain=-1.55:0, smooth, variable=\t]
+      plot ({\t*\t-1},{\t*(\t*\t-1)});
+    \draw[tpos, samples=121, domain=0:1.55, smooth, variable=\t]
+      plot ({\t*\t-1},{\t*(\t*\t-1)});
+    \node[pt] at (0,0) {};
+    \node[hollowpt] at (-1,0) {};
+    \draw[figFaint!70!black, line width=0.4pt] (-0.05,-0.05) -- (-0.35,-0.95);
+    \node[lbl, anchor=north east, fill=white, inner sep=1pt] at (-0.25,-0.95) {$\nu(\pm1)=(0,0)$};
+    \node[lbl, anchor=north east] at (-1.04,-0.06) {$\nu(0)$};
+    \node[lbl, anchor=west] at (1.3,1.6) {$C$};
+    \node at (0,-2.75) {\figpanel{$C=V(y^2-x^2(x+1))$, $t=y/x$}};
+  \end{scope}
+\end{tikzpicture}

@@ -1,0 +1,35 @@
+\begin{tikzpicture}[
+  sidea/.style={figH, line width=1.1pt, decoration={markings, mark=at position 0.55 with {\arrow{Stealth[length=2.4mm]}}}, postaction=decorate},
+  sideb/.style={figC, line width=1.1pt, decoration={markings, mark=at position 0.5 with {\arrow{Stealth[length=2.4mm]}}, mark=at position 0.62 with {\arrow{Stealth[length=2.4mm]}}}, postaction=decorate}]
+  % ---- the lattice and fundamental parallelogram in C
+  \coordinate (O) at (0,0); \coordinate (w1) at (3,0); \coordinate (w2) at (1,2.2);
+  \coordinate (w12) at (4,2.2);
+  \fill[figOpenA,fill opacity=0.2] (O) -- (w1) -- (w12) -- (w2) -- cycle;
+  \draw[sidea] (O) -- (w1);  \draw[sidea] (w2) -- (w12);
+  \draw[sideb] (O) -- (w2);  \draw[sideb] (w1) -- (w12);
+  \node[pt] at (O) {}; \node[pt] at (w1) {}; \node[pt] at (w2) {}; \node[pt] at (w12) {};
+  \node[lbl,below left=0pt] at (O) {$0$};
+  \node[lbl,below right=0pt] at (w1) {$\omega_1$};
+  \node[lbl,above left=0pt] at (w2) {$\omega_2$};
+  \node[lbl,above right=0pt] at (w12) {$\omega_1+\omega_2$};
+  \node[pt] (Pc) at (2.2,1.0) {}; \node[lbl,above right=0pt] at (Pc) {$z$};
+  \node[lbl] at (2.0,-0.9) {$\CC$, \ $\Lambda=\ZZ\omega_1+\ZZ\omega_2$};
+  % ---- quotient map
+  \draw[maparrow] (5.4,1.1) -- node[above,lbl] {quotient} (7.0,1.1);
+  % ---- the torus E(C)
+  \begin{scope}[xshift=9.6cm,yshift=1.1cm]
+    \draw[curve] (0,0) ellipse (2.3cm and 1.25cm);
+    \draw[curve] (-1.0,0.08) .. controls (-0.5,-0.32) and (0.5,-0.32) .. (1.0,0.08);
+    \draw[curve] (-0.8,-0.05) .. controls (-0.4,0.22) and (0.4,0.22) .. (0.8,-0.05);
+    % loop a: around the hole (image of the horizontal sides)
+    \draw[figH,line width=1.1pt] (0,0) ellipse (1.7cm and 0.72cm);
+    % loop b: around the tube (image of the slanted sides), front half solid, back half dashed
+    \draw[figC,line width=1.1pt] (0,-1.25) arc[start angle=-90,end angle=90,x radius=0.2cm,y radius=0.505cm];
+    \draw[figC,line width=0.8pt,dash pattern=on 2pt off 2pt] (0,-0.24) arc[start angle=90,end angle=270,x radius=0.2cm,y radius=0.505cm];
+    \node[pt] (Ot) at (0.2,-0.73) {};
+    \node[lbl,right=2pt] at (Ot) {$O$};
+    \node[pt] (Pt) at (-1.2,-0.95) {};
+    \node[lbl,below left=-1pt] at (Pt) {$P$};
+    \node[lbl] at (0,-1.75) {$E(\CC)\cong\CC/\Lambda$};
+  \end{scope}
+\end{tikzpicture}

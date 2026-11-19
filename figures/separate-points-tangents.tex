@@ -1,0 +1,41 @@
+\begin{tikzpicture}[srcline/.style={figFaint!70!black, line width=0.8pt}]
+  % ---------- (a) t -> (t, t^2) ----------
+  \begin{scope}
+    \draw[srcline] (-1.8,4.2) -- (1.8,4.2) node[right,lbl,black] {$\AA^1$};
+    \node[pt, label={[lbl]above:$t=0$}] at (0,4.2) {};
+    \draw[vec] (0,4.2) -- (0.8,4.2) node[lbl, below, pos=0.6, figVec] {$\partial_t$};
+    \draw[maparrow] (0,3.55) -- (0,2.75) node[midway,right,lbl] {$f$};
+    \draw[axis] (-1.8,0) -- (1.9,0);
+    \draw[axis] (0,-0.3) -- (0,2.5);
+    \draw[curve, smooth, samples=80, domain=-1.45:1.45] plot ({\x},{\x*\x});
+    \node[pt] at (0,0) {};
+    \draw[vec] (0,0) -- (0.8,0) node[lbl, below, pos=0.7, figVec] {$df(\partial_t)$};
+    \node[lbl] at (0,-2.75) {\figpanel{(a)} $t\mapsto(t,t^2)$};
+  \end{scope}
+  % ---------- (b) t -> (t^2-1, t^3-t) ----------
+  \begin{scope}[xshift=5.1cm]
+    \draw[srcline] (-1.8,4.2) -- (1.8,4.2) node[right,lbl,black] {$\AA^1$};
+    \node[pt, label={[lbl]above:$t=-1$}] at (-1,4.2) {};
+    \node[pt, label={[lbl]above:$t=1$}] at (1,4.2) {};
+    \draw[maparrow] (0,3.55) -- (0,2.75) node[midway,right,lbl] {$f$};
+    \draw[axis] (-1.5,0) -- (1.9,0);
+    \draw[axis] (0,-2.1) -- (0,2.4);
+    \draw[curve, smooth, samples=150, domain=-1.48:1.48] plot ({\x*\x-1},{\x*\x*\x-\x});
+    \node[pt] at (0,0) {};
+    \node[lbl, anchor=north east] at (-0.15,-0.6) {$f(-1)=f(1)$};
+    \node[lbl] at (0,-2.75) {\figpanel{(b)} $t\mapsto(t^2-1,\,t^3-t)$};
+  \end{scope}
+  % ---------- (c) t -> (t^2, t^3) ----------
+  \begin{scope}[xshift=10.2cm]
+    \draw[srcline] (-1.8,4.2) -- (1.8,4.2) node[right,lbl,black] {$\AA^1$};
+    \node[pt, label={[lbl]above:$t=0$}] at (0,4.2) {};
+    \draw[vec] (0,4.2) -- (0.8,4.2) node[lbl, below, pos=0.6, figVec] {$\partial_t$};
+    \draw[maparrow] (0,3.55) -- (0,2.75) node[midway,right,lbl] {$f$};
+    \draw[axis] (-0.6,0) -- (2.1,0);
+    \draw[axis] (0,-2.1) -- (0,2.4);
+    \draw[curve, smooth, samples=120, domain=-1.25:1.25] plot ({\x*\x},{\x*\x*\x});
+    \node[pt] at (0,0) {};
+    \node[lbl, figVec, anchor=east] at (-0.1,0.35) {$df(\partial_t)=0$};
+    \node[lbl] at (0,-2.75) {\figpanel{(c)} $t\mapsto(t^2,t^3)$};
+  \end{scope}
+\end{tikzpicture}

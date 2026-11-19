@@ -1,0 +1,37 @@
+\begin{tikzpicture}[
+  declare function={Q(\x)=-(\x+4.2)*(\x+3.4)*(\x+2.7)*(\x+1.1)*(\x-1.1)*(\x-2.7)*(\x-3.4)*(\x-4.2)/700;}]
+  \pgfmathsetmacro{\xo}{2.0}
+  \pgfmathsetmacro{\yo}{sqrt(abs(Q(\xo)))}
+  % ---- panel 1: the curve C (top left)
+  \begin{scope}[scale=0.6]
+    \draw[axis] (-4.7,0) -- (4.7,0);
+    \foreach \a/\b in {-4.2/-3.4,-2.7/-1.1,1.1/2.7,3.4/4.2}{
+      \pgfmathsetmacro{\m}{(\a+\b)/2}\pgfmathsetmacro{\h}{(\b-\a)/2}
+      \draw[curve] plot[domain=0:180,samples=100,smooth,variable=\t]
+          ({\m+\h*cos(\t)},{sqrt(abs(Q(\m+\h*cos(\t))))})
+        -- plot[domain=180:360,samples=100,smooth,variable=\t]
+          ({\m+\h*cos(\t)},{-sqrt(abs(Q(\m+\h*cos(\t))))}) -- cycle;}
+    \draw[faintcurve,dashed] (\xo,1.6) -- (\xo,-4.3);
+    \node[pt] (x) at (\xo,\yo) {};
+    \node[pt] (ix) at (\xo,-\yo) {};
+    \node[lbl,above left=0pt] at (x) {$x$};
+    \node[lbl,below left=0pt] at (ix) {$\iota(x)$};
+    \node[lbl,left] at (-4.7,0) {$C$};
+    % ---- panel 2: P^1, directly below, same x-coordinate
+    \draw[curve] (-4.7,-4.6) -- (4.7,-4.6);
+    \node[lbl,left] at (-4.7,-4.6) {$\PP^1$};
+    \node[pt] (t) at (\xo,-4.6) {};
+    \node[lbl,below=2pt] at (t) {$\varphi(x)=\varphi(\iota(x))$};
+    \draw[maparrow] (-3.0,-1.9) -- node[right,lbl] {$\varphi$, $2:1$} (-3.0,-4.3);
+  \end{scope}
+  % ---- panel 3: the conic v(P^1) in P^2 (chart X_0 != 0)
+  \begin{scope}[xshift=8.2cm,yshift=-2.0cm]
+    \draw[thirdobj] plot[domain=-4.3:4.3,samples=80,smooth] ({0.4*\x},{0.1*\x*\x});
+    \node[pt] (c) at ({0.4*\xo},{0.1*\xo*\xo}) {};
+    \node[lbl,below right=1pt] at (c) {$\psi(x)=\psi(\iota(x))$};
+    \node[lbl] at (0,2.25) {$v(\PP^1)\subset\PP^2$};
+  \end{scope}
+  % ---- maps
+  \draw[maparrow] (3.4,-2.6) -- node[below,lbl] {$v$} (6.5,-1.9);
+  \draw[maparrow] (3.2,0.4) -- node[above,lbl] {$\psi=v\circ\varphi$} (6.6,0.4);
+\end{tikzpicture}

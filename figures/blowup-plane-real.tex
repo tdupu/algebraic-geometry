@@ -1,0 +1,53 @@
+\begin{tikzpicture}
+  % ---------- (a) the misleading picture ----------
+  \begin{scope}[x={(-0.75cm,-0.55cm)}, y={(1.25cm,0cm)}, z={(0cm,1cm)}]
+    \fill[figFaint!25] (-1.6,-1.6,0) -- (1.6,-1.6,0) -- (1.6,1.6,0) -- (-1.6,1.6,0) -- cycle;
+    \draw[curve] (-1.6,-1.6,0) -- (1.6,-1.6,0) -- (1.6,1.6,0) -- (-1.6,1.6,0) -- cycle;
+    \draw[exc] (0,0,0) -- (0,0,2.4);
+    \node[pt] at (0,0,0) {};
+    \node[lbl, figE, anchor=west] at (0,0,2.2) {$E$};
+    \node[lbl, anchor=north] at (1.4,1.0,0) {$\AA^2$};
+  \end{scope}
+  \node[align=center] at (0,-2.6) {\figpanel{(a) misleading:}\\[-1pt] \figpanel{looks like two components}};
+
+  % ---------- (b) the real surface y = m x in R^3 ----------
+  \begin{scope}[xshift=8.6cm, yshift=0.3cm, x={(-0.6cm,-0.5cm)}, y={(1.25cm,-0.08cm)}, z={(0cm,0.95cm)}]
+    \def\L{1.8}  % half-length of each ruling
+    \def\M{2.0}  % range of m
+    % translucent strips between consecutive rulings
+    \foreach \i in {0,...,39}{
+      \pgfmathsetmacro{\ma}{-\M+\i*0.1}
+      \pgfmathsetmacro{\mb}{\ma+0.1}
+      \pgfmathsetmacro{\ca}{\L/sqrt(1+\ma*\ma)}
+      \pgfmathsetmacro{\cb}{\L/sqrt(1+\mb*\mb)}
+      \fill[figFaint, fill opacity=0.18]
+        ({-\ca},{-\ma*\ca},\ma) -- ({\ca},{\ma*\ca},\ma) -- ({\cb},{\mb*\cb},\mb) -- ({-\cb},{-\mb*\cb},\mb) -- cycle;
+    }
+    % rulings: for fixed m, the line {y = m x} at height m
+    \foreach \m in {-2.0,-1.6,...,2.01}{
+      \pgfmathsetmacro{\c}{\L/sqrt(1+\m*\m)}
+      \draw[black!70, line width=0.5pt] ({-\c},{-\m*\c},\m) -- ({\c},{\m*\c},\m);
+    }
+    % boundary curves (distance L from E)
+    \draw[curve] plot[variable=\m, domain=-\M:\M, samples=60, smooth] ({\L/sqrt(1+\m*\m)},{\m*\L/sqrt(1+\m*\m)},\m);
+    \draw[curve] plot[variable=\m, domain=-\M:\M, samples=60, smooth] ({-\L/sqrt(1+\m*\m)},{-\m*\L/sqrt(1+\m*\m)},\m);
+    % E = {x=y=0}, the m-axis
+    \draw[exc] (0,0,-\M) -- (0,0,\M);
+    \draw[figE, line width=1.2pt, dotted] (0,0,\M) -- (0,0,\M+0.45);
+    \draw[figE, line width=1.2pt, dotted] (0,0,-\M) -- (0,0,-\M-0.45);
+    \node[lbl, figE, anchor=west] at (0,0,\M+0.35) {$E=\{x=y=0\}$};
+    % mark slope lines m = 0 and m = 1
+    \node[lbl, anchor=east, inner sep=1pt, xshift=-3pt] at ({\L},0,0) {$m=0$};
+    \pgfmathsetmacro{\cc}{\L/sqrt(2)}
+    \draw[black, line width=0.9pt] ({-\cc},{-\cc},1) -- ({\cc},{\cc},1);
+    \draw[black, line width=0.9pt] ({-\L},0,0) -- ({\L},0,0);
+    \node[lbl, anchor=west, inner sep=1pt, xshift=4pt, fill=white, fill opacity=0.85, text opacity=1] at ({\cc},{\cc},1) {$m=1$};
+    % small axis tripod
+    \begin{scope}[shift={(0,2.6,-\M)}]
+      \draw[axis] (0,0,0) -- (0.6,0,0) node[lbl, anchor=north, inner sep=1pt]{$x$};
+      \draw[axis] (0,0,0) -- (0,0.6,0) node[lbl, anchor=south west, inner sep=1pt]{$y$};
+      \draw[axis] (0,0,0) -- (0,0,0.6) node[lbl, anchor=south, inner sep=1pt]{$m$};
+    \end{scope}
+  \end{scope}
+  \node[align=center] at (8.6,-2.6) {\figpanel{(b) better: the chart $\{y=mx\}\subset\RR^3$}};
+\end{tikzpicture}

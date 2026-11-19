@@ -1,0 +1,50 @@
+\begin{tikzpicture}[
+    blob/.style={fill=figFaint!18, draw=figFaint!80!black, line width=0.6pt}]
+  % seven lines through p, hue chosen to avoid the red of E
+  \def\N{6}
+  % ---------- top: Bl_p P^2, fibres vertical, E horizontal ----------
+  \begin{scope}[shift={(0,4.6)}]
+    \draw[blob, rounded corners=10pt] (-3.0,-1.5) rectangle (3.0,1.5);
+    \foreach \k in {0,...,\N}{
+      \pgfmathsetmacro{\hu}{0.13+0.67*\k/\N}
+      \definecolor{lcol}{hsb}{\hu,0.85,0.75}
+      \pgfmathsetmacro{\xx}{-2.4+4.8*\k/\N}
+      \draw[lcol, line width=1.1pt] (\xx,-1.25) -- (\xx,1.25);
+      \fill[black] (\xx,0) circle (1.6pt);
+    }
+    \draw[exc] (-2.75,0) -- (2.75,0);
+    \node[lbl, figE, fill=figFaint!18, inner sep=1pt, anchor=west] at (2.78,0) {$E$};
+    \node[lbl, anchor=west, fill=figFaint!18, inner sep=1pt] at (-1.58,-0.95) {$\widetilde L$};
+    \node[lbl, anchor=south west] at (-3.0,1.55) {$\Bl_p(\PP^2)$};
+  \end{scope}
+  % ---------- bottom left: P^2 (affine chart), pencil through p ----------
+  \begin{scope}[shift={(-4.6,0)}]
+    \draw[blob, rounded corners=10pt] (-2.1,-1.6) rectangle (2.1,1.6);
+    \foreach \k in {0,...,\N}{
+      \pgfmathsetmacro{\hu}{0.13+0.67*\k/\N}
+      \definecolor{lcol}{hsb}{\hu,0.85,0.75}
+      \pgfmathsetmacro{\th}{90-180*\k/(\N+1)}
+      \draw[lcol, line width=1.1pt] ({-1.5*cos(\th)},{-1.5*sin(\th)}) -- ({1.5*cos(\th)},{1.5*sin(\th)});
+    }
+    \node[hollowpt] at (0,0) {};
+    \node[lbl, anchor=west, fill=white, inner sep=1pt] at (0.18,0) {$p$};
+    \node[lbl, anchor=south west] at (-2.1,1.65) {$\PP^2$ (affine chart)};
+    \node[lbl, anchor=north] at (0,-1.65) {lines $L$ through $p$};
+  \end{scope}
+  % ---------- bottom right: P^1 ----------
+  \begin{scope}[shift={(4.6,0)}]
+    \draw[curve] (-2.6,0) -- (2.6,0);
+    \foreach \k in {0,...,\N}{
+      \pgfmathsetmacro{\hu}{0.13+0.67*\k/\N}
+      \definecolor{lcol}{hsb}{\hu,0.85,0.75}
+      \pgfmathsetmacro{\xx}{-2.4+4.8*\k/\N}
+      \fill[lcol] (\xx,0) circle (3pt);
+    }
+    \node[lbl, anchor=south west] at (-2.6,0.25) {$\PP^1$};
+    \node[lbl, anchor=north] at (0,-0.3) {one point for each line $L$};
+  \end{scope}
+  % ---------- maps ----------
+  \draw[maparrow] (-2.2,3.0) -- node[lbl, above left]{$h$} (-3.4,1.85);
+  \draw[maparrow] (2.2,3.0) -- node[lbl, above right]{$\psi$} (3.4,0.75);
+  \draw[dashedmap] (-2.3,0) -- node[lbl, above]{$\varphi$} (1.7,0);
+\end{tikzpicture}

@@ -1,0 +1,13 @@
+\begin{tikzpicture}[scale=1.0]
+  % schematic: P^{g+1} drawn as a plane box; H a line; X a curve meeting H only at x
+  \fill[openA, draw=none] (-3.6,-2.3) rectangle (3.6,2.3);
+  \draw[figOpenA!70!black, line width=0.6pt] (-3.6,-2.3) rectangle (3.6,2.3);
+  \draw[hyp, line width=1.2pt] (-3.6,0) -- (3.6,0);
+  \node[lbl, figH, anchor=south east] at (3.55,0.03) {$H$};
+  \draw[curve, smooth, samples=100, domain=-2.75:2.75] plot ({\x},{0.1*\x*\x*\x});
+  \node[lbl, anchor=west] at (2.0,1.95) {$X$};
+  \node[pt] at (0,0) {};
+  \node[lbl, anchor=north west] at (0.15,-0.08) {$x$, mult $2g+1$};
+  \node[lbl, figOpenA!40!black, anchor=north west, align=left] at (-3.5,2.2) {$\PP^{g+1}\setminus H\cong\AA^{g+1}$};
+  \node[lbl, anchor=south east] at (3.5,-2.2) {$X\setminus x\subset\AA^{g+1}$};
+\end{tikzpicture}

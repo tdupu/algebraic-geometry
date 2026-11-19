@@ -1,0 +1,26 @@
+\begin{tikzpicture}[scale=1.15]
+  % ---------- source: chart (x,m) of Bl_0 A^2 ----------
+  \begin{scope}
+    \foreach \m/\c in {-1.2/figFaint!40!black, -0.5/figC, 0.4/figOpenB!80!black, 1.1/figH} {
+      \draw[\c, line width=0.9pt] (-1.8,\m) -- (1.8,\m);
+    }
+    \draw[exc] (0,-1.75) -- (0,1.75);
+    \node[lbl, figE, anchor=south] at (0,1.75) {$E=\pi^{-1}(0)$};
+    \node[pt, label={[lbl]below:$\tilde p=(1.4,0.4)$}] at (1.4,0.4) {};
+    \node[lbl, figH, anchor=west] at (1.8,1.1) {$m=1.1$};
+    \node[lbl, figFaint!40!black, anchor=west] at (1.8,-1.2) {$m=-1.2$};
+    \node at (0,-2.25) {\figpanel{$\Bl_0\AA^2$, chart with coordinates $(x,m)$}};
+  \end{scope}
+  \draw[maparrow] (2.75,0) -- node[lbl, above] {$\pi$} node[lbl, below] {$(x,xm)$} (3.75,0);
+  % ---------- target: A^2 with the lines y = m x ----------
+  \begin{scope}[xshift=6.0cm]
+    \foreach \m/\c in {-1.2/figFaint!40!black, -0.5/figC, 0.4/figOpenB!80!black, 1.1/figH} {
+      \pgfmathsetmacro{\xm}{min(1.8,1.75/abs(\m))}
+      \draw[\c, line width=0.9pt] ({-\xm},{-\m*\xm}) -- ({\xm},{\m*\xm});
+    }
+    \node[excpt] at (0,0) {};
+    \node[lbl, figE, anchor=north] at (0,-0.22) {$0$};
+    \node[pt, label={[lbl]below right:$p=(1.4,0.56)$}] at (1.4,0.56) {};
+    \node at (0,-2.25) {\figpanel{$\AA^2$ with the lines $y=mx$}};
+  \end{scope}
+\end{tikzpicture}

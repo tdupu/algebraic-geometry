@@ -1,0 +1,25 @@
+\begin{tikzpicture}[x=1.15cm,y=1.15cm]
+  % (a) real points of y^2 = x^2(x-1)
+  \begin{scope}
+    \draw[axis] (-1.2,0) -- (2.85,0) node[right,lbl]{$x$};
+    \draw[axis] (0,-3.05) -- (0,3.15) node[above,lbl]{$y$};
+    \draw[curve, samples=201, domain=-1.2:1.2, smooth, variable=\t]
+      plot ({\t*\t+1},{\t*(\t*\t+1)});
+    \node[pt, label={[lbl]below left:$(0,0)$}] at (0,0) {};
+    \node[pt] at (1,0) {};
+    \node[lbl, anchor=south east] at (0.93,0.05) {$(1,0)$};
+    \node[lbl, anchor=west] at (2.45,2.6) {$C$};
+    \node at (0.8,-3.65) {\figpanel{(a) real points}};
+  \end{scope}
+  % (b) schematic picture over C near the origin
+  \begin{scope}[xshift=6.3cm]
+    \draw[hyp] (-1.5,-1.5) -- (1.5,1.5) node[above right=-1pt,lbl,figH]{$y=ix$};
+    \draw[hyp] (-1.5,1.5) -- (1.5,-1.5) node[below right=-1pt,lbl,figH]{$y=-ix$};
+    \draw[curve] (-1.6,-1.15) .. controls (-0.7,-0.75) and (-0.4,-0.4) .. (0,0)
+                 .. controls (0.4,0.4) and (0.75,0.7) .. (1.2,1.6);
+    \draw[curve] (-1.6,1.15) .. controls (-0.7,0.75) and (-0.4,0.4) .. (0,0)
+                 .. controls (0.4,-0.4) and (0.75,-0.7) .. (1.2,-1.6);
+    \node[pt, label={[lbl]left:$(0,0)$}] at (0,0) {};
+    \node at (0,-3.65) {\figpanel{(b) over $\CC$, schematic}};
+  \end{scope}
+\end{tikzpicture}

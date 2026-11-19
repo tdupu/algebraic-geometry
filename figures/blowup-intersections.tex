@@ -1,0 +1,64 @@
+\begin{tikzpicture}[
+    blob/.style={fill=figFaint!18, draw=figFaint!80!black, line width=0.6pt},
+    dcurve/.style={thirdobj},
+    movedcurve/.style={figFaint!70!black, line width=0.9pt, dash pattern=on 4pt off 2pt}]
+  \def\blobpath{plot[smooth cycle, tension=0.75] coordinates {(-2.3,-1.2) (0,-1.55) (2.3,-1.25) (2.55,0.2) (2.2,1.45) (0,1.6) (-2.3,1.35) (-2.55,0)}}
+  % ======================= (a) =======================
+  % S
+  \begin{scope}[shift={(7.2,0)}]
+    \draw[blob] \blobpath;
+    \draw[curve] plot[smooth] coordinates {(-1.9,-0.9) (-0.6,-0.2) (0.6,0.3) (1.9,0.8)};
+    \draw[dcurve] plot[smooth] coordinates {(-1.5,1.0) (-0.7,0.2) (0.4,-0.6) (1.2,-1.1)};
+    \node[pt] at (-0.42,-0.12) {};
+    \node[hollowpt] (pa) at (1.4,-0.3) {};
+    \node[lbl, anchor=west] at (1.5,-0.3) {$p$};
+    \node[lbl, anchor=south] at (1.9,0.85) {$C$};
+    \node[lbl, figC!70!black, anchor=north west] at (1.2,-1.05) {$D$};
+    \node[lbl, anchor=north west] at (-2.2,1.3) {$S$};
+  \end{scope}
+  % Bl_p S
+  \begin{scope}[shift={(0,0)}]
+    \draw[blob] \blobpath;
+    \draw[curve] plot[smooth] coordinates {(-1.9,-0.9) (-0.6,-0.2) (0.6,0.3) (1.9,0.8)};
+    \draw[dcurve] plot[smooth] coordinates {(-1.5,1.0) (-0.7,0.2) (0.4,-0.6) (1.2,-1.1)};
+    \node[pt] at (-0.42,-0.12) {};
+    \draw[exc] (1.25,-0.85) .. controls (1.5,-0.45) and (1.3,0.0) .. (1.55,0.3);
+    \node[lbl, figE, anchor=west] at (1.6,-0.6) {$E$};
+    \node[lbl, anchor=south] at (1.9,0.85) {$h^*C$};
+    \node[lbl, figC!70!black, anchor=north east] at (1.15,-1.05) {$h^*D$};
+    \node[lbl, anchor=north west] at (-2.2,1.3) {$\Bl_p(S)$};
+  \end{scope}
+  \draw[maparrow] (2.85,0) -- node[above,lbl]{$h$} (4.35,0);
+  \node[anchor=west] at (-2.6,-2.05) {\figpanel{(a) $p\notin C\cup D$: \ $h^*C\cdot h^*D=C\cdot D$}};
+
+  % ======================= (b) =======================
+  \begin{scope}[yshift=-4.6cm]
+    % S
+    \begin{scope}[shift={(7.2,0)}]
+      \draw[blob] \blobpath;
+      \draw[dcurve] plot[smooth] coordinates {(-1.9,-1.0) (-0.8,-0.35) (0,0) (0.9,0.25) (2.0,0.4)};
+      \draw[movedcurve] plot[smooth] coordinates {(-1.9,-0.2) (-0.8,0.55) (0.2,0.95) (1.6,1.15)};
+      \draw[vec] (0,0) -- (0.95,0.33);
+      \node[hollowpt] at (0,0) {};
+      \node[lbl, anchor=north] at (0,-0.12) {$p$};
+      \node[lbl, figC!70!black, anchor=north] at (1.75,0.3) {$D$};
+      \node[lbl, figFaint!50!black, anchor=south] at (1.25,1.12) {$D'\sim D$};
+      \node[lbl, figVec, anchor=south] at (0.55,0.3) {$v$};
+      \node[lbl, anchor=north west] at (-2.2,1.3) {$S$};
+    \end{scope}
+    % Bl_p S
+    \begin{scope}[shift={(0,0)}]
+      \draw[blob] \blobpath;
+      \draw[exc] (0.3,-1.15) .. controls (-0.1,-0.5) and (0.25,0.2) .. (-0.05,0.6);
+      \draw[dcurve] plot[smooth] coordinates {(-1.9,-1.0) (-0.8,-0.45) (0.07,-0.15) (0.9,0.1) (2.0,0.35)};
+      \draw[movedcurve] plot[smooth] coordinates {(-1.9,-0.2) (-0.8,0.55) (0.2,0.95) (1.6,1.15)};
+      \node[excpt] at (0.07,-0.15) {};
+      \node[lbl, figE, anchor=west] at (0.3,-1.0) {$E$};
+      \node[lbl, figC!70!black, anchor=north] at (1.75,0.25) {$\widetilde D$};
+      \node[lbl, figFaint!50!black, anchor=south] at (1.25,1.12) {$h^*D'$};
+      \node[lbl, anchor=north west] at (-2.2,1.3) {$\Bl_p(S)$};
+    \end{scope}
+    \draw[maparrow] (2.85,0) -- node[above,lbl]{$h$} (4.35,0);
+    \node[anchor=west] at (-2.6,-2.05) {\figpanel{(b) $p\in D$: \ $h^*D=\widetilde D+E$, \ $\widetilde D\cdot E=1$, \ $E\cdot h^*D'=0$}};
+  \end{scope}
+\end{tikzpicture}

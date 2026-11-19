@@ -1,0 +1,51 @@
+\begin{tikzpicture}[scale=1.15]
+  \def\R{1.3}
+  \tikzset{bandA/.style={draw=figOpenA, line width=7pt, draw opacity=0.5, line cap=butt},
+           bandB/.style={draw=figOpenB, line width=7pt, draw opacity=0.5, line cap=butt},
+           fibre/.style={figFaint!80!black, line width=0.5pt, dash pattern=on 1.5pt off 1.5pt}}
+  % ================= (a) dg/dy = 2y != 0, project to x =================
+  \begin{scope}
+    \draw[bandA] (8:\R) arc[start angle=8, end angle=172, radius=\R];
+    \draw[bandA] (188:\R) arc[start angle=188, end angle=352, radius=\R];
+    \draw[curve] (0,0) circle (\R);
+    % a fibre of the projection: two points over x = 0.55
+    \pgfmathsetmacro{\xa}{0.55}\pgfmathsetmacro{\ya}{sqrt(\R*\R-\xa*\xa)}
+    \draw[fibre] (\xa,\ya) -- (\xa,-2.3);
+    \node[pt] at (\xa,\ya) {}; \node[pt] at (\xa,-\ya) {};
+    \node[hollowpt] at (\R,0) {}; \node[hollowpt] at (-\R,0) {};
+    \node[lbl, anchor=west] at (\R+0.1,0) {$(1,0)$};
+    \node[lbl, anchor=east] at (-\R-0.1,0) {$(-1,0)$};
+    % target: the x-axis, image is the open interval (-1,1)
+    \draw[axis] (-1.9,-2.3) -- (1.9,-2.3) node[lbl, anchor=west] {$x$};
+    \draw[draw=figOpenA!70!black, line width=2pt] (-\R,-2.3) -- (\R,-2.3);
+    \node[hollowpt] at (\R,-2.3) {}; \node[hollowpt] at (-\R,-2.3) {};
+    \node[pt] at (\xa,-2.3) {};
+    \node[lbl, anchor=north] at (-\R,-2.38) {$-1$};
+    \node[lbl, anchor=north] at (\R,-2.38) {$1$};
+    \draw[maparrow] (-1.75,-1.05) -- node[lbl, left] {$x$} (-1.75,-2.05);
+    \node[lbl, align=center, anchor=north] at (0,-2.85) {open $\partial g/\partial y=2y\neq0$\\ maps $2{:}1$ onto $-1<x<1$};
+    \node[panellabel] at (0,2.4) {(a) project to the $x$-axis};
+  \end{scope}
+  % ================= (b) dg/dx = 2x != 0, project to y =================
+  \begin{scope}[xshift=7.2cm]
+    \draw[bandB] (-82:\R) arc[start angle=-82, end angle=82, radius=\R];
+    \draw[bandB] (98:\R) arc[start angle=98, end angle=262, radius=\R];
+    \draw[curve] (0,0) circle (\R);
+    \pgfmathsetmacro{\yb}{0.55}\pgfmathsetmacro{\xb}{sqrt(\R*\R-\yb*\yb)}
+    \draw[fibre] (\xb,\yb) -- (-2.3,\yb);
+    \node[pt] at (\xb,\yb) {}; \node[pt] at (-\xb,\yb) {};
+    \node[hollowpt] at (0,\R) {}; \node[hollowpt] at (0,-\R) {};
+    \node[lbl, anchor=south] at (0,\R+0.1) {$(0,1)$};
+    \node[lbl, anchor=north] at (0,-\R-0.1) {$(0,-1)$};
+    % target: the y-axis
+    \draw[axis] (-2.3,-1.9) -- (-2.3,1.9) node[lbl, anchor=east] {$y$};
+    \draw[draw=figOpenB!80!black, line width=2pt] (-2.3,-\R) -- (-2.3,\R);
+    \node[hollowpt] at (-2.3,\R) {}; \node[hollowpt] at (-2.3,-\R) {};
+    \node[pt] at (-2.3,\yb) {};
+    \node[lbl, anchor=east] at (-2.38,\R) {$1$};
+    \node[lbl, anchor=east] at (-2.38,-\R) {$-1$};
+    \draw[maparrow] (-1.05,-1.75) -- node[lbl, below] {$y$} (-2.05,-1.75);
+    \node[lbl, align=center, anchor=north] at (-0.5,-2.85) {open $\partial g/\partial x=2x\neq0$\\ maps $2{:}1$ onto $-1<y<1$};
+    \node[panellabel] at (-0.5,2.4) {(b) project to the $y$-axis};
+  \end{scope}
+\end{tikzpicture}

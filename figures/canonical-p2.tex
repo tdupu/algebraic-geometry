@@ -1,0 +1,30 @@
+\begin{tikzpicture}[openC/.style={fill=figC, fill opacity=0.25},
+    gone/.style={figFaint!60!black, line width=0.8pt, dash pattern=on 1pt off 2pt}]
+  % vertices e_0=[1:0:0] (bottom left), e_1=[0:1:0] (bottom right), e_2=[0:0:1] (top);
+  % the side {X_i = 0} is the side opposite e_i; H = {X_2=0} is the bottom side.
+  \foreach \sh/\miss/\name/\fillsty/\pnl in {0/2/U_2/openA/(a), 5.0/1/U_1/openB/(b), 10.0/0/U_0/openC/(c)}{
+  \begin{scope}[xshift=\sh cm]
+    \coordinate (P0) at (0,0); \coordinate (P1) at (3.6,0); \coordinate (P2) at (1.8,2.9);
+    \fill[\fillsty, draw=none] (P0) -- (P1) -- (P2) -- cycle;
+    \ifnum\miss=0 \draw[gone] (P1) -- (P2); \else \draw[curve, line width=0.7pt] (P1) -- (P2); \fi
+    \ifnum\miss=1 \draw[gone] (P0) -- (P2); \else \draw[curve, line width=0.7pt] (P0) -- (P2); \fi
+    \ifnum\miss=2 \draw[gone] (P0) -- (P1); \else \draw[hyp, line width=1.4pt] (P0) -- (P1); \fi
+    \node[pt] at (P0) {}; \node[pt] at (P1) {}; \node[pt] at (P2) {};
+    \node[lbl, anchor=north] at ($(P0)+(0,-0.08)$) {$[1{:}0{:}0]$};
+    \node[lbl, anchor=north] at ($(P1)+(0,-0.08)$) {$[0{:}1{:}0]$};
+    \node[lbl, anchor=south] at (P2) {$[0{:}0{:}1]$};
+    \node[lbl] at (1.8,-1.5) {\figpanel{\pnl} chart $\name=\{X_{\miss}\neq0\}$};
+  \end{scope}}
+  % (a)
+  \node[lbl, anchor=north, figFaint!40!black] at (1.8,-0.55) {$H\cap U_2=\varnothing$};
+  \node[lbl] at (1.8,-2.2) {$\eta=dx_{0/2}\wedge dx_{1/2}$};
+  \node[lbl] at (1.8,-2.8) {no zeros or poles};
+  % (b)
+  \node[lbl, anchor=north, figH] at (6.8,-0.55) {$H=\{x_{2/1}=0\}$};
+  \node[lbl] at (6.8,-2.2) {$\eta=-x_{2/1}^{-3}\,dx_{0/1}\wedge dx_{2/1}$};
+  \node[lbl] at (6.8,-2.8) {pole of order $3$ along $H$};
+  % (c)
+  \node[lbl, anchor=north, figH] at (11.8,-0.55) {$H=\{x_{2/0}=0\}$};
+  \node[lbl] at (11.8,-2.2) {$\eta=-x_{2/0}^{-3}\,dx_{2/0}\wedge dx_{1/0}$};
+  \node[lbl] at (11.8,-2.8) {pole of order $3$ along $H$};
+\end{tikzpicture}

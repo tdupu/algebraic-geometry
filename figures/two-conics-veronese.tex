@@ -1,0 +1,40 @@
+\begin{tikzpicture}
+  % ================= (a) two conics in P^2 =================
+  \begin{scope}[scale=1.15]
+    \draw[axis] (-2.3,0) -- (2.3,0);
+    \draw[axis] (0,-2.3) -- (0,2.3);
+    \draw[curve] (0,0) ellipse (2 and 1);          % Q_1: x^2+4y^2=4
+    \draw[thirdobj] (0,0) ellipse (1 and 2);       % Q_2: 4x^2+y^2=4
+    \foreach \sx in {1,-1}{ \foreach \sy in {1,-1}{ \node[pt] at ({\sx*0.8944},{\sy*0.8944}) {}; } }
+    \node[lbl] at (2.05,-0.75) {$Q_1$};
+    \node[lbl, figC] at (0.62,-2.0) {$Q_2$};
+    \node[lbl] at (-1.9,2.05) {$\PP^2$};
+    \node[align=center] at (0,-2.85) {\figpanel{(a) two conics in $\PP^2$}\\[-1pt]{\small $Q_1\cap Q_2$: $4$ points}};
+  \end{scope}
+  \draw[maparrow] (2.95,0.2) -- node[lbl, above] {$v_2$} (4.0,0.2);
+  % ================= (b) schematic v_2(P^2) in P^5 =================
+  % sheet z = 0.4 cos(pi x); the line y=z=0 passes under the sheet where cos(pi x)>0 (dashed there)
+  \begin{scope}[xshift=6.9cm, yshift=-0.2cm, x={(1.0cm,0cm)}, y={(0.62cm,0.6cm)}, z={(0cm,0.9cm)}]
+    \draw[figH, line width=1.3pt] (-2.3,0,0) -- (-1.5,0,0);
+    \draw[figH, line width=1.3pt] (-0.5,0,0) -- (0.5,0,0);
+    \draw[figH, line width=1.3pt] (1.5,0,0) -- (2.3,0,0);
+    \fill[figFaint!40, fill opacity=0.85]
+      plot[domain=-1.8:1.8, samples=61, smooth, variable=\u] ({\u},-1,{0.4*cos(180*\u)})
+      -- plot[domain=1.8:-1.8, samples=61, smooth, variable=\u] ({\u},1,{0.4*cos(180*\u)}) -- cycle;
+    \foreach \v in {-0.5,0,0.5}{
+      \draw[faintcurve] plot[domain=-1.8:1.8, samples=61, smooth, variable=\u] ({\u},{\v},{0.4*cos(180*\u)});
+    }
+    \foreach \u in {-1,0,1}{ \draw[faintcurve] ({\u},-1,{0.4*cos(180*\u)}) -- ({\u},1,{0.4*cos(180*\u)}); }
+    \draw[curve, line width=0.8pt] plot[domain=-1.8:1.8, samples=61, smooth, variable=\u] ({\u},-1,{0.4*cos(180*\u)})
+      -- ({1.8},1,{0.4*cos(324)})
+      -- plot[domain=1.8:-1.8, samples=61, smooth, variable=\u] ({\u},1,{0.4*cos(180*\u)}) -- cycle;
+    % parts of the line under the sheet: dashed on top of the fill
+    \draw[figH, line width=1.0pt, dash pattern=on 3pt off 2pt] (-2.3,0,0) -- (2.3,0,0);
+    \draw[figH, line width=1.3pt] (-1.5,0,0) -- (-0.5,0,0);
+    \draw[figH, line width=1.3pt] (0.5,0,0) -- (1.5,0,0);
+    \foreach \u in {-1.5,-0.5,0.5,1.5}{ \node[pt] at (\u,0,0) {}; }
+    \node[lbl, figH, anchor=west] at (2.3,0,0) {$H_1\cap H_2$};
+    \node[lbl, anchor=north] at (0,-1,-0.45) {$v_2(\PP^2)$};
+  \end{scope}
+  \node[align=center] at (7.4,-2.85*1.15) {\figpanel{(b) $v_2(\PP^2)\subset\PP^5$}\\[-1pt]{\small schematic: codimension $3$ is not drawable}};
+\end{tikzpicture}

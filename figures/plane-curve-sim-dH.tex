@@ -1,0 +1,23 @@
+\begin{tikzpicture}[scale=0.85]
+  % affine chart {X_0 != 0} of P^2_R, x = X_1/X_0, y = X_2/X_0
+  \draw[axis] (-2.9,0) -- (3.6,0) node[right,lbl,black] {$x$};
+  \draw[axis] (0,-3.3) -- (0,3.4) node[above,lbl,black] {$y$};
+  % H = {X_2 = 0} = {y = 0}
+  \draw[hyp] (-2.9,0) -- (3.5,0);
+  \node[lbl, figH, anchor=south] at (3.05,0.05) {$H$};
+  % V_+(G): y^2 = x^3 - 4x  (oval and unbounded branch), exact parametrizations
+  \draw[curve, smooth, samples=120, domain=-90:90]
+    plot ({-2*sin(\x)^2},{2*sqrt(2)*sin(\x)*cos(\x)*sqrt(1+sin(\x)^2)});
+  \draw[curve, smooth, samples=120, domain=-0.85:0.85]
+    plot ({2+\x*\x},{\x*sqrt((2+\x*\x)*(4+\x*\x))});
+  \node[lbl, anchor=west] at (2.75,2.75) {$V_+(G)$};
+  % general line L: y = -0.7x + 0.6
+  \draw[hyp, dash pattern=on 1pt off 2pt, line width=1pt] (-2.6,2.42) -- (3.3,-1.71);
+  \node[lbl, figH, anchor=north east] at (-2.25,2.15) {$L$};
+  % H . V_+(G): x = -2, 0, 2
+  \foreach \a in {-2,0,2} \node[hpt] at (\a,0) {};
+  % L . V_+(G)
+  \node[pt] at (-1.480,1.636) {};
+  \node[pt] at (-0.117,0.682) {};
+  \node[pt] at (2.087,-0.861) {};
+\end{tikzpicture}

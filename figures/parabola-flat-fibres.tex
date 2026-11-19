@@ -1,0 +1,26 @@
+\begin{tikzpicture}[scale=1.0]
+  % the parabola x = y^2
+  \draw[axis] (-3.2,0) -- (4.6,0) node[right,lbl,black] {$x$};
+  \draw[axis] (0,-2.3) -- (0,2.4) node[above,lbl,black] {$y$};
+  \draw[curve] plot[domain=-2.0:2.0,samples=81,smooth,variable=\t] ({\t*\t},{\t});
+  \node[lbl] at (1.2,1.95) {$X:\ x=y^2$};
+  % fibre over a = 2.5 > 0
+  \draw[faintcurve,dashed] (2.5,1.95) -- (2.5,-4.0);
+  \node[pt] at (2.5,{sqrt(2.5)}) {};
+  \node[pt] at (2.5,{-sqrt(2.5)}) {};
+  \node[lbl,right=2pt] at (2.5,-0.3) {$2$ points};
+  % fibre over 0
+  \node[pt] at (0,0) {};
+  \node[lbl,above left=1pt] at (0,0) {length $2$};
+  % fibre over b = -2 < 0
+  \draw[faintcurve,dashed] (-2,1.95) -- (-2,-4.0);
+  \node[lbl,align=right,left=2pt] at (-2,1.05) {no real\\points};
+  % the target line
+  \begin{scope}[yshift=-4.3cm]
+    \draw[curve] (-3.2,0) -- (4.6,0) node[right,lbl] {$\AA^1$};
+    \node[pt] at (2.5,0) {}; \node[lbl,below=2pt] at (2.5,0) {$a>0$};
+    \node[pt] at (0,0) {};   \node[lbl,below=2pt] at (0,0) {$0$};
+    \node[pt] at (-2,0) {};  \node[lbl,below=2pt] at (-2,0) {$b<0$};
+  \end{scope}
+  \draw[maparrow] (4.1,-2.2) -- node[right,lbl] {$f$, $(x,y)\mapsto x$} (4.1,-4.0);
+\end{tikzpicture}

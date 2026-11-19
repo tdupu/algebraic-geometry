@@ -1,0 +1,35 @@
+\begin{tikzpicture}[scale=1.3,
+  declare function={Q(\x)=-(\x+4.2)*(\x+3.4)*(\x+2.7)*(\x+1.1)*(\x-1.1)*(\x-2.7)*(\x-3.4)*(\x-4.2)/700;}]
+  % axes of the (x,y)-plane
+  \draw[axis] (-4.9,0) -- (4.9,0) node[right,lbl,black] {$x$};
+  \draw[axis] (0,-1.55) -- (0,1.6) node[above,lbl,black] {$y$};
+  % four ovals, one over each interval where Q>0
+  \foreach \a/\b in {-4.2/-3.4,-2.7/-1.1,1.1/2.7,3.4/4.2}{
+    \pgfmathsetmacro{\m}{(\a+\b)/2}\pgfmathsetmacro{\h}{(\b-\a)/2}
+    \draw[curve] plot[domain=0:180,samples=120,smooth,variable=\t]
+        ({\m+\h*cos(\t)},{sqrt(abs(Q(\m+\h*cos(\t))))})
+      -- plot[domain=180:360,samples=120,smooth,variable=\t]
+        ({\m+\h*cos(\t)},{-sqrt(abs(Q(\m+\h*cos(\t))))}) -- cycle;
+  }
+  % Weierstrass points (y=0) on the curve
+  \foreach \r in {-4.2,-3.4,-2.7,-1.1,1.1,2.7,3.4,4.2} \node[pt] at (\r,0) {};
+  % a sample fibre of the projection
+  \pgfmathsetmacro{\yo}{sqrt(abs(Q(-1.9)))}
+  \draw[faintcurve,dashed] (-1.9,1.45) -- (-1.9,-3.0);
+  \node[pt] (P) at (-1.9,\yo) {};
+  \node[pt] (iP) at (-1.9,-\yo) {};
+  \node[lbl,above left=1pt] at (P) {$z$};
+  \node[lbl,below left=1pt] at (iP) {$\iota(z)$};
+  \node[lbl] at (2.6,1.45) {$C:\ y^2=Q(x)$};
+  % the target line
+  \begin{scope}[yshift=-3cm]
+    \draw[faintcurve,line width=0.8pt] (-4.9,0) -- (4.9,0) node[right,lbl,black] {$\PP^1$};
+    \foreach \a/\b in {-4.2/-3.4,-2.7/-1.1,1.1/2.7,3.4/4.2} \draw[curve] (\a,0) -- (\b,0);
+    \foreach \r/\i in {-4.2/1,-3.4/2,-2.7/3,-1.1/4,1.1/5,2.7/6,3.4/7,4.2/8}{
+      \node[pt] at (\r,0) {};
+      \node[lbl,below=2pt] at (\r,0) {$r_{\i}$};}
+    \node[hollowpt] at (-1.9,0) {};
+    \node[lbl,above left=0pt] at (-1.9,0) {$x_0$};
+  \end{scope}
+  \draw[maparrow] (4.6,-1.0) -- node[right,lbl] {$\pi$, $2:1$} (4.6,-2.75);
+\end{tikzpicture}

@@ -1,0 +1,45 @@
+\begin{tikzpicture}
+  % ===== bottom: C = {y^2 = x^2(x+1)} in A^2, parametrized by t: (t^2-1, t(t^2-1)) =====
+  \begin{scope}[shift={(0,-0.6)}, scale=1.7]
+    \draw[axis] (-1.35,0) -- (0.95,0) node[right,lbl]{$x$};
+    \draw[axis] (0,-0.95) -- (0,0.95) node[above,lbl]{$y$};
+    \draw[hyp] (-0.75,-0.75) -- (0.75,0.75);
+    \draw[hyp] (-0.75,0.75) -- (0.75,-0.75);
+    \node[lbl, figH, anchor=west] at (0.75,0.75) {$y=x$};
+    \node[lbl, figH, anchor=west] at (0.75,-0.75) {$y=-x$};
+    \draw[curve] plot[variable=\t, domain=-1.25:1.25, samples=120, smooth] ({\t*\t-1},{\t*(\t*\t-1)});
+    \node[pt] at (0,0) {};
+    \node[lbl, anchor=east] at (-1.05,0.25) {$C$};
+    \node[lbl] at (-0.35,-1.12) {$C\subset\AA^2$, node at $(0,0)$};
+  \end{scope}
+
+  % ===== top right (b): the chart (x,m) of Bl_0 A^2; strict transform m^2 = x+1 =====
+  \begin{scope}[shift={(4.3,5.0)}, scale=1.25]
+    \draw[axis] (-1.35,0) -- (0.95,0) node[right,lbl]{$x$};
+    \draw[exc] (0,-1.55) -- (0,1.55);
+    \node[lbl, figE, anchor=south] at (0,1.55) {$E=\{x=0\}$};
+    \draw[curve] plot[variable=\t, domain=-1.25:1.25, samples=80, smooth] ({\t*\t-1},{\t});
+    \node[excpt] at (0,1) {};
+    \node[excpt] at (0,-1) {};
+    \node[lbl, anchor=west] at (0.1,0.8) {$m=1$};
+    \node[lbl, anchor=west] at (0.1,-0.8) {$m=-1$};
+    \node[lbl, anchor=east] at (-1.02,0.35) {$\widetilde C$};
+    \node[anchor=north, align=center] at (-0.2,-1.65) {\figpanel{(b) chart $\{y=mx\}$ of $\Bl_{(0,0)}(\AA^2)$,}\\ \figpanel{coordinates $(x,m)$}};
+  \end{scope}
+
+  % ===== top left (a): Bl_0 C, schematic: a smooth curve with two points over the node =====
+  \begin{scope}[shift={(-4.3,5.0)}]
+    \draw[curve] plot[smooth, tension=0.8] coordinates {(-1.2,-1.6) (-0.4,-0.9) (0.1,0) (-0.4,0.9) (-1.2,1.6)};
+    \node[pt] at (0.08,0.5) {};
+    \node[pt] at (0.08,-0.5) {};
+    \node[lbl, anchor=west] at (0.2,0.55) {$q_+$};
+    \node[lbl, anchor=west] at (0.2,-0.55) {$q_-$};
+    \node[lbl, anchor=east] at (-0.95,0.2) {$\Bl_{(0,0)}(C)$};
+    \node[align=center, anchor=north] at (-0.4,-1.75) {\figpanel{(a) $g^{-1}(0,0)=\{q_+,q_-\}$}\\ \figpanel{(schematic)}};
+  \end{scope}
+
+  % ===== maps =====
+  \draw[maparrow] (-3.0,1.8) -- node[lbl, above right, pos=0.4]{$g$} (-1.9,0.6);
+  \draw[maparrow] (3.4,1.8) -- node[lbl, right, pos=0.45]{$h\colon(x,m)\mapsto(x,mx)$} (2.5,0.6);
+  \draw[maparrow, {Hooks[right]}-{Stealth[length=2.2mm]}] (-2.9,5.0) -- node[lbl, above]{$\cong$ onto $\widetilde C$} (2.4,5.0);
+\end{tikzpicture}

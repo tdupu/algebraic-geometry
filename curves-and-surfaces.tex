@@ -3,6 +3,39 @@
 \usepackage{fullpage}
 \usepackage{tikz}
 \usetikzlibrary{calc}
+% ---- Shared figure style block (curves-and-surfaces figures) ----
+\usepackage{float}
+\usetikzlibrary{arrows.meta,3d,decorations.pathreplacing,decorations.markings,patterns,intersections,positioning,shapes.geometric}
+% Palette: one colour per concept
+\definecolor{figE}{RGB}{200,30,30}      % exceptional divisors E, E_i
+\definecolor{figH}{RGB}{30,90,200}      % hyperplanes, cutting lines, sections
+\definecolor{figOpenA}{RGB}{120,190,120} % open set / chart (first)
+\definecolor{figOpenB}{RGB}{240,170,80}  % open set / chart (second)
+\definecolor{figVec}{RGB}{130,40,170}   % tangent / normal vectors
+\definecolor{figC}{RGB}{20,140,90}      % a third named object when needed (e.g. conics Q_i)
+\definecolor{figFaint}{RGB}{170,170,170}% background / faint context
+\tikzset{
+  curve/.style={black, line width=1.1pt},
+  faintcurve/.style={figFaint, line width=0.6pt},
+  exc/.style={figE, line width=1.4pt},
+  hyp/.style={figH, line width=0.9pt, dash pattern=on 5pt off 2.5pt},
+  thirdobj/.style={figC, line width=1.1pt, dash pattern=on 1.5pt off 1.5pt},
+  openA/.style={fill=figOpenA, fill opacity=0.35, draw=figOpenA!70!black},
+  openB/.style={fill=figOpenB, fill opacity=0.35, draw=figOpenB!70!black},
+  vec/.style={figVec, line width=1pt, -{Stealth[length=2.2mm]}},
+  maparrow/.style={black, line width=0.7pt, -{Stealth[length=2.2mm]}},
+  dashedmap/.style={maparrow, dashed},
+  axis/.style={figFaint!70!black, line width=0.4pt, -{Stealth[length=1.6mm]}},
+  pt/.style={circle, fill=black, inner sep=0pt, minimum size=4.2pt},
+  hollowpt/.style={circle, draw=black, fill=white, inner sep=0pt, minimum size=4.6pt},
+  excpt/.style={circle, fill=figE, inner sep=0pt, minimum size=4.6pt},
+  hpt/.style={circle, fill=figH, inner sep=0pt, minimum size=4.2pt},
+  panellabel/.style={font=\small\bfseries},
+  lbl/.style={font=\small},
+}
+% Use \figpanel{(a)} for panel captions under subpictures.
+\newcommand{\figpanel}[1]{\textsf{\small #1}}
+% ---- end style block ----
 \usepackage{enumitem}
 \usepackage{hyperref}
 \usepackage{xypic}
@@ -194,6 +227,13 @@ Essentially a scheme is a collection of rings glued together.
 \footnote{The data of a scheme $X$ is rigorously defined as a tuple $(\vert X \vert, \Ocal_X)$ topological space $\vert X\vert$ together with a sheaf of rings $\Ocal_X$ on the topological space $\vert X \vert$.}
 We assume some familiarity with this, but for those not familiar we run through some basic examples.
 
+\begin{figure}[H]
+\centering
+\input{figures/p1-two-charts}
+\caption{The projective line $\PP^1_{\QQ}$ is two affine lines glued along $U\cap V$ (the two Examples presenting $\PP^1_{\QQ}=U\cup V$ and $\PP^1_K=\Proj K[X_0,X_1]$). Here $x=X_0/X_1$ and $y=X_1/X_0$, so $0=[0{:}1]$ and $\infty=[1{:}0]$. The black circle stands for $\PP^1$, with $0$ at the bottom and $\infty$ at the top. The green outer band is the chart $U=\{X_1\neq0\}=\Spec\QQ[x]$; its gap is the one missing point $\infty$. The orange inner band is the chart $V=\{X_0\neq0\}=\Spec\QQ[y]$; its gap is the one missing point $0$. Where both bands run, $U\cap V=\Spec\QQ[x,x^{-1}]$ and the coordinates are related by $y=1/x$. Schematic: the circle is the real picture $\PP^1(\RR)$, not the scheme.}\label{fig:p1-two-charts}
+\end{figure}
+See Figure~\ref{fig:p1-two-charts}.
+
 \begin{example}
 	The projective line over $\QQ$ is the scheme
 	$\PP^1_{\QQ}=U \cup V$ where $U = \Spec \QQ[x]$ and $V = \Spec \QQ[y]$ and at the intersection we have 
@@ -232,6 +272,13 @@ It turns out that for any homogeneous element $G$ in $S_+$ the principal localiz
 		\item If $G = X_0^2+X_1^2$ compute $\Ocal_{\PP^2}(D_+(G))$.
 	\end{enumerate}
 \end{exercise}
+
+\begin{figure}[H]
+\centering
+\input{figures/weierstrass-charts}
+\caption{The curve $E\colon ZY^2=X^3+aXZ^2+bZ^3$ in $\PP^2$ is covered by the two charts $U'=E\cap\{Z\neq0\}$ and $V'=E\cap\{Y\neq0\}$ (Example defining $E$, and the Exercise that follows it). Panel~(a) draws the real points of $U'$, in the coordinates $x=X/Z$, $y=Y/Z$, for two choices of $(a,b)$: for $(a,b)=(-1,0)$ the real locus has two components, and for $(a,b)=(0,1)$ it has one. Panel~(b) draws the real points of $V'\colon v=u^3+auv^2+bv^3$, in the coordinates $u=X/Y$, $v=Z/Y$, near $O=[0{:}1{:}0]=(0,0)$, for $(a,b)=(-1,0)$; only the branch through $O$ lies in the window shown. The dashed blue line is the line at infinity $Z=0$, which is $v=0$ in this chart. Setting $Z=0$ in the equation leaves $X^3=0$, so this line meets $E$ only at $O$, with multiplicity $3$, and the curve crosses its tangent line there (a flex). So $O$ is the only point of $E$ outside $U'$, and $3O$ is the hyperplane section $Z=0$. Real points only, $a,b\in\RR$; the scale of panel~(b) is enlarged.}\label{fig:weierstrass-charts}
+\end{figure}
+Figure~\ref{fig:weierstrass-charts} shows the two charts $U'$ and $V'$.
 
 The following example is an ``elliptic curve''. 
 It turns out that the $K$-points of this scheme will have the structure of a group.
@@ -390,6 +437,13 @@ Finally, the last way to think about a rational section is as a global section o
 
 It is natural to ask about our elliptic curve $E/K$.
 We will do this one next.
+\begin{figure}[H]
+\centering
+\input{figures/eta-regular}
+\caption{The differential $\eta=dx/2y$ on the elliptic curve $E\colon y^2=f(x)$, $f(x)=x^3+ax+b$, is regular everywhere, because the opens on which it has a regular formula cover $E$ (Example on the global differential of $E$). Drawn: the real points of the affine chart $U'$ for $(a,b)=(-1,0)$, that is $y^2=x^3-x$. The green band is the open $y\neq0$, where $\eta=dx/2y$. The orange discs are small neighbourhoods of the three points $(-1,0)$, $(0,0)$, $(1,0)$ where $y=0$; there $f'(x)\neq0$ and $\eta=dy/f'(x)$. The arrows mark where both ends of the unbounded branch go to the one remaining point $O=[0{:}1{:}0]$, which lies in the chart $V'$ with coordinates $(u,v)$, where $\eta=-du/(1-2auv-3bv^2)$. The text works over $\CC$; this is the real picture, and the neighbourhood sizes are not to scale.}\label{fig:eta-regular}
+\end{figure}
+Figure~\ref{fig:eta-regular} shows the opens that cover $E$.
+
 \begin{example}
 	Consider the elliptic curve over $\CC$ with affine model
 	 $$ y^2 = f(x), $$
@@ -439,9 +493,12 @@ How did I know that a section was not a rational section, and well-defined?
 In other words, how did we know what the local trivializations were. 
 The answer lies in ``\'etale coordinates''; this trick lets me determine what the trivializations are and hence what the regular sections look like.
 
-\taylor{
-	Draw the picture of the circle $g(x,y)=0$ and the open sets $\partial g/\partial x\neq 0$ and $\partial g/\partial y \neq 0$. Show how it looks like a covering map on these affine opens.  
-}
+\begin{figure}[H]
+\centering
+\input{figures/circle-etale-charts}
+\caption{On each of the two opens $\partial g/\partial y\neq0$ and $\partial g/\partial x\neq0$ of the circle $g=x^2+y^2-1=0$, a coordinate projection is \'etale, so $dx$ (respectively $dy$) trivializes $\Omega$ there (the note opening the section on \'etale morphisms, and the Theorem that $B\to B[x_1,\dots,x_n]/(f_1,\dots,f_n)[1/\det\vec f'(\vec x)]$ is formally \'etale). Both panels draw the real points of the circle. Panel~(a): the green band is the open $\partial g/\partial y=2y\neq0$, the circle minus the hollow points $(\pm1,0)$ where the tangent is vertical; projecting to the $x$-axis maps it two-to-one onto the open interval $-1<x<1$ (green), as the dotted fibre with its two points shows, and is a local homeomorphism there. Panel~(b): the same for the open (orange band and interval) $\partial g/\partial x=2x\neq0$, the circle minus $(0,\pm1)$, projecting to the $y$-axis. The two opens cover the circle. Real points only.}\label{fig:circle-etale-charts}
+\end{figure}
+Figure~\ref{fig:circle-etale-charts} shows the circle with the two opens.
 
 \begin{definition}
 	Let $B \to A$ be a morphism of $R$-algebras.
@@ -584,9 +641,12 @@ The picture of the sequence
  $$ 0 \to T_{X/Y} \to T_{X/S} \to f^*T_{Y/S} \to 0 $$
 is what I always remember. 
 This dual sequence is called the relative tangent sequence (and it is exact when $f:X\to Y$ is a smooth morphism of $S$-schemes).
-\taylor{
-Draw the picture of the tangent bundles and how $T_{X/S}$ is made up of two directions with $T_{X/Y}$ being the vertical direction and $f^*T_{Y/S}$ being the horizontal direction.
-}
+\begin{figure}[H]
+\centering
+\input{figures/relative-tangent}
+\caption{The relative tangent sequence $0\to T_{X/Y}\to T_{X/S}\to f^*T_{Y/S}\to0$ for a smooth morphism $f\colon X\to Y$ of $S$-schemes (the picture described after the Relative Cotangent Sequence), drawn for a surface $X$ fibred over a curve $Y$, with $S$ a point. The faint curves are fibres of $f$; the fibre through the point $x$ is drawn darker. The solid purple arrow at $x$ points along the fibre: it spans $T_{X/Y}$ at $x$, the kernel of $T_{X/S}\to f^*T_{Y/S}$. The solid purple arrow at $f(x)$ is a tangent vector of $Y$, an element of $T_{Y/S}$ at $f(x)$, which is the fibre of $f^*T_{Y/S}$ at $x$. The two dashed arrows at $x$ both map to it; they differ by a vertical vector, so the vertical directions form a sub-bundle while the horizontal directions are only a quotient, with no canonical lift. Schematic, not to scale.}\label{fig:relative-tangent}
+\end{figure}
+Figure~\ref{fig:relative-tangent} shows the vertical and horizontal directions.
 
 \section{Dimension}
 This section is a crash course in dimension theory. 
@@ -597,7 +657,12 @@ Let $X$ be a topological space (here we are thinking of the weird underlying top
 
 Second, recall that the dimension of a topological space $X$ is the maximal $l$ such that there exists a chain $Y_0 \subsetneq Y_1 \subsetneq \cdots \subsetneq Y_l$ of irreducible closed subsets of $X$. 
 
-\taylor{Draw a paraboloid containing a parabola containing a point to give an example of dimension 2.}
+\begin{figure}[H]
+\centering
+\input{figures/paraboloid-chain}
+\caption{A chain of irreducible closed subsets $Y_0\subsetneq Y_1\subsetneq Y_2$ of length $2$ in the paraboloid $Y_2$, illustrating the definition of dimension and of the height of a prime. Here $Y_2$ is the paraboloid $z=x^2+y^2$ (grey, drawn transparent), $Y_1$ is the parabola $\{y=0,\ z=x^2\}$ on it (thick black), and $Y_0$ is the origin (dot). In the coordinate ring $R=k[x,y,z]/(z-x^2-y^2)$ they correspond to the primes $P_2=(0)\subsetneq P_1=(y)\subsetneq P_0=(x,y)$, with $Y_i=V(P_i)$; the vertical inclusion signs in the margin read upward for the $Y_i$ and downward for the $P_i$. Since $R\cong k[x,y]$ has Krull dimension $2$, the chain is maximal: $Y_2$ has dimension $2$, the prime $P_0$ of the point has height $2$, and $P_0$ is cut out by the $2$ equations $x=y=0$. Real points, $k=\RR$; perspective view; the faint grey ellipses are the level curves $z=0.45^2$ and $z=0.85^2$.}\label{fig:paraboloid-chain}
+\end{figure}
+Figure~\ref{fig:paraboloid-chain} shows such a chain.
 
 \begin{remark}
 	This notion applies to weird topologies like the underlying topological space of a scheme. Don't apply this to things like manifolds. 
@@ -637,7 +702,7 @@ where $\height(P)$ is the height of a prime ideal and is defined to be
  $$ \height(P) = \sup_l \lbrace l \colon \exists \quad P = P_0 \supsetneq P_1 \supsetneq P_2 \supsetneq \cdots \supsetneq P_l \rbrace. $$
 One should think of the height of a prime ideal as the number of equations needed to cut it out. 
 
-\taylor{Draw a picture of a paraboloid containing a parabola containing a point. }
+See Figure~\ref{fig:paraboloid-chain}.
 
 This is more or less true up to nilpotents due to a famous theorem of Krull. 
 \begin{theorem}
@@ -652,7 +717,12 @@ The proof I know uses these things called symbolic powers and is contained in Ei
 I guess one important thing to remember is that if $I$ is an ideal and $P$ is the unique minimal prime above it then $R/I \to R/P$ is a nilpotent thickening; that is the kernel $J$ satisfies $J^m=0$ for some $m$. 
 Also, nilpotent thickenings don't change the dimension of things. 
 
-\taylor{Draw a picture of $V(P) \subset V(f)$ as a thickening.}
+\begin{figure}[H]
+\centering
+\input{figures/nilpotent-thickening}
+\caption{A nilpotent thickening, illustrating the remark that if $P$ is the unique minimal prime over an ideal $I$ then $R/I\to R/P$ is a nilpotent thickening, so $V(P)\subset V(I)$ has the same dimension. The example drawn is $R=k[x,y]$, $f=y^2$, $I=(f)$ and $P=(y)$, so the kernel $J=(y)/(y^2)$ of $R/I\to R/P$ satisfies $J^2=0$. Panel (a) is $V(P)=\Spec k[x,y]/(y)$, the $x$-axis (black). Panel (b) is $V(f)=\Spec k[x,y]/(y^2)$: the same black line, with a grey band recording the nilpotent function $y$, which is nonzero on $V(f)$ but satisfies $y^2=0$; the purple arrows show this first-order direction normal to the line. The arrow is the closed immersion $V(P)\hookrightarrow V(f)$ induced by $R/I\to R/P$; both schemes have the same underlying space, the $x$-axis, and dimension $1$. Schematic: the band has no width in any real sense; it only marks the extra structure sheaf.}\label{fig:nilpotent-thickening}
+\end{figure}
+Figure~\ref{fig:nilpotent-thickening} shows the example $f=y^2$, $P=(y)$.
 
 In a way that is similar to the Krull dimension of a ring we have 
 \begin{theorem}
@@ -689,7 +759,14 @@ This ``regular in codimension blah'' is a measure of how singular something is b
 It is also not a property of morphisms but a property of the underlying scheme itself. 
 
 \begin{example}
-	$y^2=x^2(x-1)$ is not regular at $(0,0)$. \taylor{draw the picture}
+	$y^2=x^2(x-1)$ is not regular at $(0,0)$.
+\begin{figure}[H]
+\centering
+\input{figures/isolated-node}
+\caption{A curve that is not regular at the origin (Example: $y^2=x^2(x-1)$ is not regular at $(0,0)$). Panel (a) plots the real points of $C=V(y^2-x^2(x-1))\subset\AA^2$ exactly, from the parametrization $t\mapsto(t^2+1,\,t(t^2+1))$: an isolated point at the origin and one branch for $x\ge1$. The real picture hides the singularity. Panel (b) is a schematic picture of $C$ over $\CC$ near the origin: two branches (black) meet there, tangent to the lines $y=ix$ and $y=-ix$ (blue dashed), which are the factors of the lowest-degree part $y^2+x^2$ of the equation; complex curves are drawn as real curves. At the origin the maximal ideal $m=(x,y)$ has $\dim m/m^2=2$, while $C$ has dimension~$1$, so the local ring is not regular.}\label{fig:isolated-node}
+\end{figure}
+Figure~\ref{fig:isolated-node} shows the real points and, schematically, the two complex branches.
+
 \end{example}
 
 \begin{example}
@@ -729,7 +806,18 @@ Here the superscript $(1)$ denotes the prime ideals of height one (which corresp
 \subsection{The example $y^2=x^2(x+1)$}
 This is the main example I like to think about. 
 Consider the ring $A=k[x,y]/(y^2-x^2(x+1))$. 
-\taylor{draw the picture of the nodal cubic, with its two tangent lines at $(0,0)$.}
+\begin{figure}[H]
+\centering
+\input{figures/nodal-cubic}
+\caption{The nodal cubic, the main example of a singular point (Subsection ``The example $y^2=x^2(x+1)$''). Shown are the real points of $C=V(f)\subset\AA^2$ with $f=y^2-x^2(x+1)$, plotted exactly from the parametrization $t\mapsto(t^2-1,\,t(t^2-1))$: a loop for $-1\le x\le 0$ and a tail for $x\ge 0$, which cross at the node $(0,0)$. The blue dashed lines $y=\pm x$ are the two tangent lines at the node; they are the factors of the lowest-degree part $y^2-x^2$ of $f$. The annotations apply the formula $\dim_{\kappa(P)}(\Omega\otimes_A\kappa(P))=n-\operatorname{rk}J(P)$ with $n=2$ and $J=(-3x^2-2x,\;2y)$: at the node $J=0$, so the Zariski (co)tangent space has dimension $2$; at a smooth point $p$ (the image of $t=-1.3$) it has dimension $1$, spanned by the purple tangent vector. Real points only; axes not labelled with a scale.}\label{fig:nodal-cubic}
+\end{figure}
+Figure~\ref{fig:nodal-cubic} shows the node and its two tangent lines.
+\begin{figure}[H]
+\centering
+\input{figures/nodal-normalization}
+\caption{The normalization of the nodal cubic (Subsection ``The example $y^2=x^2(x+1)$''). The map $\nu\colon\AA^1=\Spec k[t]\to C=\Spec A$, $A=k[x,y]/(y^2-x^2(x+1))$, is given by $x=t^2-1$, $y=t(t^2-1)$, that is, by $A\to k[t]$; on $C$ minus the node its inverse is $t=y/x$, and $t^2=x+1$, so $t$ is integral over $A$ but not in $A$. The $t$-line and its image are coloured by the sign of $t$: orange solid for $t<0$, green dashed for $t>0$. The two points $t=-1$ and $t=1$ both map to the node $(0,0)$, one on each branch, so $\nu$ separates the two branches; the hollow point $t=0$ maps to $(-1,0)$. Real points only, with $k=\RR$; the cubic is plotted exactly.}\label{fig:nodal-normalization}
+\end{figure}
+Figure~\ref{fig:nodal-normalization} shows how $t=y/x$ separates the two branches at the node.
 If you let $t=y/x$ you find that $t^2=x+1$ which shows that $t$ needs to be in the integral closure and that $A$ is not integrally closed.
 
 \section{Complements to Formally \'Etale: Formally Smooth and Formally Unramified}
@@ -892,6 +980,13 @@ The \emph{divisor class group} $\Cl(X)$ is defined to be $\Div(X)/P(X)$.
 \end{definition}
 This is an extremely important invariant. We will see more of it later.
 
+\begin{figure}[H]
+\centering
+\input{figures/rational-equivalence-fibres}
+\caption{Rationally equivalent effective divisors as two fibres of one map to $\PP^1$, as in the Remark after the definition of $\Cl(X)$: if $D_1-D_2=\div(f)$ then $f\colon X\to\PP^1$ has $D_1=f^{-1}(0)$ and $D_2=f^{-1}(\infty)$, and the fibres $f^{-1}(t)$ move $D_1$ to $D_2$. In both panels the base $\PP^1$ is drawn as a segment containing $0$, $t$ and $\infty$, and blue (dashed lines, curves and dots) marks fibres $f^{-1}(t)$ over intermediate values $t$. (a)~A curve $X$ (black) with $f$ of degree $2$: the filled dots are $D_1$, the hollow dots are $D_2$ (grey dotted lines join them to $0$ and $\infty$), and every fibre is $2$ points, so $\deg D_1=\deg D_2$, matching $\deg\div(f)=\deg f^*(\underline{0}-\underline{\infty})=0$. (b)~A surface $S$ (grey), where the fibres are curves: the solid black curve is $D_1$ and the long-dashed black curve is $D_2$. This is also the picture of rational equivalence of cycles as a family over $\PP^1$. Panel~(b) is drawn with $D_1$ and $D_2$ disjoint, so the fibres are disjoint and $f$ is defined everywhere. Schematic, not real loci.}\label{fig:rational-equivalence-fibres}
+\end{figure}
+Figure~\ref{fig:rational-equivalence-fibres} shows $D_1$ and $D_2$ as fibres of one map to $\PP^1$.
+
 \begin{remark}
 	If two effective divisors are rationally equivalent then they can be seen as a deformation of each other. 
 	Write $D_1 - D_2 = \div(f)$, then there is a map $f:X \to \PP^1$ where $D_1 = f^{-1}(0)$ and $D_2 = f^{-1}(\infty)$. 
@@ -904,6 +999,13 @@ $$ \Ocal_X(D)(U) = \lbrace f \in \kappa(X) \colon \forall Z \in U^{(1)}, \ord_Z(
 Here $U^{(1)}$ denotes the codimension one points of $U$.\footnote{Every reduced irreducible subscheme corresponds to a point of $X$ --- the Zariski closure of the point is the scheme. This point is called the generic point.}
 The double parentheses in $\Ocal_X(D)(U)$ can be a bit annoying but you will get used to it.
 
+
+\begin{figure}[H]
+\centering
+\input{figures/divisor-on-p1}
+\caption{The divisor of a polynomial on $\PP^1_{\CC}$: its zeros are balanced by a pole at $\infty$ of order $\deg(f)$, as in the Example computing $\ord_{\infty}(f)=-\deg(f(x))$ for $f(x)\in\CC[x]$. The black circle is a schematic picture of $\PP^1$ (it is the real locus $\PP^1(\RR)$, with $0$ at the bottom, $1$ on the right and $\infty=[1,0]$ at the top). For $f=x(x-1)^2$, the filled dots are the zeros of $f$, at $0$ with multiplicity $1$ and at $1$ with multiplicity $2$; the hollow dot is the pole at $\infty$, of order $3=\deg(f)$, since $f=(1-y)^2/y^3$ in the coordinate $y=1/x$. So $\div(f)=\underline{0}+2\cdot\underline{1}-3\cdot\underline{\infty}$ has degree $0$. Schematic.}\label{fig:divisor-on-p1}
+\end{figure}
+Figure~\ref{fig:divisor-on-p1} shows the divisor of $f=x(x-1)^2$.
 
 \begin{example}
 	In this example we will work over $\CC$ and let $x$ be the ``standard'' coordinate on $\PP^1$ and $y$ for the coordinate for that chart at infinity. 
@@ -1003,6 +1105,13 @@ In general, given an invertible sheaf $\Lcal$ on a scheme $X$ if one takes an or
 $$ [s_0,s_1,\ldots,s_N]: X\setminus \lbrace s_0=\ldots =s_N=0 \rbrace \to \PP^N,$$
 we say much more about this in section~\ref{sec:maps-to-projective-space}.
 Before that we want to give an extended example which is awesome.
+\begin{figure}[H]
+\centering
+\input{figures/two-conics-veronese}
+\caption{Two conics meet in $4$ points, which is why the Veronese surface has degree $4$, as in Example (Veronese) with $v_2\colon\PP^2\to\PP^5$, $[X,Y,Z]\mapsto[X^2,Y^2,Z^2,XY,XZ,YZ]$ over $\CC$. Hyperplanes $H\subset\PP^5$ pull back to conics in $\PP^2$, so cutting the surface $v_2(\PP^2)$ by two general hyperplanes $H_1,H_2$ corresponds to intersecting two conics $Q_i=v_2^{-1}(H_i)$. (a)~Real points of the conics $Q_1\colon x^2+4y^2=4$ (solid black) and $Q_2\colon 4x^2+y^2=4$ (green, dotted) in the affine chart $\RR^2\subset\PP^2$, meeting in the $4$ black points $(\pm2/\sqrt5,\pm2/\sqrt5)$; two circles would show only $2$ real points, so ellipses are drawn. (b)~Schematic: the grey sheet stands for the surface $v_2(\PP^2)$ and the blue line for the linear space $H_1\cap H_2$ of codimension $2$ (dashed where it passes behind the sheet), which meets the surface in the $4$ black points. The real picture lives in $\PP^5$, where the surface has codimension $3$, and cannot be drawn. Taking $C=Q_1$ and a moved conic $C'=Q_2$, panel~(a) also illustrates $C\cdot C'=4$, so a conic has $C\cdot C=4=d^2$ for $d=2$.}\label{fig:two-conics-veronese}
+\end{figure}
+Figure~\ref{fig:two-conics-veronese} shows two conics meeting in $4$ points.
+
 \begin{example}[Veronese]
 	Let $\PP^2 = \Proj \CC[X,Y,Z]$.
 	The sheaf $\Ocal_{\PP^2}(2)$ has global sections $X^2,Y^2,Z^2,XY,XZ,YZ$ and hence determines a map $v_2: \PP^2 \to \PP^5$ which on points looks like
@@ -1031,6 +1140,13 @@ Lets get some terminology out of the way:
 		\item A divisor $D$ for which there exists some $n\geq 1$ such that $nD$ is very ample is called \emph{ample}. (example: $D=(\infty)$ on $\PP^1$).
 	\end{itemize}
 
+
+\begin{figure}[H]
+\centering
+\input{figures/hyperplane-sections-p1}
+\caption{Embeddings of $\PP^1$ by divisors of degree $d=1,2,3$, each cut by a hyperplane $H$ in $d$ points, as in the Example following ``very ample divisors correspond to hyperplane sections''. Each panel shows real points: the image of $\PP^1$ is solid black, the hyperplane $H$ is blue, and the blue dots are the points of $\PP^1\cap H$. Write $t=X_1/X_0$. (a)~$\PP^1$ embedded in $\PP^2$ as a line, drawn in an affine chart, meeting the line $H$ in $1$ point. (b)~The conic $[X_0^2{:}X_0X_1{:}X_1^2]$ in $\PP^2$, drawn in the chart $T_0\neq0$ as the parabola $(t,t^2)$, meeting the line $H\colon T_2=\tfrac12T_1+T_0$ in the $2$ points $t^2-\tfrac12t-1=0$. (c)~The twisted cubic $[X_0^3{:}X_0^2X_1{:}X_0X_1^2{:}X_1^3]$ in $\PP^3$, drawn in the chart $T_0\neq0$ as $(t,t^2,t^3)$ inside a box, meeting the plane $H\colon T_3=T_1$ (blue, shaded) in the $3$ points $t=-1,0,1$; the parts of the curve behind $H$ are grey and dashed. Each hyperplane section is a divisor of degree $d$ on $\PP^1$. Only part of each curve is drawn; not to scale.}\label{fig:hyperplane-sections-p1}
+\end{figure}
+Figure~\ref{fig:hyperplane-sections-p1} shows the line, the conic and the twisted cubic cut by hyperplanes.
 
 The following example illustrates that very ample divisors correspond to hyperplane sections in various embeddings. 
 \begin{example}
@@ -1155,7 +1271,12 @@ The simplest non-trivial example of a collection of global sections giving a map
 	$$ [X_1,\ldots,X_n] \colon \PP^n_R - \lbrace P_0 \rbrace \to \PP^{n-1}_R $$
 	is projection from the point $P_0$.
 \end{example}
-\taylor{Draw projection from a point}
+\begin{figure}[H]
+\centering
+\input{figures/projection-from-point}
+\caption{Projection from a point, the simplest map given by global sections with a base locus, as in the Example of $[X_1,\ldots,X_n]\colon\PP^n_R-\{P_0\}\to\PP^{n-1}_R$, here with $n=2$ and $R=\RR$. The picture shows real points in the affine chart $X_0\neq0$ with coordinates $x=X_1/X_0$, $y=X_2/X_0$, so $P_0=[1{:}0{:}0]$ is the origin. The target $\PP^1$ is drawn as the line $L=\{X_2=X_0\}$ (solid black), identified with $\PP^1$ by $[X_1{:}X_2]\mapsto[X_2{:}X_1{:}X_2]$; then $\pi=[X_1,X_2]$ sends a point $Q\neq P_0$ to the point where the line $\overline{P_0Q}$ meets $L$. The faint grey lines are the pencil of lines through $P_0$, and each one (minus $P_0$) is a fibre of $\pi$: the blue dashed line through $Q$ and $Q_2$ maps to the single blue point $\pi(Q)=\pi(Q_2)$, and the blue dashed line through $T$ maps to $\pi(T)$. The dotted horizontal line $X_2=0$ is parallel to $L$ and maps to the point of $L$ at infinity. The hollow dot $P_0$, where $X_1=X_2=0$, is the base locus: every line of the pencil passes through it, so $\pi$ is undefined there.}\label{fig:projection-from-point}
+\end{figure}
+Figure~\ref{fig:projection-from-point} shows projection from $P_0$.
 
 \subsection{Closed Immersions Into Projective Space}
 We prove the following characterization.
@@ -1464,6 +1585,13 @@ where $\ord_P(D)$ for $P \in X^{(1)}$ a codimension one point can be defined as 
 $0=\ord_P(f_i/f_j)=\ord_P(f_i) - \ord_P(f_j)$
 which shows the valuations are equal since $f_i/f_j\in \mathcal O(U_i\cap U_j)^{\times}$ which means it has order zero at every $P$. The kernel of this map contains divisors which are constant on $U_i$'s and which on have $f_i$ which have no zeros or poles on $U_i$.
 
+\begin{figure}[H]
+\centering
+\input{figures/cartier-local-equations}
+\caption{The data of a Cartier divisor $D=\{(f_i,U_i)\}$ (Subsection ``Cartier Divisors''): local equations $f_i\in\kappa(X)$ on the opens of a cover whose ratios are units on overlaps. The black curve is $X$, covered by two opens $U_i$ (green) and $U_j$ (orange), which overlap in the middle. On $U_i$ the divisor is given by $f_i$ and on $U_j$ by $f_j$, with $f_i/f_j\in\Ocal(U_i\cap U_j)^{\times}$. The dots $Q$, $P$, $R$ are sample codimension one points: $\ord_Q(D)=\ord_Q(f_i)$, $\ord_R(D)=\ord_R(f_j)$, and at $P$ in the overlap $\ord_P(f_i)=\ord_P(f_j)$ because $f_i/f_j$ is a unit there, so $\ord_P(D)$ is well defined. Schematic: $X$ is drawn as a curve, and only two opens are shown.}\label{fig:cartier-local-equations}
+\end{figure}
+Figure~\ref{fig:cartier-local-equations} shows two charts of a Cartier divisor.
+
 \subsection{Picard Groups are Groups}
 Next we have the group of invertible sheaves. These are just locally free $\Ocal$-modules of rank one on $X$.
 \begin{theorem}
@@ -1628,6 +1756,13 @@ The first statement follows from the following more general statement:
 	This gives the chain of prime ideals $(0) \subset (G) \subset P$ and if $(G)\neq P$ then this would contradict that $V(P)$ has codimension one. 
 \end{proof}
 
+\begin{figure}[H]
+\centering
+\input{figures/plane-curve-sim-dH}
+\caption{A plane cubic and two lines, illustrating the Almost Proof that $\Cl(\PP^n_F)\cong\ZZ$ for $n=2$, $d=3$. Take $G=X_0X_2^2-X_1^3+4X_0^2X_1$ over $F=\QQ$; in the chart $\{X_0\neq0\}$ with $x=X_1/X_0$, $y=X_2/X_0$, the curve $V_+(G)$ (solid black) is $y^2=x^3-4x$. The blue dashed line is $H=\{X_2=0\}$, which is $\{y=0\}$ in this chart, and the blue dotted line is another line $L$ (here $y=-0.7x+0.6$). Blue dots mark $V_+(G)\cap H$ and black dots mark $V_+(G)\cap L$: each line meets $V_+(G)$ in $d=3$ points, matching $\div(G/X_2^3)=V_+(G)-3H$. Real points in one affine chart; no intersection point lies at infinity.}\label{fig:plane-curve-sim-dH}
+\end{figure}
+Figure~\ref{fig:plane-curve-sim-dH} shows the case $n=2$, $d=3$.
+
 \begin{theorem}
 	$\Cl(\PP^n_F)\cong \ZZ$.
 \end{theorem}
@@ -1722,6 +1857,13 @@ The canonical sheaf is uniquely defined and ``the'' canonical divisor is only de
 We still sometimes abusively call such choices ``the'' canonical divisor.
 
 \subsection{Canonical Divisor of $\PP^n$}
+\begin{figure}[H]
+\centering
+\input{figures/canonical-p2}
+\caption{The three standard charts of $\PP^2_R$ and the rational section $\eta=dx_{0/2}\wedge dx_{1/2}$ of $\omega_{\PP^2_R}$, from the Example computing $K_{\PP^2_R}=-3H$. Each triangle is the coordinate triangle with vertices $[1{:}0{:}0]$, $[0{:}1{:}0]$, $[0{:}0{:}1]$; its side opposite the $i$-th vertex is $\{X_i=0\}$, and $x_{i/j}=X_i/X_j$. Panel (a) shades (green) the chart $U_2=\{X_2\neq0\}$, panel (b) shades (orange) $U_1=\{X_1\neq0\}$, and panel (c) shades (teal) $U_0=\{X_0\neq0\}$; in each panel the grey dotted side is the line removed from that chart. The thick blue dashed side is $H=\{X_2=0\}$. Below each panel is $\eta$ written in that chart's coordinates: on $U_2$ it has no zeros or poles, and on $U_1$ and $U_0$ it has a pole of order $3$ along $H$, so $\div(\eta)=-3H$. Schematic: the triangle only records which coordinate lines lie in which chart.}\label{fig:canonical-p2}
+\end{figure}
+Figure~\ref{fig:canonical-p2} shows the three charts and where $\eta$ has its pole.
+
 \begin{example}
 In a previous section we saw that $K_{\PP^1_F} = -2H$ where $H = \underline{\infty}$.
 We will now generalize this.
@@ -1796,7 +1938,13 @@ We also have some affine open $\Spec(A) \subset Z$ such that $z \in \Spec(A)$.
 If $P$ is the prime ideal of $A$ corresponding to $z$ then we have $\Ocal_{Z,z}\cong A_{P}$ and a natural map $A\to A_P$, and $A\to A_P \to \kappa(P)$. 
 These induce two maps:
 $$ I_z: \Spec(\Ocal_{Z,z}) \to Z, \quad i_z: \Spec(\kappa(z)) \to Z$$
-The first map $I_z$ we think of as a sort-of neighborhood of $z$ (but it isn't literally an open subscheme using the Zariski topology \taylor{Draw a picture of an open neighborhood of a point} \footnote{For readers who have heard of this, it is open in the fpqc sense. Fid\`element Plat et Quasicompact = Faithfully flat and quasicompact is a class of morphisms, like etale morphisms, that form a nice category of covers which allow us to make a Grothendieck topology.}). 
+\begin{figure}[H]
+\centering
+\input{figures/schematic-points}
+\caption{Three ``neighbourhoods'' of a closed point $z$ on an irreducible curve $Z$, for the maps $i_z:\Spec\kappa(z)\to Z$ and $I_z:\Spec\Ocal_{Z,z}\to Z$ (subsection ``More on schematic points''); here $\kappa(z)=\Ocal_{Z,z}/M_z$ and $i_z$ factors through $I_z$. Panel (a) is $\Spec\kappa(z)$, a single point. Panel (b) is $\Spec\Ocal_{Z,z}$, which for a curve has two points: the closed point $z$ (black dot) and the generic point $\eta$ (grey cloud), which is not located at any one place. Panel (c) is the curve $Z$ (black) with a Zariski open neighbourhood $U$ of $z$ (green): $U$ is $Z$ with finitely many closed points removed (hollow dots). The image of $I_z$ is $\{z,\eta\}$, which lies in every such $U$, so $\Spec\Ocal_{Z,z}$ is smaller than any Zariski open neighbourhood but is not itself Zariski open. Schematic; the curve is drawn as a real curve.}\label{fig:schematic-points}
+\end{figure}
+
+The first map $I_z$ we think of as a sort-of neighborhood of $z$ (but it isn't literally an open subscheme using the Zariski topology; see Figure~\ref{fig:schematic-points}\footnote{For readers who have heard of this, it is open in the fpqc sense. Fid\`element Plat et Quasicompact = Faithfully flat and quasicompact is a class of morphisms, like etale morphisms, that form a nice category of covers which allow us to make a Grothendieck topology.}). 
 It is just the inclusion of Spec of the local ring of $z$ into $Z$. 
 There is a unique closed point that corresponds to the topological point $z$ in $Z$ and it is the image of the unique topological point of $\Spec(\kappa(z))$ is $z$ (or equivalently the image of the unique closed point of $\Spec(\Ocal_{Z,z})$). 
 Also, observe that the little $i_z$ factors through the big $I_z$:
@@ -1809,6 +1957,13 @@ Some books (E.g. Fulton) even use the notation $\lbrace z \rbrace = \Spec(\kappa
 
 \subsection{Clear Denominators Theorem}
 Ravi calls this the ``clear denominators theorem'' and I think that's a great name.  
+\begin{figure}[H]
+\centering
+\input{figures/clear-denominators}
+\caption{The proof sketch of the Clear Denominators Theorem: a morphism $\varphi:X\setminus\{x\}\to Y$ from a normal integral curve $X$ over $k$ to a projective $k$-scheme $Y\subset\PP^n_k$ extends to $\widetilde\varphi:X\to Y$. Panel (a) is the statement: $X$ (black) with a hole at the closed point $x$ (hollow dot) maps by $\varphi$ to $Y$ inside $\PP^n_k$ (grey box), and the extension $\widetilde\varphi$ (dashed arrow) sends $x$ to the point $y$ (filled dot). Panel (b) is the first picture of the proof: the local scheme $\Spec\Ocal_{X,x}$ (grey cloud around $x$) maps by $g$ to $Y$, with $y=g(x)$; this is the data at $x$. Panel (c) is the second picture: affine opens $\Spec A\ni x$ (green) and $\Spec B\ni y$ (orange), where $t$ is a uniformizer at $x$ and $\Spec A_t=\Spec A\setminus\{x\}$; affine-locally $f$ is $B\to A_t$ and $g$ is $B\to A_{(t)}=\Ocal_{X,x}$, and these glue because $A_t\cap A_{(t)}=A$ inside $\kappa(X)$. Schematic; curves drawn as real curves and $\PP^n_k$ as a box.}\label{fig:clear-denominators}
+\end{figure}
+Figure~\ref{fig:clear-denominators} shows the two pictures.
+
 \begin{theorem}[``Clear Denominators Theorem'']
 	Let $X$ be a normal integral curve over a field $k$.
 	Let $Y$ be a projective scheme over $k$.
@@ -1858,8 +2013,7 @@ I now will sketch a proof and give you some exercises that allow you to clean it
 	It only makes sense that we should be able to put these two things together to get a map $X\to Y$.
 	
 	This is best done by drawing two pictures.
-	\taylor{Picture one is a local neighborhood of $x$ mapping to an image $y$.}
-	\taylor{Picture two is $\Spec(B)$ containing $y$ and $\Spec(A)$ containing $x$ with a map $X\setminus x \to B$.}
+	They are panels (b) and (c) of Figure~\ref{fig:clear-denominators}.
 	Let $y$ be the image of $x$ under $g$.
 	We claim that there exist affine opens $\Spec(B) \subset Y$ containing $y$ and $\Spec(A)$ of $X$ containing $x$ such that the following hold:
 	\begin{itemize}
@@ -2325,6 +2479,13 @@ We got elements of this from global sections:
 It will turn out that this has a nice interpretation.
 
 \subsubsection{Which Divisors of Degree Zero are Trivial?}
+\begin{figure}[H]
+\centering
+\input{figures/torus-lattice}
+\caption{An elliptic curve over $\CC$ as a torus $\CC/\Lambda$, for the Remark on degree-zero divisor classes on an elliptic curve $E/\CC$, where $\Cl^0(E)\cong\CC/\Lambda$ and $P\mapsto[P-O]$ is an injective map $E(\CC)\to\Cl^0(E)$ (stated there without proof). Left: for a lattice $\Lambda=\ZZ\omega_1+\ZZ\omega_2\subset\CC$, the parallelogram with vertices $0,\omega_1,\omega_2,\omega_1+\omega_2$ (shaded). Its opposite sides are glued: the two blue sides (one arrowhead) to each other, and the two green sides (two arrowheads) to each other. Right: the result, a torus. The blue sides become the blue loop around the hole and the green sides become the green loop around the tube (dashed where it passes behind); all four vertices become the single point $O$. A point $z$ of the parallelogram gives a point $P$ of the torus. Schematic: the identification $E(\CC)\cong\CC/\Lambda$ is the one asserted in the Remark, and the torus is drawn in $\RR^3$, not to scale.}\label{fig:torus-lattice}
+\end{figure}
+Figure~\ref{fig:torus-lattice} shows the parallelogram that is glued into the torus $\CC/\Lambda$.
+
 What about divisors of degree zero? Well they can either be trivial or not. 
 We have the following criterion for divisors of degree zero. 
 \begin{lemma}
@@ -2383,8 +2544,13 @@ Just for fun I wanted to give some more examples of linear series.
 	Appendix A of Hindry-Silverman do this sort of thing if anyone is interested.
 \end{proof}
 
-\taylor{Add the pictures of the conic, cubic, and quartic with the lines cutting them.
-Add a little discussion of the word linear series.}
+\begin{figure}[H]
+\centering
+\input{figures/plane-curves-cut-by-lines}
+\caption{A line meets a plane curve of degree $d$ in $d$ points, which is why $L=X\cdot H$ has $\deg(L)=d$ in the Lemma $K_X\sim(d-3)L$ and in the genus formula $g=(d-1)(d-2)/2$. Each panel shows the real points of a smooth plane curve $X\subset\PP^2_{\RR}$ in the affine chart $\RR^2$ (solid black), cut by a line $H$ (blue, dashed); the blue dots are the points of $X\cap H$. (a)~The conic $x^2+4y^2=4$ and the line $y=2/5$: $2$ points. (b)~The cubic $y^2=x^3-x$, whose real locus has a bounded and an unbounded component, and the line $y=-x/10+1/2$: $3$ points. (c)~The quartic $(x^2-1)^2+y^4+y^2=1/2$, which is smooth and whose real locus is two ovals, and the line $y=1/4$: $4$ points. All intersections here are transverse and real; in general the $d$ points are counted over $\CC$ with multiplicity and may lie at infinity. Each panel has its own scale.}\label{fig:plane-curves-cut-by-lines}
+\end{figure}
+Figure~\ref{fig:plane-curves-cut-by-lines} shows a conic, a cubic and a quartic cut by lines.
+\taylor{Add a little discussion of the word linear series.}
 Using that $\deg(L) = d$, so $\deg((d-3)L) = (d-3)d$, and $\deg(K_X)=2g-2$ the equation $(d-3)d=2g-2$ gives us the formula for the genus of a degree $d$ plane curve:
  $$ g = \dfrac{(d-1)(d-2)}{2}.$$
 We will see this again in a bit. 
@@ -2434,6 +2600,13 @@ This is nice because flat morphisms are locally free and it then makes sense to 
 We define the \emph{degree} of a flat morphism to be the rank of the module structure on the structure sheaves:
 $$\deg(f) = [f_*\Ocal_X:\Ocal_Y].$$
 where $[f_*\Ocal_X:\Ocal_Y]$ denotes this local rank.
+\begin{figure}[H]
+\centering
+\input{figures/parabola-flat-fibres}
+\caption{A finite flat morphism of degree $2$ whose fibres all have length $2$, illustrating the Theorem that a finite flat morphism has fibres of constant length equal to its degree. The map is the projection $f:X=\Spec\RR[x,y]/(y^2-x)\to\AA^1_{\RR}=\Spec\RR[x]$, $(x,y)\mapsto x$; here $\RR[x,y]/(y^2-x)$ is free of rank $2$ over $\RR[x]$ with basis $1,y$. Top: the real points of $X$, the parabola $x=y^2$ (black), plotted from its equation. Bottom: the real line $\AA^1(\RR)$, with $f$ the vertical projection. Grey dashed lines are fibres. Over $a>0$ the fibre is two real points $(a,\pm\sqrt a)$. Over $0$ it is the single point $(0,0)$ with the non-reduced structure $\Spec\RR[y]/(y^2)$, of length $2$. Over $b<0$ there are no real points: the fibre is one point $\Spec\RR[y]/(y^2-b)\cong\Spec\CC$, of degree $2$ over $\RR$, which becomes the two points $(b,\pm i\sqrt{-b})$ over $\CC$. Real points only.}\label{fig:parabola-flat-fibres}
+\end{figure}
+Figure~\ref{fig:parabola-flat-fibres} shows the three kinds of fibre for the projection of the parabola $x=y^2$.
+
 \begin{theorem}
 	Let $f:X \to Y$ be a finite flat morphism of schemes. 
 	For each $y\in Y$ the length of $f^{-1}(y)$ is constant and equal to the degree of the morphism. 
@@ -2448,6 +2621,13 @@ where $[f_*\Ocal_X:\Ocal_Y]$ denotes this local rank.
 \end{proof}
 
 \subsubsection{Quasifinite and Finite}
+\begin{figure}[H]
+\centering
+\input{figures/hyperbola-quasi-finite}
+\caption{A morphism with finite fibres that is not finite, for the discussion ``Quasifinite and Finite''. The map is the projection $f:X=\Spec k[x,y]/(xy-1)\to\AA^1_k=\Spec k[x]$, $(x,y)\mapsto x$, drawn for $k=\RR$. Top: the real points of the hyperbola $xy=1$ (black), plotted from its equation. Bottom: the line $\AA^1(\RR)$, with $f$ the vertical projection; grey dashed lines are fibres. Over every $a\neq0$ the fibre is the single point $(a,1/a)$. The fibre over $0$ is empty (hollow dot): as $x\to0$ the point $(x,1/x)$ runs off to infinity (purple arrow). So every fibre is finite, but $f$ is not finite: its image $\AA^1\setminus\{0\}$ is not closed, while a finite morphism is closed. Real points only.}\label{fig:hyperbola-quasi-finite}
+\end{figure}
+Figure~\ref{fig:hyperbola-quasi-finite} shows the hyperbola $xy=1$ projecting onto $\AA^1\setminus\{0\}$.
+
 
 \taylor{I need to add more here}
 
@@ -2571,6 +2751,13 @@ This one is a good exercise so I'm not going to do it.
 It takes like five seconds. 
 Just write out what it means for this ring homomorphism to distribute over addition and multiplication and write it out.
 
+\begin{figure}[H]
+\centering
+\input{figures/zariski-tangent-jumps}
+\caption{The Zariski tangent space as the kernel of the Jacobian, computed with dual numbers. Substituting $x_0+tx_1$ (and so on) into $f$ with $t^2=0$ gives $f(x_0)+\nabla f(x_0)\cdot x_1$, so the tangent vectors at a point $p$ of $V(f)$ are the $v$ with $\nabla f(p)\cdot v=0$. Panel (a): real points of the unit sphere $X=V(f)$, $f=x^2+y^2+z^2-1$, in $\AA^3$ (orthographic view), with the point $p=(\tfrac12,-\tfrac12,\tfrac1{\sqrt2})$, the purple gradient $\nabla f(p)=2p$ and a purple tangent vector $v$; the blue dashed parallelogram is a piece of the tangent plane $T_pX=\{v:\nabla f(p)\cdot v=0\}$. Panel (b): real points of the nodal cubic $C=V(y^2-x^2(x+1))$ of Figure~\ref{fig:nodal-cubic}. At a smooth point $p$ the gradient is nonzero and $T_pC$ is a line (purple dashed, with a tangent vector). At the node $\nabla f(0,0)=0$, so every $v$ satisfies the condition and $T_{(0,0)}C=k^2$ is the whole plane (light purple square, spanned by the two purple vectors). The dimension of the tangent space jumps at the singular point.}\label{fig:zariski-tangent-jumps}
+\end{figure}
+Figure~\ref{fig:zariski-tangent-jumps} shows the tangent condition $\nabla f\cdot v=0$ for a smooth surface and its jump at the node.
+
 This allows us to get equations for the tangent bundle of a scheme $X$ too. 
 Let's do it for a surface in $\AA^3$: if $f(x,y,z)=0$ then we let $x=x_0+x_1t$, $y=y_0+y_1t$, and $z=z_0+z_1 t$ and plug it into the equation using $t^2=0$. 
 This gives
@@ -2591,7 +2778,12 @@ We already know that $(x_0,y_0,z_0)$ is a solution of the original equation so t
 \end{definition}
 Mumford likes to call the schemes $\Spec(F[t]/(t^2))$ decapitated tangent vectors in his Red Book, and I think this is really evocative. 
 Once you map them into the scheme then they become tangent vectors. 
-\taylor{Draw a picture here of an arrow mapping into an arrow on a scheme }
+\begin{figure}[H]
+\centering
+\input{figures/decapitated-vector}
+\caption{A tangent vector as a map from the dual numbers (Definition of the Zariski tangent space via dual-number points). On the left, $\Spec\kappa(x)[t]/(t^2)$ is drawn as a point with a short purple stub: one point plus one first-order direction, Mumford's ``decapitated tangent vector''. Below it, $\Spec\kappa(x)$ maps into $\Spec\kappa(x)[t]/(t^2)$ by $t\mapsto0$. On the right is a scheme $X$, drawn as a curve, with a point $x$ given by $i_x\colon\Spec\kappa(x)\to X$. A morphism $v\colon\Spec\kappa(x)[t]/(t^2)\to X$ restricting to $i_x$ sends the point to $x$ and the stub to the purple tangent vector $v\in T_xX$. Schematic.}\label{fig:decapitated-vector}
+\end{figure}
+Figure~\ref{fig:decapitated-vector} shows a decapitated tangent vector mapping into $X$.
 
 \begin{definition}
 	The tangent bundle $TX$ is the scheme representing composition with $X\circ D_1$ where $D_1(A) = A[t]/(t^2)$ is the dual numbers functor.
@@ -2667,10 +2859,12 @@ My favorite flat morphisms of schemes appearing in fpqc covers are the following
 Fpqc covers are more flexible than Zariski covers. 
 Consider the example of $\Spec \CC[x,y]/(xy)$.
 There is a cover $D(x), D(y), \Spec(\CC[[x,y]]/(xy))$ on which we can check local properties.
-\taylor{ 
-Draw the picture of the three fpqc open sets covering the scheme which is the $x$-axis union the $y$-axis.
-It is a punctured $x$-axis, with a punctured $y$-axis together with a fpqc neighborhood around the origin.
-}
+\begin{figure}[H]
+\centering
+\input{figures/fpqc-cover-axes}
+\caption{An fpqc cover of the union of the two coordinate axes, $X=\Spec\CC[x,y]/(xy)$ (subsection on fpqc covers). The three pieces of the cover in the text are drawn around $X$ (centre), each with an arrow mapping it into $X$. On $X$ the function $x$ vanishes on the $y$-axis, so $D(x)$ (green) is the $x$-axis with the origin removed (hollow dot); likewise $D(y)$ (orange) is the $y$-axis with the origin removed. The middle piece is the completed neighbourhood $\Spec\CC[[x,y]]/(xy)$ of the origin, drawn as a small cross inside a dotted disc; it maps to the dotted disc around the origin in $X$. Together the images of the three pieces cover $X$. Schematic: real points of $xy=0$ are drawn, and the formal neighbourhood has no honest real picture.}\label{fig:fpqc-cover-axes}
+\end{figure}
+Figure~\ref{fig:fpqc-cover-axes} shows the three pieces.
 
 There is a long list of properties which are fpqc local on the base given here
 \begin{center}
@@ -2696,6 +2890,13 @@ and the links therein. These fpqc arguments can improve what is done in the ``Cu
 \section{Separates Points/Separates Tangent Vectors}
 
 Our main goal will be to determine when $\varphi_{\Lcal}:X \to \PP^n$ associated to a line bundle $\Lcal$ on a projective variety is an embedding.
+\begin{figure}[H]
+\centering
+\input{figures/separate-points-tangents}
+\caption{Three maps $f\colon\AA^1\to\AA^2$, showing that both conditions in Theorem~\ref{thm:points-and-tangents} are needed. In each panel the grey line on top is the source $\AA^1$ with coordinate $t$, the black arrow is $f$, and the black curve is the image. Purple arrows are tangent vectors: $\partial_t$ at $t=0$ and its image $df(\partial_t)$. (a) $t\mapsto(t,t^2)$ is a closed immersion onto the parabola $y=x^2$. (b) $t\mapsto(t^2-1,t^3-t)$ is injective on tangent vectors but sends $t=-1$ and $t=1$ to the same point, the node of $y^2=x^2(x+1)$, so it does not separate points. (c) $t\mapsto(t^2,t^3)$ is injective on points but $df(\partial_t)=0$ at $t=0$, the cusp of $y^2=x^3$, so it does not separate tangent vectors. Real points, over $F=\CC$ in the theorem; axes not to a common scale.}\label{fig:separate-points-tangents}
+\end{figure}
+Figure~\ref{fig:separate-points-tangents} shows a map failing each condition.
+
 \begin{theorem}\label{thm:points-and-tangents}
 	Let $f:X\to Y$ be a projective morphism of projective varieties over an algebraically closed field $F$. 
 	The map $f$ is a closed immersion if and only if 
@@ -2887,6 +3088,13 @@ Suppose that $h^0(D-x) = h^0(D)-1$.
 	This means that $s\notin H^0(X,D-x)$ and hence $h^0(D-x)<h^0(D)$.
 \end{proof}
 
+\begin{figure}[H]
+\centering
+\input{figures/hyperplanes-through-points}
+\caption{Hyperplane sections of an embedded curve, illustrating what $h^0(D-x)$, $h^0(D-x-y)$ and $h^0(D-2x)$ count in the Theorem on when $\varphi\colon X\to\PP^n$ separates points and tangent vectors. A section of $L(D)$ corresponds to a hyperplane, and its divisor is the hyperplane section of $\varphi(X)$. The example is the twisted cubic $t\mapsto[1{:}t{:}t^2{:}t^3]$, the image of $\PP^1$ under $D=3\,\infty$ with $n=3$, drawn in the chart $\AA^3$; $x$ and $y$ are the points $t=-1/2$ and $t=3/5$. Each blue dashed plane is a hyperplane; the black curve lies in front of the plane and the grey curve behind it. (a) A plane through $x$, a section in $L(D-x)$; its other two intersection points are not real. (b) A plane through $x$ and $y$, a section in $L(D-x-y)$; the blue dot is its third intersection point. (c) A plane containing the tangent line at $x$ (purple arrow), a section in $L(D-2x)$; it meets the curve at $x$ with mult $2$ and at one more point (blue dot). Real points, orthographic projection to the page.}\label{fig:hyperplanes-through-points}
+\end{figure}
+Figure~\ref{fig:hyperplanes-through-points} shows the hyperplanes that the spaces $L(D-x)$, $L(D-x-y)$ and $L(D-2x)$ correspond to.
+
 \begin{theorem}
 	Let $X$ be a projective curve over a field $F$. 
 	Let $D\in \Div(X)$.
@@ -3027,6 +3235,13 @@ Letting $A=a$, $D=d$, $AD\xtilde =x$ and $AD^2 \ytilde = y$ we get that
   $$A^3D^4 \ytilde^2+\Btilde \xtilde \ytilde +\Ctilde \ytilde= A^3D^4 \xtilde^3+\Etilde \xtilde^2 + \Ftilde \xtilde + \Gtilde.$$
 We can divide this equation by $A^3D^4$ to get our result in the new variables $(\xtilde,\ytilde)$.
 \subsubsection{A Projective Curve Minus a Point is Affine}
+\begin{figure}[H]
+\centering
+\input{figures/curve-minus-point-affine}
+\caption{Why a projective curve minus a point is affine (the subsection ``A Projective Curve Minus a Point is Affine''). For $D=(2g+1)x$ the map $\varphi_D\colon X\to\PP^{g+1}$ is a closed immersion, and there is a hyperplane $H\subset\PP^{g+1}$ meeting $\varphi(X)\cong X$ only at $x$, with mult $2g+1$. The blue dashed line is $H$, the black curve is $X$, and the green shading is the affine space $\PP^{g+1}\setminus H\cong\AA^{g+1}$, which contains the closed subscheme $X\setminus x$. Schematic, reduced dimension: $\PP^{g+1}$ is drawn as a plane, and the curve only suggests the high-order contact at $x$ (it is the real locus of $y=x^3/10$, which meets $H=\{y=0\}$ only at the origin).}\label{fig:curve-minus-point-affine}
+\end{figure}
+Figure~\ref{fig:curve-minus-point-affine} shows the hyperplane $H$.
+
 Let $D=(2g+1)x$ where $x \in X$.
 Then the map $\varphi=\varphi_D:X \to \PP^{g+1}$ is a closed immersion since $\deg(D)\geq 2g+1$ implies $D$ is very ample (the exponent here is $h^0(D)-1=\deg(D)-g+1-1=2g+1-g=g+1$).
 Also in this embedding we have something crazy going on: the curve is so messed up inside this high dimensional space that there exists a hyperplane $H\subset \PP^{g+1}$ which meets the curve at $x$ with multiplicity $2g+1$.
@@ -3034,6 +3249,13 @@ We know that $\PP^{g+1}\setminus H$ is affine.
 Since $\varphi(X)$ is a closed subscheme we know that $\varphi(X)\setminus \varphi(x) \cong X\setminus x$ is affine as well.
 
 \subsubsection{Characterization of $\PP^1_k$}
+\begin{figure}[H]
+\centering
+\input{figures/conic-lines-through-point}
+\caption{Lines through a rational point of a conic, the first proof sketched in the Theorem characterizing $\PP^1_k$ (``looking at the space of lines through the point''). The black curve is the conic $x^2+y^2=1$ over $k=\QQ$, with rational point $P=(-1,0)$. Each blue dashed line $y=m(x+1)$ through $P$ meets the conic in $P$ and in exactly one more point $\bigl(\frac{1-m^2}{1+m^2},\frac{2m}{1+m^2}\bigr)$, which is rational when $m\in\QQ$; the black dots are these points for $m=2,\tfrac12,-\tfrac13$. The purple dotted line is the tangent $x=-1$ at $P$, of slope $m=\infty$, and it corresponds to $P$ itself. So $m\in\PP^1$ is matched with the points of the conic. Real points of one example; the theorem is for any smooth projective genus zero curve with a rational point.}\label{fig:conic-lines-through-point}
+\end{figure}
+Figure~\ref{fig:conic-lines-through-point} shows the lines through the point.
+
 \begin{theorem}
 	Let $X$ be a smooth projective curve over a field $k$. 
 	If $P\in X(k)$ and there exists some $f\in H^0(\Ocal_{X}(P))$ with a pole at $P$ then $X\cong \PP^1_k$. 
@@ -3049,6 +3271,13 @@ Since $\varphi(X)$ is a closed subscheme we know that $\varphi(X)\setminus \varp
 \end{proof}
 
 \section{Riemann-Hurwitz}
+\begin{figure}[H]
+\centering
+\input{figures/ramified-cover}
+\caption{A finite morphism $f:X\to Y$ of degree $3$ between curves, with one ramification point, illustrating the formula $f^{*}Q=\sum_{P\mapsto Q}e(P/Q)P$ of ``Pushing and Pulling'' and the ramification points and branch points of Section ``Remarks About Ramification''. Left: $X$ drawn as three sheets (black) over $Y$; grey dashed lines are fibres, and the black arrow is $f$. Over a general point $y$ the fibre is three distinct points, each with $e=1$. Over the branch point $Q$ two sheets come together at the ramification point $P_1$, where $e(P_1/Q)=2$, and the third sheet gives $P_2$ with $e(P_2/Q)=1$; so $f^{*}Q=2P_1+P_2$, of degree $3=\deg f$. Right (inset): the local model at a tame ramification point of index $e$ is $z\mapsto z^{e}$ on a small disc, drawn for $e=2$: the two points $z$ and $-z$ near $P_1$ go to the same point $z^2$, and only the centre has a single preimage. Schematic: complex curves are drawn as real lines and discs as circles.}\label{fig:ramified-cover}
+\end{figure}
+Figure~\ref{fig:ramified-cover} shows a fibre $2P_1+P_2$ of a degree-$3$ cover.
+
 
 \begin{theorem}
 	Let $f:X \to Y$ be a finite separable dominant morphism of integral smooth projective curves over a field $F$. 
@@ -3065,6 +3294,13 @@ Here is a reminder of what the adjectives mean in the theorem:
 	\item \emph{dominant}: $f(X)\subset Y$ is dense. 
 	(here is the key example: if $A$ and $B$ are domains, the map $\Spec(A) \to \Spec(B)$ is dominant if and only if the associated map $B\to A$ is injective.)
 \end{itemize}
+
+\begin{figure}[H]
+\centering
+\input{figures/riemann-hurwitz-triangulation}
+\caption{Pulling back a triangulation along a degree-$2$ map $f:X\to Y$ of compact Riemann surfaces, the counting behind the Remark relating Riemann--Hurwitz to Euler characteristics. Bottom: the star of six triangles around a vertex $y$ that is not a branch point, and around a branch point $Q$, in a triangulation of $Y$ with the branch points among its vertices. Top: their preimages in $X$; the black arrows are $f$. Over $y$, where $f$ is a covering, the star has two disjoint copies, so every cell is counted $d=2$ times, as in the Remark's formula $v_i'=dv_i$ for a covering map. Over $Q$ the local model is $z\mapsto z^2$ ($e=2$), which doubles angles: the preimage is one star of twelve triangles around the single ramification point $P$. Triangles and edges still double, but the centre vertex is counted once, not twice, so the Euler characteristic drops by $e-1=1$ there. One shaded (green) triangle of $Y$ and its two preimage triangles are shown in each column. Summing over ramification points gives $\chi_{\top}(X)=d\,\chi_{\top}(Y)-\sum_P(e_P-1)$; the Remark proves only the covering case, and this local count is the extra step. Schematic, not to scale.}\label{fig:riemann-hurwitz-triangulation}
+\end{figure}
+Figure~\ref{fig:riemann-hurwitz-triangulation} shows how cells of a triangulation pull back near a branch point.
 
 The Riemann-Hurwitz formula has a natural connection to topology which we describe in the remark below.
 \begin{remark}
@@ -3308,7 +3544,12 @@ Dualizing this sequence we get the map
  $$ 0 \to T_{Y/R} \to j^*T_{X/R} \to \left( j^*( I/I^2) \right)^{\vee}. $$
 Here we are using the fact that for a sheaf of modules $\Fcal$ on a scheme $V$ and a morphism $f:W\to V$ we have $f^*(\Fcal^{\vee}) = (f^*\Fcal)^{\vee}$ when $\Fcal$ is locally free of finite rank.
 
-\taylor{Include a picture of the normal vectors so a scheme inside another scheme and explain the relation to the sequence. }
+\begin{figure}[H]
+\centering
+\input{figures/normal-bundle}
+\caption{The normal bundle as a quotient of tangent spaces (Section ``Normal Bundles''). Panel (a): real points of the saddle $X=V(z-(x^2-y^2)/4)\subset\AA^3$ (grey mesh) and the curve $Y=X\cap\{y=0\}$ (black). At three points of $Y$ the light purple tile is a piece of the tangent plane of $X$, that is, the fibre of $T_X|_Y=j^*T_X$; the solid purple arrow spans the tangent line $T_Y$, and the dashed purple arrow represents a nonzero class in the quotient $N_{Y/X}$. This is the dual of the conormal sequence, $0\to T_Y\to j^*T_X\to N_{Y/X}$ with $N_{Y/X}=(j^*(I/I^2))^\vee$; in this picture ($X$, $Y$ smooth) the last map is onto, so $N_{Y/X}=T_X|_Y/T_Y$. Panel (b): a complete intersection $Y=D_1\cap D_2$ in $\AA^3$, here the plane $D_1=V(z)$ (blue dashed) and the cylinder $D_2=V(x^2+y^2-1)$ (green dotted), meeting in the circle $Y$ (black; hidden half dashed). At a point $q\in Y$ the purple arrows $n_1$ and $n_2$, along $\nabla z$ and $\nabla(x^2+y^2-1)$, are normal to $D_1$ and $D_2$ respectively; together they span the normal plane of $Y$, matching $N_{Y}\cong\Ocal_Y(D_1)\oplus\Ocal_Y(D_2)$ in the Example on complete intersections, one summand for each $D_i$. Real points, drawn in an affine chart of reduced dimension $n=3$.}\label{fig:normal-bundle}
+\end{figure}
+Figure~\ref{fig:normal-bundle} pictures the normal bundle as a quotient, and the two summands for a complete intersection.
 
 We make the following definitions:
 \begin{definition}
@@ -3558,6 +3799,13 @@ An application of the adjunction formula can show that plane quartics are canoni
 	We see that $2g_C-2 = 4$ which implies $g_C=3$.
 \end{example}
 We can actually classify the cases when they aren't.
+\begin{figure}[H]
+\centering
+\input{figures/hyperelliptic-genus-3}
+\caption{A hyperelliptic curve of genus $3$ in Weierstrass form, as in the Theorem classifying genus-$3$ curves and the Exercise on the Weierstrass form of a hyperelliptic curve (the case $P=0$). Top: the real points of the affine curve $C:\ y^2=Q(x)$ over $\RR$, with $Q(x)=-\tfrac{1}{700}\prod_{i=1}^{8}(x-r_i)$ and $(r_1,\ldots,r_8)=(-4.2,-3.4,-2.7,-1.1,1.1,2.7,3.4,4.2)$, plotted exactly from the equation. Since the $r_i$ are distinct and $\deg Q=8=2g+2$, the curve has genus $3$. Bottom: the target $\PP^1$ of the degree-two map $\pi(x,y)=x$, with the eight roots $r_i$ of $Q$ marked; these are the branch points. Thick black segments on $\PP^1$ are the intervals where $Q>0$, over which $\pi$ has two real points; over each the real curve is an oval. The dots on the $x$-axis are the points $(r_i,0)$, the ramification points. The dashed line is the fibre over a point $x_0$ with $Q(x_0)>0$: it consists of a point $z$ and its image $\iota(z)$ under the hyperelliptic involution $\iota(x,y)=(x,-y)$. Real points only: where $Q<0$ the two points of a fibre are complex conjugate and are not drawn, and the points at infinity are not real.}\label{fig:hyperelliptic-genus-3}
+\end{figure}
+Figure~\ref{fig:hyperelliptic-genus-3} shows the real points of such a curve with its eight branch points.
+
 \begin{theorem}
 	Let $C$ be a projective curve of genus $3$ over a field $k$.
 	One of the following two possibilities holds:
@@ -3570,8 +3818,12 @@ We can actually classify the cases when they aren't.
 We first compute the canonical divisor of the plane quartic using adjunction:
 $$\omega_C \cong \omega_{\PP^2}(C)\vert_C \cong \Ocal_{\PP^2}(-3)(4)\vert_C \cong \Ocal_{\PP^2}(1)\vert_C,$$
 this says the canonical divisor is very ample.
-\taylor{Draw a picture of a plane quartic and a line intersecting it at 4 points. 
-It looks like a sombrero.}
+\begin{figure}[H]
+\centering
+\input{figures/quartic-canonical}
+\caption{A smooth plane quartic $C$ cut by a line: the divisor $C\cap L$ is a canonical divisor (the example on plane quartics before the subsection on canonical curves). Over $\RR$, $C\subset\PP^2$ is the quartic with affine equation $(2y-x^2)(x^2+2y^2-2y-1)=\tfrac25$; it is smooth, and its real affine points form the single W-shaped (``sombrero'') curve drawn in black, which reaches $\PP^2\setminus\AA^2$ only at $[0:1:0]$. The blue dashed line $L\colon y=\tfrac54$ meets $C$ in the four real points $p_1,\dots,p_4$ (blue dots), each of mult $1$. Since $\omega_C\cong\Ocal_{\PP^2}(1)\vert_C$, the divisor $p_1+p_2+p_3+p_4$ is a canonical divisor of degree $4=2g_C-2$, so $g_C=3$. Real points of the affine chart $z\neq0$, plotted from the equation with equal axis scales.}\label{fig:quartic-canonical}
+\end{figure}
+Figure~\ref{fig:quartic-canonical} shows a line section of a real plane quartic.
 
 \begin{exercise}
 	\begin{enumerate}
@@ -3687,6 +3939,13 @@ A lot of books list this as an exercise.
 	But $h^1(\Lcal)=h^0(\omega_C\otimes \Lcal^{\vee})$.
 	This proves that $\omega_C\otimes\Lcal^{\vee}$ has a section and hence is isomorphic to $\Ocal_C$.
 \end{proof}
+
+\begin{figure}[H]
+\centering
+\input{figures/hyperelliptic-canonical-map}
+\caption{The canonical map of a hyperelliptic curve factors through $\PP^1$, as in the proof of the Lemma that a hyperelliptic map $\varphi_{\Lcal}$ satisfies $\Lcal^{\otimes g-1}\cong\omega_C$; here $g=3$ and the field is $\RR$. Top left: real points of the hyperelliptic curve $C:\ y^2=Q(x)$ of Figure~\ref{fig:hyperelliptic-genus-3}, with a point $x$ and its image $\iota(x)$ under the hyperelliptic involution $\iota(x,y)=(x,-y)$. Bottom left: the degree-two map $\varphi:C\to\PP^1$, $(x,y)\mapsto x$, drawn as vertical projection; the grey dashed fibre shows that $x$ and $\iota(x)$ go to the same point. Right: the Veronese map $v:\PP^1\to\PP^{g-1}=\PP^2$, $v([X_0,X_1])=[X_0^2,X_0X_1,X_1^2]$, whose image is a conic (green dotted), drawn in the affine chart $X_0\neq0$ as the parabola $\{(t,t^2)\}$. The black arrows are the maps $\varphi$, $v$, and $\psi=v\circ\varphi$. Since $\psi(x)=\psi(\iota(x))$, the map $\psi$ is not injective, so it is not an embedding. Real points only; the parabola is not to scale.}\label{fig:hyperelliptic-canonical-map}
+\end{figure}
+Figure~\ref{fig:hyperelliptic-canonical-map} shows the factorization $\psi=v\circ\varphi$ for $g=3$.
 
 The next Lemma says that there is really only one hyperelliptic map, and that map comes from the canonical divisor. 
 
@@ -3826,6 +4085,13 @@ If $K_X$ is big, or equivalently, $\kod(X)=\dim(X)$ then we say that $X$ is \emp
 \end{remark}
 
 
+\begin{figure}[H]
+\centering
+\input{figures/kodaira-curves}
+\caption{The Kodaira dimension of a curve depends only on its genus, as in the Example computing $\kod(X)$ for curves: $g=0\iff\kod(X)=-\infty$, $g=1\iff\kod(X)=0$, and $g\geq2\iff\kod(X)=1$. The three surfaces (black) are the complex points $X(\CC)$ of smooth projective curves $X$ over $\CC$ of genus $0$, $1$ and $2$: a sphere, a torus, and a surface with two holes. The grey line on the sphere is its equator, dashed where it passes behind. The genus-$2$ surface stands for every $g\geq2$; these curves are of general type. Schematic: each Riemann surface is drawn as a surface in $\RR^3$, not to scale.}\label{fig:kodaira-curves}
+\end{figure}
+Figure~\ref{fig:kodaira-curves} shows the three cases.
+
 \begin{example}
 	In the case of curves we can work out the following.
 	\begin{itemize}
@@ -3876,6 +4142,13 @@ In $\PP^3$ this includes quadric and cubic surfaces.
 Before doing this let's talk about the Segre maps. 
 These are the maps 
  $$s:\PP^n\times \PP^m \to \PP^{(n+1)(m+1)-1}, \quad ([X_0,\ldots,X_n],[Y_0,\ldots,Y_m]) \mapsto [X_iY_j \colon 0\leq i \leq n, 0 \leq j \leq m ].$$
+\begin{figure}[H]
+\centering
+\input{figures/quadric-rulings}
+\caption{The two rulings of the smooth quadric surface $Q=V_+(Z_0Z_3-Z_1Z_2)\subset\PP^3$, the image of the Segre embedding $\PP^1\times\PP^1\to\PP^3$, $([X_0,X_1],[Y_0,Y_1])\mapsto[X_0Y_0,X_0Y_1,X_1Y_0,X_1Y_1]$. Real points of one affine chart: after the real change of coordinates $Z_0=1+y$, $Z_3=1-y$, $Z_1=x+z$, $Z_2=x-z$, the chart $Z_0+Z_3\neq0$ (scaled so $Z_0+Z_3=2$) is the hyperboloid of one sheet $x^2+y^2-z^2=1$, drawn for $|z|\le 1.5$. The green solid lines are lines of one family and the orange dashed lines are lines of the other; these are the images of the fibres $\{p\}\times\PP^1$ and $\PP^1\times\{q\}$. Two lines of the same family are disjoint, and a line $\ell$ of one family meets a line $m$ of the other in one point (the black dot). The blue dashed ellipse is the plane section $C=Q\cap H$ for a plane $H$ through the origin; it is a curve of class $(1,1)$. Black curves are the outline of the surface; faint curves are hidden behind it. Not to scale.}\label{fig:quadric-rulings}
+\end{figure}
+Figure~\ref{fig:quadric-rulings} shows the real points of this quadric with its two families of lines.
+
 So for example this is what gives $\PP^1\times \PP^1 \to \PP^3$ the structure of a quadric in $\PP^3$. The map explicitly in this case is given by $([X_0,X_1],[Y_0,Y_1]) \mapsto [X_0Y_0,X_0Y_1,X_1Y_0,X_1Y_1]$ and the image in this case is 
 $$V_+(Z_0Z_3-Z_1Z_2) \subset \PP^3 = \Proj F[Z_0,Z_1,Z_2,Z_3].$$
 
@@ -3985,7 +4258,17 @@ We then define
  $$ V \cdot W = \sum_{Z \in \Irr(V\cap W) } \mult_Z(V,W) Z. $$ 
 
 \begin{example}
-\taylor{Add example of line and parabola}	
+	Let $k$ be algebraically closed, and let $V=\lbrace y=x^2\rbrace$ and $W=\lbrace y=0\rbrace$ in $\AA^2_k$.
+	They meet only at the origin, and
+	$$ \mult_{(0,0)}(V,W) = \len\left( k[x,y]_{(x,y)}/(y,\, y-x^2) \right) = \len\left( k[x]_{(x)}/(x^2) \right) = 2, $$
+	so $V\cdot W = 2\,(0,0)$, matching B\'ezout: $1\cdot 2=2$.
+	Moving the line to $y=c$ with $c\neq 0$ gives two distinct points $(\pm\sqrt{c},c)$, each of multiplicity one.
+\begin{figure}[H]
+\centering
+\input{figures/line-parabola}
+\caption{Intersection multiplicity of a line and a parabola (the Example after the definition of $V\cdot W$). Real points of the parabola $y=x^2$ (black) and of the lines $y=c$ (blue dashed) in $\AA^2_\RR$. For $c=1.69$ and $c=0.49$ the line meets the parabola transversally at the two points $(\pm\sqrt c,c)$, each of mult $1$. The tangent line $y=0$ meets it only at $(0,0)$, with mult $\len\, k[x,y]_{(x,y)}/(y,\,y-x^2)=\len\, k[x]/(x^2)=2$ (black dot). In every case the total is $2=1\cdot 2$, as B\'ezout predicts; none of these lines meets the parabola at infinity. The tangent line $y=0$ is the $x$-axis; no other axes are drawn.}\label{fig:line-parabola}
+\end{figure}
+Figure~\ref{fig:line-parabola} shows the two transverse points merging into one point of mult $2$.
 \end{example}
  
 We are not going to develop this theory in full and just work with it.
@@ -4082,6 +4365,13 @@ This isn't a Lemma about babies, but rather a Lemma about moving curves which ha
 To do this we will use Serre's Theorem and Bertini's theorem. 
 In class I freaked out a little bit about whether the field needed to be infinite or characteristic zero. 
 
+\begin{figure}[H]
+\centering
+\input{figures/bertini-pencil}
+\caption{Hyperplane sections of a conic, illustrating the smoothness part of Bertini's Theorem: only finitely many members of a pencil of lines give a singular section. Real points of the conic $C\colon x^2+y^2=1$ in $\AA^2_\RR\subset\PP^2_\RR$ (black) and of lines $x=a$ (blue dashed) from the pencil of lines through $[0:1:0]$, a line in $(\PP^2)^*$. For $-1<a<1$ the section $C\cap\{x=a\}$ is two distinct real points (blue dots), so it is smooth. The two thick lines $x=\pm1$ are tangent to $C$: there $C\cap\{x=a\}$ is one point of mult $2$, a singular (non-reduced) section. For $\vert a\vert>1$, as for the rightmost line, the section is two complex conjugate points, which is smooth but has no real points. The bottom line is the parameter $a$ of the pencil: ticks mark the lines drawn, and the hollow dots $a=\pm1$ are its intersection with the singular locus $S\subset(\PP^2)^*$.}\label{fig:bertini-pencil}
+\end{figure}
+Figure~\ref{fig:bertini-pencil} shows a pencil of lines in which only two sections are singular.
+
 \begin{theorem}[Bertini's Theorem]
 	Let $X$ be a smooth projective variety over a field $F$. 
 	A general hyperplane section $H\cap X$ is smooth and geometrically irreducible over $F$. 
@@ -4120,6 +4410,13 @@ The complement  of this is an open set $U = (\PP^n)^*\setminus S$ and fibers abo
 \end{enumerate}
 
 \end{remark}
+
+\begin{figure}[H]
+\centering
+\input{figures/moving-transverse}
+\caption{Moving a curve to make an intersection transverse, as in the Baby Moving Lemma and the uniqueness argument for the intersection pairing. Real points in $\AA^2_\RR\subset\PP^2_\RR$ of the circle $C\colon x^2+(y-1)^2=1$ (black) and of the conics $D\colon y=-x^2$ and $D'\colon y=\tfrac12-x^2$ (green dotted), which are linearly equivalent. (a) $C$ and $D$ are tangent at the origin, where they meet with mult $2$. (b) $D'$ (with $D$ faint for comparison) meets $C$ transversally in two real points, each of mult $1$. In both panels the remaining $2$ of the $2\cdot2=4$ intersection points are not real, so $C\cdot D=C\cdot D'=4$. Illustration only: the lemma moves divisors inside very ample linear systems $\vert D+nH\vert$ and $\vert nH\vert$ on a general surface.}\label{fig:moving-transverse}
+\end{figure}
+Figure~\ref{fig:moving-transverse} shows a tangency replaced by two transverse points.
 
 \begin{theorem}[Baby Moving Lemma]
 	Let $S$ be a projective surface.
@@ -4350,11 +4647,17 @@ $$\Ocal_X[tI_Y] = \Ocal_X \oplus tI_Y \oplus t^2 I_Y^2\oplus \cdots.$$
  \end{enumerate}
 \end{remark}
 
+\begin{figure}[H]
+\centering
+\input{figures/slope-map}
+\caption{The slope map $f\colon\AA^2\dashrightarrow\PP^1$, $(x,y)\mapsto[x:y]$, of the Example on $\Gamma_f$, drawn on real points. Left: real points of $\AA^2$, with lines through $(0,0)$ coloured by slope $m=y/x$; every point of a line other than $(0,0)$ maps to the same point $[x:y]=[1:m]$ of $\PP^1$. Right: $\PP^1(\RR)$ drawn as a circle, each point coloured like the line it comes from; the colours go round once because a line of slope $m\to\pm\infty$ returns to the vertical line $[0:1]$. The dashed arrow says $f$ is only a rational map: at the hollow point $(0,0)$ all lines, and all colours, meet, so $f$ is undefined there. Real points only (the Example works over $\CC$); only twelve lines are drawn.}\label{fig:slope-map}
+\end{figure}
+
 \begin{example}
 	In this example we work over $\CC$ and with $\CC$-points (this is for the purpose of developing intuition). 
 	Consider the map 
 	$$f: \AA^2\dashrightarrow \PP^1, \quad (x,y) \mapsto [x,y]. $$
-	We think of this map as sending a point $(x,y)$ to the slope of the line through $(x,y)$ and $(0,0)$ in the plane. \taylor{Draw a picture of this map, note that at $(x,y)=(0,0)$ things get whacky.}
+	We think of this map as sending a point $(x,y)$ to the slope of the line through $(x,y)$ and $(0,0)$ in the plane. See Figure~\ref{fig:slope-map}.
 	Now consider $ \Gamma_f \subset \AA^2 \times \PP^1.$
 	This is the set 
 	 $$ \Gamma_f = \lbrace ( (x,y), [x,y]) \in U \times \PP^1 \colon (x,y) \in U \rbrace,$$
@@ -4425,11 +4728,17 @@ In order not to bury the lead, here is what you need to know.
 	\end{enumerate}
 \end{theorem}
 
+\begin{figure}[H]
+\centering
+\input{figures/blowup-plane-real}
+\caption{Two pictures of the blow-up $\Bl_{(0,0)}(\AA^2)$, for the Warning after the Theorem on properties of blow-ups. (a) The misleading picture: the plane $\AA^2$ (grey) with a red line $E$ sticking out of the origin, which suggests two components. (b) Real points of one chart of the blow-up, the surface $\{y=mx\}\subset\RR^3$ with coordinates $(x,y,m)$, where $m=T_1/T_0$ on the chart $T_0\neq0$ of $\Bl_{(0,0)}(\AA^2)=\{xT_1=yT_0\}$. For each value of $m$ the surface contains the line $y=mx$ at height $m$ (thin black rulings; grey shading is the surface); the thick black curves are its edge at distance $1.8$ from the $m$-axis. The red line is the exceptional divisor $E=\{x=y=0\}$, the $m$-axis, which runs through the middle of the surface as part of one irreducible surface, as the Theorem states. The projection $(x,y,m)\mapsto(x,y)$ is $h$. Real points, only the part with $|m|\le 2$ drawn (dotted: $E$ continues); this chart misses the one point $[0:1]$ of $E$.}\label{fig:blowup-plane-real}
+\end{figure}
+
 \begin{remark}[Warning!]
 	Drawings of blow-ups can sometimes be misleading. 
-	Often people draw $\Bl_{(0,0)}(\AA^2)$ as $\AA^2$ with a line sticking out of it \taylor{add the drawing} which seems to suggest that it has multiple components, with one being the exceptional divisor. 
+	Often people draw $\Bl_{(0,0)}(\AA^2)$ as $\AA^2$ with a line sticking out of it (Figure~\ref{fig:blowup-plane-real}(a)), which seems to suggest that it has multiple components, with one being the exceptional divisor. 
 	This is not the case, as the Theorem above states. 
-	A better drawing looks like this \taylor{Round out the exceptional divisor.}
+	A better drawing is Figure~\ref{fig:blowup-plane-real}(b).
 \end{remark}
 
 \begin{remark}
@@ -4487,11 +4796,17 @@ The same remark applies about finite \'etale morphisms of degree one.
 \end{exercise}
 
 \subsection{Universal Properties of Blow-ups}
+\begin{figure}[H]
+\centering
+\input{figures/nodal-cubic-blowup}
+\caption{Blowing up the node of the nodal cubic $C=\{y^2=x^2(x+1)\}\subset\AA^2$ in two ways, as in the Theorem comparing $\Bl_{f^{-1}(Z)}(W)$ with the strict transform. Bottom: real points of $C$ (black), with the node $(0,0)$ marked and its two tangent lines $y=\pm x$ (blue, dashed). Top left (a): $g\colon\Bl_{(0,0)}(C)\to C$, drawn schematically; the node is replaced by two points $q_\pm$, one for each branch. Top right (b): real points of the chart $\{y=mx\}$ of $\Bl_{(0,0)}(\AA^2)$, with coordinates $(x,m)$ and $h(x,m)=(x,mx)$. The exceptional divisor $E$ is the $m$-axis (red). Substituting $y=mx$ gives $x^2(m^2-x-1)=0$, so $h^{-1}(C)=\widetilde C\cup E$ with $\widetilde C=\{m^2=x+1\}$ (black), a smooth curve that meets $E$ at the two red points $m=\pm1$, the slopes of the two tangent lines; the branches are separated. The factor $x^2$ is the term $2E$ in $h^*C=\widetilde C+2E$ (Lemma on $h^*C$; the node has multiplicity $2$). The hooked arrow is the closed immersion of part (3) of the Theorem, an isomorphism onto $\widetilde C$. Real points; panel (a) schematic.}\label{fig:nodal-cubic-blowup}
+\end{figure}
+
 Over the complex numbers, consider $C \subset \AA^2$ a nodal cubic given by the equation $y^2=x^2(x+1)$ so that $(0,0)$ is a singular point. 
 One can do two things: 
 \begin{enumerate}
-	\item We can blow-up $C$ at the point $(0,0)$ to obtain $g:\Bl_{(0,0)}(C) \to C$. \taylor{draw the picture}
-	\item We can blow-up $\AA^2$ at the point $(0,0)$ to obtain $h:\Bl_{(0,0)}(\AA^2)\to \AA^2$ and look at the closure $\widetilde{C}$ of $h^{-1}\left( C \setminus (0,0) \right)$ inside $\Bl_{(0,0)}(\AA^2)$. \taylor{draw the picture}
+	\item We can blow-up $C$ at the point $(0,0)$ to obtain $g:\Bl_{(0,0)}(C) \to C$ (Figure~\ref{fig:nodal-cubic-blowup}(a)).
+	\item We can blow-up $\AA^2$ at the point $(0,0)$ to obtain $h:\Bl_{(0,0)}(\AA^2)\to \AA^2$ and look at the closure $\widetilde{C}$ of $h^{-1}\left( C \setminus (0,0) \right)$ inside $\Bl_{(0,0)}(\AA^2)$ (Figure~\ref{fig:nodal-cubic-blowup}(b)).
 \end{enumerate}
 The next theorem states that they are the same thing: $\widetilde{C} \cong \Bl_{(0,0)}(C)$. 
 
@@ -4543,6 +4858,13 @@ First, I need to tell you that there are curves that can be singular everywhere.
 
 Supposing we don't have one of those weird curves like the one above we can resolve singularities. 
 You may want to see the remark immediately after the Theorem for context of this result.
+
+\begin{figure}[H]
+\centering
+\input{figures/resolution-towers}
+\caption{Two examples of the tower $\cdots\to X_2\to X_1\to X_0=X$ in the proof of Resolution of Singularities for Curves, where $X_{n+1}=\Bl_{Z_n}(X_n)$ and $Z_n=\sing(X_n)$. Each panel shows real points of an affine piece of $X_n$ (black). Blowing up a curve at a point is computed by its strict transform in the chart $y=mx$ of the plane blow-up (Theorem on strict transforms, part (3)); the red line is the exceptional curve $E_n$ of that plane blow-up, and the red dots are the points of $X_n$ over $Z_{n-1}$. (a) The cusp $y^2=x^3$: with $y=mx$ the strict transform is $m^2=x$, which is regular and tangent to $E_1$, so the tower stops after one step. (b) The curve $y^2=x^4(1-x)$, which has a tacnode at $(0,0)$: with $y=mx$ the strict transform $m^2=x^2(1-x)$ has a node on $E_1$; blowing up that node with $m=nx$ gives $n^2=1-x$, which is regular and meets $E_2$ in the two points $n=\pm1$, one per branch. In the proof, $p_a(X_{n-1})-p_a(X_n)=h^0(\Fcal_n)$; in these examples $h^0(\Fcal_n)=1$ at each step (a local computation not carried out in the text). Real points of affine charts only; the chart $(x,n)$ does not show the strict transform of $E_1$.}\label{fig:resolution-towers}
+\end{figure}
+Figure~\ref{fig:resolution-towers} shows the tower for a cusp and for a tacnode.
 
 \begin{theorem}[Resolution of Singularities for Curves]
 	Let $X$ be an irreducible projective curve over a field $k$ (of any characteristic). 
@@ -4673,6 +4995,12 @@ Let $E=h^{-1}(p)$ be the exceptional divisor.
 	This is a local computation. This can be found in Ravi's notes. 
 \end{proof}
 
+\begin{figure}[H]
+\centering
+\input{figures/blowup-intersections}
+\caption{The three intersection numbers in the Lemma on $\Bl_p(S)$ ($h^*C\cdot h^*D=C\cdot D$, $E\cdot h^*D=0$, $E^2=-1$), for a surface $S$ over an algebraically closed field, a regular point $p\in S$ and $h\colon\Bl_p(S)\to S$ with exceptional curve $E=h^{-1}(p)$ (red). In each row the right panel is $S$ and the left panel is $\Bl_p(S)$; the hollow dot is $p$. (a) Curves $C$ (black) and $D$ (green, dotted) meeting away from $p$: $h$ is an isomorphism away from $E$, so $h^*C$ and $h^*D$ meet in the same points (black dot), and $h^*C\cdot h^*D=C\cdot D$. (b) A curve $D$ (green, dotted) through $p$ with multiplicity $1$; the purple arrow $v$ is its tangent direction at $p$. In $\Bl_p(S)$, $h^*D=\widetilde D+E$, and the strict transform $\widetilde D$ meets $E$ once (red dot), at the point of $E$ corresponding to $v$, so $\widetilde D\cdot E=1$. The grey dashed curve $D'\sim D$ misses $p$, so $h^*D'$ misses $E$ and $E\cdot h^*D=E\cdot h^*D'=0$; hence $0=(\widetilde D+E)\cdot E=1+E^2$. Schematic: surfaces are drawn as plane regions and curves as arcs, not to scale.}\label{fig:blowup-intersections}
+\end{figure}
+
 \begin{lemma}
 	Let $C$ and $D$ be Cartier divisors on $S$.
 	\begin{enumerate}
@@ -4684,11 +5012,11 @@ Let $E=h^{-1}(p)$ be the exceptional divisor.
 \begin{proof}
 	\begin{enumerate}
 		\item This comes from the ``baby moving Lemma''. 
-		Here we move away from the bad point. \taylor{Draw picture}.
+		Here we move away from the bad point; see Figure~\ref{fig:blowup-intersections}(a).
 		\item To show that $h^*(D)\cdot E=0$ we move $D$ away from the point $p$.
 		\item This comes from a computation.
 		For $D$ an effective divisor passing through $p$ with multiplicity one we have $h^*D = \widetilde{D}+E$. 
-		\taylor{Draw the picture.}
+		See Figure~\ref{fig:blowup-intersections}(b).
 		Let $D$ be a curve passing through $p$ with multiplicity one. 
 		We have $\widetilde{D}\cdot E =1$. 
 		This implies that 
@@ -4775,6 +5103,13 @@ We have shown that exceptional divisors at blow-ups of surfaces at regular point
 \end{example}
 
 \subsection{Castelnuovo's Crusher Map}
+\begin{figure}[H]
+\centering
+\input{figures/castelnuovo-contraction}
+\caption{Castelnuovo's contraction, as in the Theorem in the subsection on Castelnuovo's crusher map, the reverse of a blow-up. Left: a surface $S$ containing a curve $E\cong\PP^1$ with $E^2=-1$ (red). Right: the image $S_0=\varphi_{\Lcal}(S)\subset\PP^N$. The arrow is the morphism $\varphi_{\Lcal}$ given by the base point free invertible sheaf $\Lcal=\Ocal_S(H+mE)$, where $H$ is very ample and $m=H\cdot E$; since $\Lcal\cdot E=0$, $\varphi_{\Lcal}$ collapses $E$ to the single point $p$ (black dot), and the Theorem states that $p$ is a regular point of $S_0$. Schematic: surfaces are drawn as plane regions, not to scale.}\label{fig:castelnuovo-contraction}
+\end{figure}
+Figure~\ref{fig:castelnuovo-contraction} shows the contraction.
+
 
 \begin{theorem}
 	Let $S$ be a surface and let $E\cong\PP^1$ be a curve on $S$ with $E^2=-1$. 
@@ -4899,6 +5234,13 @@ The \emph{fixed part} of $\vert D \vert$ is the largest divisor $F \subset \BS(\
 This means that after subtraction of a fixed component, every divisor in a linear series can move.
 Moreover if $\vert D\vert$ has no fixed part then the codimension of $\BS(\vert D \vert)$ is greater than one.
 
+\begin{figure}[H]
+\centering
+\input{figures/resolve-projection}
+\caption{Resolving a rational map by blowing up its base locus, for the Theorem on Resolution of Morphisms with $X=\PP^2$, $Z=\{p\}$ and $\varphi\colon\PP^2\dashrightarrow\PP^1$ the projection from $p$, which sends a point $q\neq p$ to the line through $p$ and $q$. Bottom left: an affine chart of $\PP^2$ with seven lines $L$ through $p$, each in its own colour; $\varphi$ is undefined at the base point $p$ (hollow dot), where all the lines meet, so the arrow $\varphi$ is dashed. Bottom right: $\PP^1$, with the point of each line in the same colour. Top: $\Bl_p(\PP^2)$, where the strict transforms $\widetilde L$ of the lines are disjoint and are the fibres of the morphism $\psi$; the exceptional curve $E$ (red) meets each $\widetilde L$ once (black dots), at the point given by the direction of $L$ at $p$. The diagram commutes: $\varphi\circ h=\psi$ away from $E$, and $\psi$ is the morphism of $h^*D-E$, with $D$ a line. Schematic, not to scale: only seven lines are drawn, and $\PP^1$ is drawn as a segment.}\label{fig:resolve-projection}
+\end{figure}
+Figure~\ref{fig:resolve-projection} shows the blow-up resolving the projection from a point.
+
 \begin{theorem}[Resolution of Morphisms]
 	Let $X$ be an algebraic scheme over a field $F$.
 	Let $\varphi: X \dashrightarrow \PP^n_F$ be a rational morphism with $\BS(\varphi)=Z$ regular where $\varphi = \varphi_{D}$ for some Cartier divisor $D$. 
@@ -5022,7 +5364,12 @@ This means that $\psi(S)$ is a cubic surface.
 \end{remark}
 
 \subsection{The 27 Lines}
-They break into three types.  \taylor{Draw the three types of lines}
+They break into three types; see Figure~\ref{fig:three-types-of-lines}.
+\begin{figure}[H]
+\centering
+\input{figures/three-types-of-lines}
+\caption{The 27 lines on the cubic surface $S=\Bl_{p_1,\ldots,p_6}\PP^2$ come from three kinds of objects in $\PP^2$ (Section ``The 27 Lines''; $h\colon S\to\PP^2$ is the blow-up). Panel (a) shows six explicit points in general position in the real affine chart $T_0\neq0$, namely $p_1=(1,1)$, $p_2=(-4,1)$, $p_3=(-2,4)$, $p_4=(3,3)$, $p_5=(5,-1)$, $p_6=(0,-3)$: no three are collinear and not all six lie on a conic. The red dot $p_1$ is blown up to the type~A line $E_1$. The blue dashed line $L_{23}$ through $p_2,p_3$ has strict transform $\widetilde L_{23}$, of type~B. The green dotted curve is the conic $Q_1\colon 502x^2+303xy+746y^2-663x-876y-9342=0$ through $p_2,\ldots,p_6$, plotted exactly; it misses $p_1$, and its strict transform $\widetilde Q_1$ is of type~C. Panel (b) shows all $\binom62=15$ lines $L_{ij}$ faintly. Real points only, in one affine chart; the lines on $S$ themselves are not drawn.}\label{fig:three-types-of-lines}
+\end{figure}
 \begin{itemize}
 	\item Type A: the six exceptional divisors $E_1,E_2,\ldots,E_6$.
 	\item Type B: the ${6 \choose 2}=15$ strict transforms $\widetilde{L}_{ij}$ of $L_{ij} \subset \PP^2$ passing through $p_i$ and $p_j$.
@@ -5055,6 +5402,13 @@ which proves $g(\widetilde{Q}_i)=0$.
 		Which gives $L-E_i-E_j = \widetilde{L}_{ij}$. 
 		This means $\widetilde{L}_{ij}^2 = L^2 +E_i^2+E_j^2=1-1-1=-1$. }
 \end{exercise}
+
+\begin{figure}[H]
+\centering
+\input{figures/bl2-p2-quadric}
+\caption{The two-point blow-up of the plane is the one-point blow-up of $\PP^1\times\PP^1$ (the Exercise on $\Bl_{p_1,p_2}\PP^2$, parts 2 and 3; field algebraically closed). Panel (a): $\PP^2$ with the red points $p_1,p_2$ and the blue dashed line $L_{12}$ through them. Panel (b): $h\colon\Bl_{p_1,p_2}\PP^2\to\PP^2$ is the blow-up; the red exceptional curves $E_1,E_2$ and the strict transform $\widetilde L_{12}=h^*L_{12}-E_1-E_2$ form a chain of three $(-1)$-curves. Panel (c): Castelnuovo's contraction $\pi$ of $\widetilde L_{12}$ gives a smooth quadric $\PP^1\times\PP^1$, drawn as a grid of its two rulings; $\widetilde L_{12}$ becomes the point $q$, and the images $\bar E_1,\bar E_2$ have self-intersection $0$ and meet once at $q$, so they are one line from each ruling. Schematic: the surfaces are drawn as squares.}\label{fig:bl2-p2-quadric}
+\end{figure}
+Figure~\ref{fig:bl2-p2-quadric} shows the three steps.
 
 \begin{exercise}
 	\begin{enumerate}
@@ -5132,6 +5486,13 @@ The Pl\"{u}cker equations now allow us to define $G(r,n)_{\ZZ} \subset \PP^{{n \
 	giving a total of 5 equations cutting out $G(2,5)\subset \PP^9$.
 \end{example}
 
+\begin{figure}[H]
+\centering
+\input{figures/plucker-quadric}
+\caption{The Grassmannian of lines in $\PP^3$ is a quadric hypersurface in $\PP^5$ (Example on $\GG(1,3)=G(2,4)$). Left: two lines $L_1,L_2$ in an affine piece of $\PP^3$, drawn as a box. Right: the Pl\"ucker embedding sends a line $L=\PP(V)$, with $V\subset\CC^4$ of dimension 2, to the point $[\bigwedge^2V]\in\PP(\bigwedge^2\CC^4)=\PP^5$ whose coordinates $X_{ij}$ are the $2\times2$ minors of a basis matrix of $V$; each line becomes one point of the quadric $\GG(1,3)\colon X_{12}X_{34}-X_{13}X_{24}+X_{23}X_{14}=0$. Schematic, reduced dimension: $\GG(1,3)$ has dimension 4 and is drawn as a surface, and $\PP^5$ as a box.}\label{fig:plucker-quadric}
+\end{figure}
+Figure~\ref{fig:plucker-quadric} shows the Pl\"ucker embedding.
+
 \begin{example}
 	The grassmannian of lines in $\PP^3$, $\GG(1,3) = G(2,4)$ is dimension $r(n-r)=4$. 
 	Since ${n \choose r } -1 = {4 \choose 2} -1 =5$ we see that $\GG(1,3)$ embeds into projective $5$-space. 
@@ -5141,6 +5502,13 @@ The Pl\"{u}cker equations now allow us to define $G(r,n)_{\ZZ} \subset \PP^{{n \
 \end{example}
 
 \section{27 Lines Computation}
+
+\begin{figure}[H]
+\centering
+\input{figures/incidence-correspondence}
+\caption{The incidence correspondence $\Gamma=\{([S],[L])\in\PP^{19}\times\GG(1,3): L\subset S\}$ behind the count of lines on cubic surfaces (Section ``27 Lines Computation''). Here $\PP^{19}$ parametrizes cubic surfaces $S\subset\PP^3$, $\GG(1,3)$ parametrizes lines $L\subset\PP^3$, and $f,g$ are the two projections. The black dots are the fibre $f^{-1}([S])$, the 27 lines on a smooth cubic surface $S$ (all 27 drawn). The green dotted curve is the fibre $g^{-1}([L])\cong\PP^{15}$, the cubic surfaces containing a fixed line $L$. The two fibres meet in the circled point $([S],[L])$ when $L\subset S$. Dimensions: $\dim\Gamma=4+15=19=\dim\PP^{19}$, matching the expectation that $f$ is finite of degree 27. Schematic, with reduced dimensions; the spaces are drawn as blobs.}\label{fig:incidence-correspondence}
+\end{figure}
+Figure~\ref{fig:incidence-correspondence} shows the two fibres.
 
 We define a variety cut out by the set of surfaces and lines that contain them
 $$ \Gamma = \lbrace ([S],[L]) \in \PP^{19}\times \GG(1,3) \colon L \subset S \rbrace \subset \GG(1,3) \times \PP^{19}.$$
@@ -5178,6 +5546,13 @@ To make the above sketchy proof a proof one needs to hammer out the details abou
 \begin{remark}
 I want to add some remarks about monodromy and $W(E_6) \subset S_{27}$, the Weyl group of the exceptional Lie group $E_6$. I might do this later. 
 \end{remark}
+
+\begin{figure}[H]
+\centering
+\input{figures/pencil-through-line}
+\caption{The pencil of planes through a line, which is the idea behind the Theorem that every line on a cubic surface $S\subset\PP^3$ meets 10 others (field algebraically closed). Panel (a): the blue planes $H_\lambda\colon a_0T_0+a_1T_1=0$, $\lambda=-a_0/a_1\in\PP^1$, all contain the black line $L_0=V(T_0,T_1)\subset S$. Panel (b): for general $\lambda$ the plane cubic $H_\lambda\cap S$ is $L_0$ together with a residual conic $Q_\lambda$ (green dotted). Panel (c): at the roots $\lambda_1,\ldots,\lambda_5$ of the degree-5 polynomial $P(\lambda)$ in the proof idea, $Q_\lambda$ degenerates into two lines $L',L''$ (green dotted), giving $2\cdot5=10$ lines meeting $L_0$. Schematic, real picture of three-space; the degeneration count is the one stated in the proof idea, whose computation of $P(\lambda)$ the text leaves unfinished.}\label{fig:pencil-through-line}
+\end{figure}
+Figure~\ref{fig:pencil-through-line} shows the pencil and its two kinds of members.
 
 \begin{theorem}
 	Let $S$ be a cubic surface. 
@@ -5236,6 +5611,13 @@ $$	\begin{cases}
 \end{proof}
 
 We can now just count after showing that every line must meet one of our configurations.
+\begin{figure}[H]
+\centering
+\input{figures/triangle-of-lines}
+\caption{The counting step in the proof that a cubic surface $S\subset\PP^3$ has 27 lines: every other line on $S$ meets a triangle of lines. The blue plane $H$ meets $S$ in a triangle $H\cap S=L\cup L'\cup L''$ of lines (black). Another line $M\subset S$, not in $H$, meets $H$ in a point; since that point lies on $S\cap H$, it lies on one of $L,L',L''$, here on $L$. The dashed part of $M$ lies behind $H$. Schematic real picture of an affine piece of $\PP^3$.}\label{fig:triangle-of-lines}
+\end{figure}
+Figure~\ref{fig:triangle-of-lines} illustrates this step.
+
 \begin{theorem}
 	There are 27 lines on $S$.
 \end{theorem}
@@ -5543,6 +5925,13 @@ $$ \deg(c_4(\Sym^3(E))) = 18+9 =27,$$
 hence the 27 lines on a cubic surface. 
 
 \subsection{Schubert Cycles}
+\begin{figure}[H]
+\centering
+\input{figures/schubert-cycles}
+\caption{The Schubert cycles of the Grassmannian $\GG(1,3)$ of lines in $\PP^3$ and their containments (Subsection ``Schubert Cycles''; redrawn from Taylor's sketch \texttt{schubert.png}). Fix a flag $F_0\subset F_1\subset F_2$ in $\PP^3$, drawn in blue: a point $F_0$ (dot), a line $F_1$ (dashed) and a plane $F_2$ (dashed outline). Each panel shows two sample lines $L,L'$ (black) in the named cycle: $\Sigma_1=\{L: L\cap F_1\neq\emptyset\}$, $\Sigma_2=\{L: F_0\in L\}$, $\Sigma_{1,1}=\{L: L\subset F_2\}$, $\Sigma_{2,1}=\{L: F_0\in L\subset F_2\}$, and $\Sigma_{2,2}=\{F_1\}$, a single point of $\GG(1,3)$. The rotated symbols $\subseteq$ give the containments $\Sigma_{2,2}\subseteq\Sigma_{2,1}\subseteq\Sigma_2,\Sigma_{1,1}\subseteq\Sigma_1$. Schematic real picture of $\PP^3$; the containment $\Sigma_{2,1}\subseteq\Sigma_{1,1}$ is added to the original sketch.}\label{fig:schubert-cycles}
+\end{figure}
+Figure~\ref{fig:schubert-cycles} shows the five Schubert cycles relative to a fixed flag.
+
 \taylor{I need to add more here}
 \newpage
  
@@ -5678,11 +6067,10 @@ Next we give a criterion for $X_s$ being a flat limit.
 	The scheme $X_s$ is the flat limit of $X^*$ at $s$ if and only if $X_s$ contains no components of $X$ (see figure~\ref{fig:flat-limit} for a picture of a non-flat limit).
 \end{theorem}
 
-	\begin{figure}[h]
-	\begin{center}
-		\includegraphics[scale=0.4]{flat-limit.eps}
-	\end{center}
-	\caption{A picture of a non-flat limit. You can see the fiber has irreducible components.}\label{fig:flat-limit}
+\begin{figure}[H]
+\centering
+\input{figures/flat-limit}
+\caption{Flat and non-flat limits over a line $S=\AA^1_k$ with special point $s=0$, for the theorem that $X_0$ is the flat limit of $X^*$ if and only if $X_0$ contains no component of $X$. Real points, schematic in (c). (a) $X=V(xy-t)\subset\AA^2\times S$ with $\pi(x,y,t)=t$; the fibres $X_t\colon xy=t$ for $t=0.12,\,0.45,\,1$ (black hyperbolas) are drawn in one copy of the $(x,y)$-plane, and they degenerate to $X_0\colon xy=0$, the union of the two axes (blue dashed). $X$ is irreducible of dimension $2$, so $X_0$ contains no component of $X$: a flat limit. (b) $X=\Spec k[x,y]/(xy)$ over the $x$-line, $\pi=x$. The fibre $X_a$ over $a\neq0$ is the single point $(a,0)$, but the fibre $X_0=V(x)$ is the whole $y$-axis $Z$ (red), which is a component of $X$; $Y=V(y)$ is the union of the components not in $X_0$. Here $t=x$ kills $y\neq0$ in $\Ocal_{X,0}$. (c) $X=\Spec k[x,y]/(y^2,xy)$ over the $x$-line: the $x$-axis with an embedded point at the origin (red, with the purple arrow for the extra $y$-direction). The fibre $X_0=\Spec k[y]/(y^2)$ contains this embedded component, and $t=x$ kills $y$ in $\Ocal_{X,0}$. In each panel the black arrow is $\pi$, the blue dot is $s=0$, and black dots are general points of $S$ and their fibres.}\label{fig:flat-limit}
 \end{figure}
 
 
@@ -5732,6 +6120,12 @@ Without loss of generality we can assume that $S = \Spec(R)$.
 
 \begin{example}
 	A consequence of this is that the blow-up at a point is not flat. 
+\begin{figure}[H]
+\centering
+\input{figures/blowup-not-flat}
+\caption{The fibres of the blow-up $\pi\colon\Bl_0\AA^2\to\AA^2$ (the Example that the blow-up at a point is not flat). Real points of one affine chart $\AA^2_{(x,m)}\subset\Bl_0\AA^2$, on which $\pi(x,m)=(x,xm)$. Each coloured line $m=\mathrm{const}$ on the left is the strict transform of the line $y=mx$ of the same colour on the right. Over a point $p\neq0$, such as $p=(1.4,0.56)$, the fibre is the single point $\tilde p=(1.4,0.4)$ (black dots). Over $0$ the fibre is the whole exceptional divisor $E=\pi^{-1}(0)\cong\PP^1$ (red); the chart shows all of $E$ except the point corresponding to the $y$-axis, which lies in the other chart. So the fibre dimension jumps from $0$ to $1$ at the origin.}\label{fig:blowup-not-flat}
+\end{figure}
+Figure~\ref{fig:blowup-not-flat} shows the fibre of the blow-up jumping from a point to a whole $\PP^1$ over $0$.
 \end{example}
 
 \end{proof}

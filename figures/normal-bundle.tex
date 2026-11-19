@@ -1,0 +1,54 @@
+\begin{tikzpicture}
+  % (a) Y = {y=0} on the saddle X: z = (x^2 - y^2)/4; orthographic view, azimuth 25, elevation 25
+  \begin{scope}[x={(1.586cm,-0.312cm)}, y={(0.740cm,0.671cm)}, z={(0cm,1.586cm)},
+      tile/.style={fill=figVec, fill opacity=0.10, draw=figVec!60, line width=0.4pt},
+      nvec/.style={vec, dash pattern=on 3pt off 1.5pt}]
+    % mesh of the saddle
+    \foreach \u in {-1.5,-1,...,1.5} {
+      \draw[faintcurve, samples=40, domain=-1.5:1.5, variable=\v] plot (\u,\v,{(\u*\u-\v*\v)/4});
+      \draw[faintcurve, samples=40, domain=-1.5:1.5, variable=\v] plot (\v,\u,{(\v*\v-\u*\u)/4});
+    }
+    % Y : y = 0, z = x^2/4
+    \draw[curve, samples=60, domain=-1.5:1.5, variable=\v] plot (\v,0,{\v*\v/4});
+    % at x0 in {-1,0,1}: tangent plane tile spanned by u=(1,0,x0/2) and w=(0,1,0)
+    \foreach \a in {-1,0,1} {
+      \pgfmathsetmacro{\zz}{\a*\a/4}
+      \pgfmathsetmacro{\s}{\a/2}
+      \draw[tile] (\a-0.32,-0.32,\zz-0.32*\s) -- (\a+0.32,-0.32,\zz+0.32*\s)
+                  -- (\a+0.32,0.32,\zz+0.32*\s) -- (\a-0.32,0.32,\zz-0.32*\s) -- cycle;
+      \draw[vec] (\a,0,\zz) -- (\a+0.42,0,\zz+0.42*\s);
+      \draw[nvec] (\a,0,\zz) -- (\a,0.45,\zz);
+      \node[pt] at (\a,0,\zz) {};
+    }
+    \node[lbl, anchor=east] at (-1.52,0,0.5625) {$Y$};
+    \node[lbl, figVec, anchor=north] at (0.45,0,-0.03) {$T_Y$};
+    \node[lbl, figVec, anchor=south] at (0,0.47,0.03) {$N_{Y/X}$};
+    \node[lbl, figVec, anchor=north] (tl) at (-1.1,-1.25,0.0) {$T_X|_Y$};
+    \draw[figFaint!70!black, line width=0.4pt] (tl.north) -- (-1.0,-0.28,0.23);
+    \node[lbl, anchor=north west] at (1.5,-1.5,0) {$X$};
+  \end{scope}
+  \node at (0,-2.5) {$0\to T_Y\to T_X|_Y\to N_{Y/X}$};
+  \node at (0,-3.15) {\figpanel{(a) $Y\subset X$}};
+  % (b) Y = D1 cap D2 in A^3: D1 = {z=0}, D2 = {x^2+y^2=1}; orthographic view, elevation 20
+  \begin{scope}[xshift=8.4cm, yshift=0.1cm, x={(1.3cm,0cm)}, y={(0cm,0.445cm)}, z={(0cm,1.222cm)}]
+    \filldraw[hyp, fill=figH, fill opacity=0.10] (-1.6,-1.9,0) -- (1.6,-1.9,0) -- (1.6,1.9,0) -- (-1.6,1.9,0) -- cycle;
+    % cylinder
+    \fill[figC, opacity=0.12] (-1,0,-1.15) -- (-1,0,1.15) -- (1,0,1.15) -- (1,0,-1.15) -- cycle;
+    \draw[thirdobj] (-1,0,-1.15) -- (-1,0,1.15);
+    \draw[thirdobj] (1,0,-1.15) -- (1,0,1.15);
+    \draw[thirdobj, samples=60, domain=0:360, variable=\a] plot ({cos(\a)},{sin(\a)},1.15);
+    \draw[thirdobj, samples=40, domain=180:360, variable=\a] plot ({cos(\a)},{sin(\a)},-1.15);
+    % Y: back half dashed
+    \draw[curve, dashed, samples=50, domain=0:180, variable=\a] plot ({cos(\a)},{sin(\a)},0);
+    \draw[curve, samples=50, domain=180:360, variable=\a] plot ({cos(\a)},{sin(\a)},0);
+    % normals at q = (cos -110, sin -110, 0)
+    \coordinate (q) at (-0.342,-0.940,0);
+    \draw[vec] (q) -- ++(0,0,0.6) node[right=1pt,lbl]{$n_1$};
+    \draw[vec] (q) -- ++(-0.342*0.5,-0.940*0.5,0) node[left,lbl]{$n_2$};
+    \node[pt, label={[lbl]above right=0pt and 3pt:$q$}] at (q) {};
+    \node[lbl, figH, anchor=west] at (1.6,1.9,0) {$D_1$};
+    \node[lbl, figC, anchor=west] at (1.05,0,1.15) {$D_2$};
+    \node[lbl, anchor=east] at (-1.05,0,0.12) {$Y$};
+  \end{scope}
+  \node at (8.4,-3.15) {\figpanel{(b) $Y=D_1\cap D_2$}};
+\end{tikzpicture}
