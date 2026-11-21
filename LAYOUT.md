@@ -28,8 +28,9 @@ algebraic-geometry/
 ├── scratch/                 ← transient output (LY3); non-canonical, disposable
 ├── POLICY.md  LAYOUT.md     ← repository conventions and this layout contract
 ├── .gitignore               ← carries the LY9 stanza
+├── curves-and-surfaces.pdf  ← the published PDF (LY9 exception), served by
+│                               GitHub Pages; linked from tdupu.github.io
 └── ── gitignored but KEEP on disk ──
-    curves-and-surfaces.pdf  ← build output of the manuscript (LY9)
     *.aux *.log *.out *.toc  ← LaTeX byproducts (LY9)
 ```
 
@@ -50,6 +51,9 @@ algebraic-geometry/
 *.nav
 *.snm
 *.vrb
+# LY9 exception: the published PDF, served by GitHub Pages at
+# tdupu.github.io/algebraic-geometry/curves-and-surfaces.pdf
+!/curves-and-surfaces.pdf
 ```
 
 ## Brownfield register (pending cleanup — NOT part of the contract)
@@ -107,6 +111,12 @@ tracked anywhere, and neither are `.aux` `.log` `.out` `.toc` `.bbl` `.blg`
 `git ls-files '*.pdf'` (and each byproduct pattern) returns nothing. Fail:
 any match. Remediation: `git rm --cached <path>` plus the `.gitignore` entry;
 the file stays on disk. Image files used as figures are tracked normally.
+
+**LY9 exception.** One file is tracked on purpose: `/curves-and-surfaces.pdf`,
+the published copy that GitHub Pages serves and the website links to. It is
+rebuilt from the manuscript before each commit that changes it. Pass:
+`git ls-files '*.pdf'` returns exactly that path. Approved by Taylor Dupuy,
+2026-11-21 ("Yes, fix it").
 
 ## Change Log
 

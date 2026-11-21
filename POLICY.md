@@ -35,9 +35,10 @@ built and published.
 8. **The manuscript builds.** `pdflatex curves-and-surfaces.tex`, run twice,
    finishes with no errors and no undefined references before any commit
    that touches `curves-and-surfaces.tex` or `figures/`.
-9. **Build outputs are not tracked.** The PDF and LaTeX byproducts are never
-   committed (LAYOUT.md LY9). Build in a scratch directory or rely on
-   `.gitignore`.
+9. **Build outputs are not tracked.** LaTeX byproducts are never committed
+   (LAYOUT.md LY9). The one tracked PDF is `/curves-and-surfaces.pdf`, the
+   published copy GitHub Pages serves; rebuild it from the manuscript (rule 8)
+   before committing it. Build in a scratch directory or rely on `.gitignore`.
 
 ## Commits and publishing
 

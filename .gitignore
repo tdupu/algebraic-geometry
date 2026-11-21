@@ -12,3 +12,6 @@
 *.nav
 *.snm
 *.vrb
+# LY9 exception: the published PDF, served by GitHub Pages at
+# tdupu.github.io/algebraic-geometry/curves-and-surfaces.pdf
+!/curves-and-surfaces.pdf
